@@ -93,8 +93,8 @@ vnoremap <silent> <leader>ci :TCommentInline<CR>
 
 nnoremap <expr> - g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @% == '' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'
 
+nnoremap <silent> <Up> :Lspsaga diagnostic_jump_prev<CR>
 nnoremap <silent> <Down> :Lspsaga diagnostic_jump_next<CR>
-nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
 nnoremap <silent> <leader>cF :Lspsaga lsp_finder<CR>
 nnoremap <silent> <leader>cP :Lspsaga preview_definition<CR>
 
