@@ -45,6 +45,9 @@ saga.init_lsp_saga {
   hint_sign = '',
   infor_sign = '',
   border_style = "round",
+  code_action_prompt = {
+      enable = false
+  }
 }
 
 -- telescope
@@ -58,8 +61,14 @@ local actions = require('telescope.actions')
 telescope.setup{
   defaults = {
     mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous
+      },
       n = {
-        ["q"] = actions.close
+        ["q"] = actions.close,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous
       },
     },
   }

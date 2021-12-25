@@ -21,6 +21,8 @@ set splitright
 set list
 set listchars=tab:▸\ ,trail:·
 
+set updatetime=100 " necessary e.g. for vim-gitgutter
+
 syntax enable
 
 " Theming
@@ -96,7 +98,9 @@ nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
 nnoremap <silent> <leader>cF :Lspsaga lsp_finder<CR>
 nnoremap <silent> <leader>cP :Lspsaga preview_definition<CR>
 
-nnoremap <silent> <leader>pf <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <silent> <leader>pb <cmd>lua require('telescope.builtin').file_browser()<cr>
-nnoremap <silent> <leader>/ <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <silent> <leader>pf <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <silent> <leader>pb <cmd>lua require('telescope.builtin').file_browser()<CR>
+nnoremap <silent> <leader>/ <cmd>lua require('telescope.builtin').live_grep()<CR>
+
+nnoremap <silent> <leader>gg :Git<CR>
 " }}}

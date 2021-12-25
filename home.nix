@@ -36,6 +36,7 @@
       nerdtree
       tcomment_vim
       vim-fugitive
+      vim-gitgutter
 
       nvim-lspconfig
       lspsaga-nvim

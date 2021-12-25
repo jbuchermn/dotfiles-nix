@@ -10,7 +10,7 @@ home-manager switch
 
 To see all available plugins
 
-```
+```bash
 nix-env -f '<nixpkgs>' -qaP -A vimPlugins
 ```
 
