@@ -18,6 +18,9 @@ set smarttab
 set splitbelow
 set splitright
 
+set list
+set listchars=tab:▸\ ,trail:·
+
 syntax enable
 
 " Theming
@@ -48,10 +51,10 @@ augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup end
+
 " }}}
 
 " Key bindings {{{
-" Leader
 let mapleader = " "
 nnoremap <Space> <nop>
 
@@ -63,29 +66,37 @@ vmap ö :
 nmap <silent> <ESC> :noh<CR>
 
 " Highlight without jumping
-nnoremap * *N 
+nnoremap * *N
 
 " Change word under cursor and repeat with dot operator (or n. to preview)
 nnoremap c* *Ncgn
-
-" Map arrow keys
-nmap <silent> <Up> :lprevious<CR>
-nmap <silent> <Down> :lnext<CR>
-nmap <silent> <S-Up> :cprevious<CR>
-nmap <silent> <S-Down> :cnext<CR>
-
-vmap <Up> <Nop>
-vmap <Down> <Nop>
 
 nmap <Left> <<
 nmap <Right> >>
 vmap <Left> <gv
 vmap <Right> >gv
 
-" Toggle comments
+
+" Prevent accidental command history buffer
+nnoremap q: <nop>
+nnoremap Q <nop>
+
+" }}}
+
+" Plugins {{{
 let g:tcomment_maps = 0
 nnoremap <silent> <leader>cc :TComment<CR>
 vnoremap <silent> <leader>cc :TComment<CR>
 vnoremap <silent> <leader>ci :TCommentInline<CR>
 
+nnoremap <expr> - g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @% == '' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'
+
+nnoremap <silent> <Down> :Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+nnoremap <silent> <leader>cF :Lspsaga lsp_finder<CR>
+nnoremap <silent> <leader>cP :Lspsaga preview_definition<CR>
+
+nnoremap <silent> <leader>pf <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <silent> <leader>pb <cmd>lua require('telescope.builtin').file_browser()<cr>
+nnoremap <silent> <leader>/ <cmd>lua require('telescope.builtin').live_grep()<cr>
 " }}}

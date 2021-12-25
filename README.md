@@ -15,11 +15,11 @@ nix-env -f '<nixpkgs>' -qaP -A vimPlugins
 ```
 
 ToDo:
-- Fuzzy file navigation
-- Proper LSP setup
-- Keybindings
+[X] Fuzzy file navigation
+[X] Proper LSP setup
+[X] Keybindings
   - leader cd and similar for code
   - leader pf
   - leader op / - for NERDTREE
-- Git like magit
+[X] Git like magit
 - Orgmode replacement

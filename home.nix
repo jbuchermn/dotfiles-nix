@@ -35,9 +35,14 @@
 
       nerdtree
       tcomment_vim
+      vim-fugitive
 
       nvim-lspconfig
+      lspsaga-nvim
+      telescope-nvim
+
       vim-nix
+
     ]);
   };
 }
