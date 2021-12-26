@@ -22,4 +22,6 @@ ToDo:
   - leader pf
   - leader op / - for NERDTREE
 [X] Git like magit
-- Orgmode replacement
+[ ] Orgmode replacement
+[ ] tree-sitter
+[ ] mypy

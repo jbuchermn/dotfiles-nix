@@ -25,10 +25,14 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    extraConfig = ''
-      source ${./nvim.vim}
-      luafile ${./nvim.lua}
-    '';
+    extraConfig = builtins.readFile ./nvim.vim;
+
+    # extraPython3Packages = (ps: with ps; [
+    #   python-lsp-server
+    #   pyls-mypy
+    #   pyls-isort
+    #   pyls-black
+    # ]);
 
     plugins = (with pkgs.vimPlugins; [
       oceanic-next
@@ -42,8 +46,17 @@
       lspsaga-nvim
       telescope-nvim
 
-      vim-nix
+      (nvim-treesitter.withPlugins (
+          # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
+          plugins: with plugins; [
+            tree-sitter-python
+            tree-sitter-c
+            tree-sitter-cpp
+            tree-sitter-bash
+          ]
+        ))
 
+      vim-nix
     ]);
   };
 }
