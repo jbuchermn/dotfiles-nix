@@ -28,7 +28,11 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
-  
+
+  environment.systemPackages = with pkgs; [
+    newm
+  ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
