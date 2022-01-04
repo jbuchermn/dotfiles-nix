@@ -7,5 +7,10 @@
     userEmail = "j.bucher.mn@gmail.com";
   };
 
-  imports = [ ../common ];
+  imports = [
+    ../common/home.nix
+    ../common/alacritty.nix
+    ../common/nvim.nix
+    ../common/newm.nix
+  ];
 }
