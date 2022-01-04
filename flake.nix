@@ -11,6 +11,7 @@
   outputs = { nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
+    stateVersion = "22.05";
     pkgs = import nixpkgs {
       inherit system;
       config = {
@@ -28,17 +29,37 @@
     }; 
 
     homeManagerConfigurations = {
-      jonas = home-manager.lib.homeManagerConfiguration {
-        inherit system pkgs;
+      jonas-virtual = home-manager.lib.homeManagerConfiguration {
+        inherit system pkgs stateVersion;
 
         username = "jonas";
         homeDirectory = "/home/jonas";
-        stateVersion = "22.05";
 
         configuration = {
           imports = [
             ./users/jonas/home.nix
           ];
+        };
+
+        extraSpecialArgs = {
+          virtual-machine = true;
+        };
+      };
+
+      jonas = home-manager.lib.homeManagerConfiguration {
+        inherit system pkgs stateVersion;
+
+        username = "jonas";
+        homeDirectory = "/home/jonas";
+
+        configuration = {
+          imports = [
+            ./users/jonas/home.nix
+          ];
+        };
+
+        extraSpecialArgs = {
+          virtual-machine = false;
         };
       };
     };
