@@ -86,7 +86,7 @@ swipe_zoom = {
 }
 
 
-mod = PYWM_MOD_ALT
+mod = PYWM_MOD_LOGO
 background = {
     'path': os.environ['HOME'] + '/wallpaper.jpg',
     'time_scale': 0.125,
