@@ -134,13 +134,15 @@ nvim_lsp.tsserver.setup {
     }
 }
 nvim_lsp.pylsp.setup {
+    cmd = { "pylsp", "-v" },
     on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,
     },
-    configuration_sources = {"pylsp_mypy"}, 
     plugins = {
         pylsp_mypy = {enabled = true, live_mode = false},
+        pycodestyle = {enabled = false},
+        pylint = {enabled = false},
     }
 }
 
