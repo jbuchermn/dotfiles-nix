@@ -12,6 +12,7 @@
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
       pylsp-mypy
+      mypy
     ]);
 
     plugins = (with pkgs.vimPlugins; [
