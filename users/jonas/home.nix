@@ -7,6 +7,10 @@
     userEmail = "j.bucher.mn@gmail.com";
   };
 
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
+
   imports = [
     ../common/home.nix
     ../common/zsh.nix
