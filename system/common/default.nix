@@ -26,5 +26,7 @@
     wget
     htop
   ];
+
+  programs.zsh.enable = true;
 }
 

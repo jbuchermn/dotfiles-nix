@@ -1,0 +1,18 @@
+content = ""
+format = """
+[┌───────────────────](bold green)
+[│](bold green)\
+        $username\
+        $hostname\
+        $directory\
+        $battery\
+        $git_branch$git_commit$git_state$git_status\
+        $python
+[└─>](bold green) """
+
+add_newline = false
+
+[python]
+format = "[PY $version]($style) "
+style = "bold green"
+
