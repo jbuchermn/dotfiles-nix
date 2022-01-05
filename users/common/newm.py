@@ -23,8 +23,8 @@ from newm import (
 
 def on_startup():
     os.system("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots")
+    os.system("waybar &")
     # os.system("catapult &")
-    # os.system("waybar &")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")

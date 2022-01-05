@@ -3,7 +3,6 @@
 {
   programs.zsh = {
     enable = true;
-    autocd = true;
     enableAutosuggestions = true;
     enableCompletion = true;
     shellAliases = {
@@ -16,6 +15,14 @@
       gd = "git diff";
       ga = "git add";
       gst = "git status";
+    };
+
+    initExtra = ''
+      neofetch
+    '';
+
+    history = {
+      share = false;
     };
 
     plugins = with pkgs; [

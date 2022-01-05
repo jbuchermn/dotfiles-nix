@@ -8,6 +8,10 @@ in
     ${modText}
   '';
 
+  xdg.configFile."waybar/config".source = ./waybar/config;
+  xdg.configFile."waybar/style.css".source = ./waybar/style.css;
+  xdg.configFile."rofi/config.rasi".source = ./rofi.rasi;
+
   home.packages = if providePkgs then with pkgs; [
     newm
     waybar
