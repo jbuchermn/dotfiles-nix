@@ -22,3 +22,7 @@
 [ ] newm/dev/env.sh
 
 [ ] gsync
+
+[ ] macho
+
+[ ] catapult (?)
