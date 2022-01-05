@@ -12,6 +12,8 @@
     unzip
 
     brave
+    chromium
     libreoffice
+    zathura
   ] else [];
 }

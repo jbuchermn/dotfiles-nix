@@ -4,11 +4,12 @@
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:jbuchermn/nixpkgs/master";
+    nur.url = "github:nix-community/NUR";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, nur, home-manager, ... }:
   let
     system = "x86_64-linux";
     stateVersion = "22.05";
@@ -17,6 +18,9 @@
       config = {
         allowUnfree = true;
       };
+      overlays = [
+        nur.overlay
+      ];
     };
     lib = nixpkgs.lib;
   in

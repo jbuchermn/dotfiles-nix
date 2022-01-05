@@ -11,11 +11,9 @@ in
   home.packages = if providePkgs then with pkgs; [
     newm
     waybar
-    rofi
+    nur.repos.kira-bruneau.rofi-wayland
     mako
-
-    nautilus
-    zathura
+    libnotify
   ] else [];
 
   home.sessionVariables = if isVirtual then {
