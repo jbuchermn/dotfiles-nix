@@ -120,7 +120,7 @@ key_bindings = lambda layout: [
 
     ("M-Return", lambda: os.system("alacritty &")),
     ("M-e", lambda: os.system("emacsclient -c -a \"emacs\" &")),
-    ("M-c", lambda: os.system("brave --enable-features=UseOzonePlatform --ozone-platform=wayland &")),
+    ("M-c", lambda: os.system("chromium --enable-features=UseOzonePlatform --ozone-platform=wayland &")),
     ("M-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
     ("M-q", lambda: layout.close_view()),
 

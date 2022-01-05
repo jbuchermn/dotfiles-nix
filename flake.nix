@@ -30,6 +30,11 @@
         inherit system;
         modules = [ ./system/jb-nixos-qemu/configuration.nix ];
       }; 
+
+      jb-nixos = lib.nixosSystem {
+        inherit system;
+        modules = [ ./system/jb-nixos/configuration.nix ];
+      }; 
     }; 
 
     homeManagerConfigurations = {

@@ -15,6 +15,10 @@
       mypy
     ]);
 
+    extraPackages = with pkgs; [
+      ripgrep
+    ];
+
     plugins = (with pkgs.vimPlugins; [
       oceanic-next
 
