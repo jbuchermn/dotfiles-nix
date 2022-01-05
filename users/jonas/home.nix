@@ -11,6 +11,8 @@
     EDITOR = "vim";
   };
 
+  home.sessionPath = [ "$HOME/.local/bin" ];
+
   imports = [
     ../common/home.nix
     ../common/zsh.nix

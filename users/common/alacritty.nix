@@ -1,11 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, providePkgs, ... }:
 
 {
-  programs.home-manager.enable = true;
-
-  programs.alacritty = {
+  programs.alacritty = if providePkgs then {
     enable = true;
-  };
+  } else {};
   xdg.configFile."alacritty/alacritty.yml".text = ''
 font:
     normal:

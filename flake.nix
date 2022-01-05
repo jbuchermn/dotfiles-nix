@@ -29,7 +29,7 @@
     }; 
 
     homeManagerConfigurations = {
-      jonas-virtual = home-manager.lib.homeManagerConfiguration {
+      jonas-nixos = home-manager.lib.homeManagerConfiguration {
         inherit system pkgs stateVersion;
 
         username = "jonas";
@@ -42,7 +42,26 @@
         };
 
         extraSpecialArgs = {
-          virtual-machine = true;
+          isVirtual = false;
+          providePkgs = true;
+        };
+      };
+
+      jonas-nixos-virtual = home-manager.lib.homeManagerConfiguration {
+        inherit system pkgs stateVersion;
+
+        username = "jonas";
+        homeDirectory = "/home/jonas";
+
+        configuration = {
+          imports = [
+            ./users/jonas/home.nix
+          ];
+        };
+
+        extraSpecialArgs = {
+          isVirtual = true;
+          providePkgs = true;
         };
       };
 
@@ -59,7 +78,8 @@
         };
 
         extraSpecialArgs = {
-          virtual-machine = false;
+          isVirtual = false;
+          providePkgs = false;
         };
       };
     };

@@ -1,6 +1,6 @@
-{ config, pkgs, virtual-machine, ... }:
+{ config, pkgs, isVirtual, providePkgs, ... }:
 let 
-  modText = if virtual-machine then "mod = PYWM_MOD_ALT" else "";
+  modText = if isVirtual then "mod = PYWM_MOD_ALT" else "";
 in
 {
   xdg.configFile."newm/config.py".text = ''
@@ -8,11 +8,17 @@ in
     ${modText}
   '';
 
-  home.packages = [
-    pkgs.newm
-  ];
+  home.packages = if providePkgs then with pkgs; [
+    newm
+    waybar
+    rofi
+    mako
 
-  home.sessionVariables = if virtual-machine then {
+    nautilus
+    zathura
+  ] else [];
+
+  home.sessionVariables = if isVirtual then {
     WLR_NO_HARDWARE_CURSORS = 1; # Hardware cursors don't properly work inside qemu
   } else {};
 }
