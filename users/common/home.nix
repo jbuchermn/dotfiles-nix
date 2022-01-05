@@ -15,7 +15,8 @@
     imv
     mpv
 
-    brave
+    gnome.adwaita-icon-theme
+    firefox
     chromium
     libreoffice
     zathura

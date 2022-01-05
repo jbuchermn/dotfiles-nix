@@ -16,6 +16,7 @@
     ]);
 
     extraPackages = with pkgs; [
+      ccls
       ripgrep
     ];
 

@@ -89,7 +89,6 @@ nnoremap Q <nop>
 let g:tcomment_maps = 0
 nnoremap <silent> <leader>cc :TComment<CR>
 vnoremap <silent> <leader>cc :TComment<CR>
-vnoremap <silent> <leader>ci :TCommentInline<CR>
 
 nnoremap <expr> - g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @% == '' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'
 
@@ -128,6 +127,12 @@ nvim_lsp.ccls.setup {
     }
 }
 nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150,
+    }
+}
+nvim_lsp.ccls.setup {
     on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,

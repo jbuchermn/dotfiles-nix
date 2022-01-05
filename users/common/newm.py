@@ -46,6 +46,9 @@ pywm = {
     'xkb_layout': "de,de",
     'xkb_options': "caps:escape",
 
+    'xcursor_theme': 'Adwaita',
+    'xcursor_size': 24,
+
     'encourage_csd': False,
     'enable_xwayland': True,
 
