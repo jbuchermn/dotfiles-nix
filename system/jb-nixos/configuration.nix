@@ -32,7 +32,7 @@
   networking.hostName = "jb-nixos";
   users.users.jonas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "netowrkmanager" "input" ];
+    extraGroups = [ "wheel" "networkmanager" "input" ];
     shell = pkgs.zsh;
   };
 
