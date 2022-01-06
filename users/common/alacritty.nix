@@ -7,16 +7,16 @@
   xdg.configFile."alacritty/alacritty.yml".text = ''
 font:
     normal:
-        family: Source Code Pro for Powerline
+        family: SauceCodePro Nerd Font
         style: Regular
     bold:
-        family: Source Code Pro for Powerline
+        family: SauceCodePro Nerd Font
         style: Bold
     italic:
-        family: Source Code Pro for Powerline
+        family: SauceCodePro Nerd Font
         style: Italic
     bold_italic:
-        family: Source Code Pro for Powerline
+        family: SauceCodePro Nerd Font
         style: Bold Italic
     size: 8
 

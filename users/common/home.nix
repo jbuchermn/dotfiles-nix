@@ -3,6 +3,7 @@
 {
   programs.home-manager.enable = true;
 
+  fonts.fontconfig.enable = true;
   home.packages = if providePkgs then with pkgs; [
     powerstat
     rsync
@@ -11,7 +12,7 @@
     tree
     neofetch
 
-    powerline-fonts
+    (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
     imv
     mpv
 
