@@ -7,11 +7,11 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # newm-pkg.url = "github:jbuchermn/newm/4686f5d";
+    newm-pkg.url = "github:jbuchermn/newm";
     newm-pkg.inputs.nixpkgs.follows = "nixpkgs";
 
-    newm-pkg.url = "path:/home/jonas/newm-dev/newm";
-    newm-pkg.inputs.pywm.url = "path:/home/jonas/newm-dev/pywm";
+    # newm-pkg.url = "path:/home/jonas/newm-dev/newm";
+    # newm-pkg.inputs.pywm.url = "path:/home/jonas/newm-dev/pywm";
   };
 
   outputs = { nixpkgs, nur, home-manager, newm-pkg, ... }:
