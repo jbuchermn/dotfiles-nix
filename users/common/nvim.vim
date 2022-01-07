@@ -147,31 +147,43 @@ nvim_lsp.ccls.setup {
     }
 }
 
--- Try and setup proper python environment based on heuristics:
--- if there is a flake.nix containing python-lsp-server, we assume "nix devlop" puts us in a proper development environment containing all dependencies and pylsp
-local handle = io.popen("cat flake.nix | grep 'python-lsp-server'")
-local grep_res = handle:read("*a")
-local assume_dev = string.find(grep_res, "lsp")
-handle:close()
-if(assume_dev) then print("Assuming development environment (nix develop) is set up containing pylsp...") end
+function _G.setup_pylsp()
+    -- Try and setup proper python environment based on heuristics:
+    -- if there is a flake.nix containing python-lsp-server, we assume "nix devlop" puts us in a proper development environment containing all dependencies and pylsp
 
-nvim_lsp.pylsp.setup {
-    cmd = assume_dev and { "nix", "develop", "--command", "python3", "-m", "pylsp" } or
-        { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
-    flags = {
-        debounce_text_changes = 150,
-    },
-    on_attach = on_attach,
-    settings = {
-      pylsp = {
-        plugins = {
-            pycodestyle = { enabled = false },
-            mccabe = { enabled = false }
+    local handle = io.popen("cat flake.nix | grep 'python-lsp-server'")
+    local grep_res = handle:read("*a")
+    local assume_dev = string.find(grep_res, "lsp")
+    handle:close()
+    if(assume_dev) then print("Assuming development environment (nix develop) is set up containing pylsp...") end
+    nvim_lsp.pylsp.setup {
+        cmd = assume_dev and { "nix", "develop", "--command", "python3", "-m", "pylsp" } or
+            { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
+        flags = {
+            debounce_text_changes = 150,
         },
-     }
+        on_attach = on_attach,
+        settings = {
+          pylsp = {
+            plugins = {
+                pycodestyle = { enabled = false },
+                mccabe = { enabled = false }
+            },
+         }
+        }
     }
-}
+end
 
+setup_pylsp()
+EOF
+
+" Necessary to support project switching via telescope-project.nvim
+augroup SetupPyLsp
+    autocmd!
+    autocmd DirChanged * :lua setup_pylsp()
+augroup END 
+
+lua << EOF
 -- lspsaga
 local saga = require 'lspsaga'
 
@@ -200,6 +212,8 @@ end
 local telescope = require('telescope')
 local actions = require('telescope.actions')
 
+telescope.load_extension('project')
+
 telescope.setup{
   defaults = {
     mappings = {
@@ -219,6 +233,7 @@ EOF
 
 nnoremap <silent> <leader>pf <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap <silent> <leader>pb <cmd>lua require('telescope.builtin').file_browser()<CR>
+nnoremap <silent> <leader>pp <cmd>lua require('telescope').extensions.project.project{}<CR>
 nnoremap <silent> <leader>/ <cmd>lua require('telescope.builtin').live_grep()<CR>
 
 nnoremap <silent> <leader>gg :Git<CR>

@@ -39,6 +39,7 @@
       nvim-lspconfig
       lspsaga-nvim
       telescope-nvim
+      telescope-project-nvim
 
       (nvim-treesitter.withPlugins (
           # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
