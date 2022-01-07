@@ -146,8 +146,18 @@ nvim_lsp.ccls.setup {
         debounce_text_changes = 150,
     }
 }
+
+-- Try and setup proper python environment based on heuristics:
+-- if there is a flake.nix containing python-lsp-server, we assume "nix devlop" puts us in a proper development environment containing all dependencies and pylsp
+local handle = io.popen("cat flake.nix | grep 'python-lsp-server'")
+local grep_res = handle:read("*a")
+local assume_dev = string.find(grep_res, "lsp")
+handle:close()
+if(assume_dev) then print("Assuming development environment (nix develop) is set up containing pylsp...") end
+
 nvim_lsp.pylsp.setup {
-    cmd = { "python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
+    cmd = assume_dev and { "nix", "develop", "--command", "python3", "-m", "pylsp" } or
+        { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
     flags = {
         debounce_text_changes = 150,
     },
