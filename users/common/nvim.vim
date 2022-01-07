@@ -147,7 +147,7 @@ nvim_lsp.ccls.setup {
     }
 }
 nvim_lsp.pylsp.setup {
-    cmd = { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
+    cmd = { "python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
     flags = {
         debounce_text_changes = 150,
     },

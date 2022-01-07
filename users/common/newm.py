@@ -213,3 +213,8 @@ grid = {
 }
 
 power_times = [180, 600]
+
+focus = {
+    'color': '#92f0f522',
+    'enabled': True
+}
