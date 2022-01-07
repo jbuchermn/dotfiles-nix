@@ -21,5 +21,7 @@ font:
     size: 8
 
 background_opacity: 0.9
+
+alt_send_esc: false
   '';
 }
