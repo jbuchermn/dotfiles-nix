@@ -26,7 +26,5 @@
 
   home.packages = with pkgs; [
     neofetch
-
-    (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
   ];
 }
