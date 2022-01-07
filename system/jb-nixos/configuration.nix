@@ -18,9 +18,12 @@
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
-  # Sound.
+  # Sound
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+
+  # MacBook Webcam
+  hardware.facetimehd.enable = true;
 
   # Console
   console = {

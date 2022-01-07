@@ -37,11 +37,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1641355100,
-        "narHash": "sha256-rg5VlPXjmmTxlHJllm3udjuMd2QjHPN1OuaAHn3fe1k=",
+        "lastModified": 1641459437,
+        "narHash": "sha256-z0IOcc6LLbVhyri/aTyWzRqJs3p1pBK9idOiMwCWiqs=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "426ab2cf111fca61308bd86fe652e14aa12cc2d2",
+        "rev": "c751aeb19e84a0a777f36fd5ea73482a066bb406",
         "type": "github"
       },
       "original": {
@@ -60,13 +60,18 @@
         "pywm": "pywm"
       },
       "locked": {
-        "narHash": "sha256-oHKxS86WmVE3APhdrFC0Bu+TPtRe/AOtmbYBYXdWIGs=",
-        "path": "/home/jonas/newm-dev/newm",
-        "type": "path"
+        "lastModified": 1641474687,
+        "narHash": "sha256-GxxOTxbliluRYCLE8UhHOQM0NIv66YSNZXAQv6m1bTA=",
+        "owner": "jbuchermn",
+        "repo": "newm",
+        "rev": "03ed7cf4f7060d7987c10472feb91bcaced7b6f8",
+        "type": "github"
       },
       "original": {
-        "path": "/home/jonas/newm-dev/newm",
-        "type": "path"
+        "owner": "jbuchermn",
+        "ref": "v0.3",
+        "repo": "newm",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -103,11 +108,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1641420990,
-        "narHash": "sha256-ERAZ0EAZ2r7NR/1QMO1GlwQyrMF+1VN4V0bkbFbrKDM=",
+        "lastModified": 1641459998,
+        "narHash": "sha256-irk2awKcEyXNsjTMEgK4RTEnNFXhJkkyApxTsiod8EU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "5e98e5c1b46fd3423fc57abd9a9de85708e3c3ad",
+        "rev": "d325bf2bda6a65b5c0c914d4a8bcd4590f2df803",
         "type": "github"
       },
       "original": {
@@ -122,13 +127,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "narHash": "sha256-v+rQFkvXao/2vDvYzsupz6w8seWHgpLNJQiNFQWwdYc=",
-        "path": "/home/jonas/newm-dev/pywm",
-        "type": "path"
+        "lastModified": 1641421115,
+        "narHash": "sha256-Fckr92LnxoDJB5/8mwpI696Lcx/EVclti2rBP02LMgk=",
+        "owner": "jbuchermn",
+        "repo": "pywm",
+        "rev": "0cca4a8c466c63b9cacb02531dee0351a6e14cfa",
+        "type": "github"
       },
       "original": {
         "owner": "jbuchermn",
-        "ref": "0cca4a8",
+        "ref": "v0.3",
         "repo": "pywm",
         "type": "github"
       }

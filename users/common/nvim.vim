@@ -126,7 +126,15 @@ nvim_lsp.ccls.setup {
         debounce_text_changes = 150,
     }
 }
+-- This workaround is necessary, as for some reasen typescript-language-server does not list typescript as a dependency (?!)
+local handle = io.popen("/usr/bin/env which tsserver")
+local tsserver = handle:read("*a")
+tsserver = string.gsub(tsserver, "\n", "")
+handle:close()
+-- print("Found tsserver at '" .. tsserver .. "'")
+
 nvim_lsp.tsserver.setup {
+    cmd = { "typescript-language-server", "--stdio", "--tsserver-path", tsserver},
     on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,

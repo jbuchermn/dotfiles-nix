@@ -7,6 +7,8 @@
     vimAlias = true;
     vimdiffAlias = true;
 
+    withNodeJs = true;
+
     extraConfig = builtins.readFile ./nvim.vim;
 
     extraPython3Packages = (ps: with ps; [
@@ -18,6 +20,8 @@
     extraPackages = with pkgs; [
       ccls
       ripgrep
+
+      nodePackages.typescript nodePackages.typescript-language-server
     ];
 
     plugins = (with pkgs.vimPlugins; [
