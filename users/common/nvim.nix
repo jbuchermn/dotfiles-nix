@@ -22,10 +22,14 @@
       ripgrep
 
       nodePackages.typescript nodePackages.typescript-language-server
+
+      gcc # Necessary to coompile tree-sitter plugins
     ];
 
     plugins = (with pkgs.vimPlugins; [
       oceanic-next
+
+      orgmode
 
       nerdtree
       tcomment_vim
