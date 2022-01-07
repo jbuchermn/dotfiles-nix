@@ -5,6 +5,9 @@
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
+    completionInit = ''
+        autoload -U compinit && compinit -u
+    '';
     shellAliases = {
       ll = "ls -lah";
       gco = "git checkout";
