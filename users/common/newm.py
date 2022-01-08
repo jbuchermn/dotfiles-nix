@@ -2,6 +2,14 @@ import os
 import pwd
 import time
 import psutil
+import subprocess
+import logging
+
+logger = logging.getLogger(__name__)
+
+def execute(command: str) -> str:
+    proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+    return proc.stdout.read().decode() if proc.stdout is not None else ""
 
 from pywm import (
     PYWM_MOD_LOGO,
@@ -14,11 +22,6 @@ from pywm import (
     PYWM_TRANSFORM_FLIPPED_90,
     PYWM_TRANSFORM_FLIPPED_180,
     PYWM_TRANSFORM_FLIPPED_270,
-)
-
-from newm import (
-    SysBackendEndpoint_alsa,
-    SysBackendEndpoint_sysfs
 )
 
 def on_startup():
@@ -99,6 +102,41 @@ background = {
 anim_time = .25
 blend_time = .5
 
+class BacklightManager:
+    def __init__(self) -> None:
+        self._current = 0
+        self._max = 1
+        self._enabled = True
+        try:
+            self._current = int(execute("brightnessctl g"))
+            self._max = int(execute("brightnessctl m"))
+        except Exception:
+            logger.exception("Disabling BacklightManager")
+            self._enabled = False
+
+        self._predim = self._current
+
+    def callback(self, code: str) -> None:
+        if code in ["lock", "idle-lock"]:
+            self._current = int(self._predim / 2)
+            execute("brightnessctl s %d" % self._current)
+        elif code == "idle":
+            self._current = int(self._predim / 1.5)
+            execute("brightnessctl s %d" % self._current)
+        elif code == "active":
+            self._current = self._predim
+            execute("brightnessctl s %d" % self._current)
+
+    def adjust(self, factor: float) -> None:
+        if self._predim < .3*self._max and factor > 1.:
+            self._predim += int(.1*self._max)
+        else:
+            self._predim = max(0, min(self._max, int(self._predim * factor)))
+        self._current = self._predim
+        execute("brightnessctl s %d" % self._current)
+
+backlight_manager = BacklightManager()
+
 key_bindings = lambda layout: [
     ("M-h", lambda: layout.move(-1, 0)),
     ("M-j", lambda: layout.move(0, 1)),
@@ -136,44 +174,13 @@ key_bindings = lambda layout: [
     ("M-f", lambda: layout.toggle_fullscreen()),
 
     ("ModPress", lambda: layout.toggle_overview(only_active_workspace=False)),
+
+    ("XF86MonBrightnessUp", lambda: backlight_manager.adjust(1.1)),
+    ("XF86MonBrightnessDown", lambda: backlight_manager.adjust(0.9)),
 ]
-
-sys_backend_endpoints = [
-    SysBackendEndpoint_sysfs(
-        "backlight",
-        "/sys/class/backlight/intel_backlight/brightness",
-        "/sys/class/backlight/intel_backlight/max_brightness"),
-    SysBackendEndpoint_sysfs(
-        "kbdlight",
-        "/sys/class/leds/smc::kbd_backlight/brightness",
-        "/sys/class/leds/smc::kbd_backlight/max_brightness"),
-    SysBackendEndpoint_alsa(
-        "volume")
-]
-
-def get_nw():
-    ifdevice = "wlan0"
-    ip = ""
-    try:
-        ip = psutil.net_if_addrs()[ifdevice][0].address
-    except Exception:
-        ip = "-/-"
-
-    return "%s: %s" % (ifdevice, ip)
 
 bar = {
     'enabled': False,
-    'top_texts': lambda: [
-        pwd.getpwuid(os.getuid())[0],
-        time.strftime("%c"),
-        "%d%% %s" % (psutil.sensors_battery().percent, "↑" if
-                     psutil.sensors_battery().power_plugged else "↓")
-    ],
-    'bottom_texts': lambda: [
-        "CPU: %d%%" % psutil.cpu_percent(interval=1),
-        get_nw(),
-        "RAM: %d%%" % psutil.virtual_memory().percent
-    ]
 }
 
 gestures = {
@@ -212,9 +219,14 @@ grid = {
     'throw_ps': [2, 10]
 }
 
-power_times = [180, 600]
+energy = {
+    'idle_times': [60, 180],
+    'idle_callback': backlight_manager.callback
+}
 
 focus = {
     'color': '#92f0f5a1',
     'enabled': True
 }
+
+

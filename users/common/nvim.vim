@@ -25,6 +25,8 @@ set updatetime=100 " necessary e.g. for vim-gitgutter
 
 syntax enable
 
+set signcolumn=yes " prevent jumping on opening and closing of sign column
+
 " Theming
 colorscheme OceanicNext
 

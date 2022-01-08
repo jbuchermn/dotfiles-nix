@@ -35,9 +35,13 @@
   networking.hostName = "jb-nixos";
   users.users.jonas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" ];
+    extraGroups = [ "wheel" "networkmanager" "input" "video" ];
     shell = pkgs.zsh;
   };
+
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
 
 }
 
