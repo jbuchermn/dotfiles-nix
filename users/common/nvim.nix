@@ -50,7 +50,6 @@
       vim-vsnip
       cmp-vsnip
 
-
       (nvim-treesitter.withPlugins (
           # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
           plugins: with plugins; [
@@ -60,6 +59,8 @@
             tree-sitter-bash
           ]
         ))
+
+      FTerm-nvim
 
       vim-nix
     ]);

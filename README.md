@@ -4,8 +4,6 @@
 
 [ ] newm-sidecar
 
-[ ] newm/dev/env.sh
-
 [ ] gsync
 
 [ ] macho
