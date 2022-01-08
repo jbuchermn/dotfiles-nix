@@ -176,6 +176,7 @@ nvim_lsp.ccls.setup {
         debounce_text_changes = 150,
     }
 }
+
 -- This workaround is necessary, as for some reasen typescript-language-server does not list typescript as a dependency (?!)
 local handle = io.popen("/usr/bin/env which tsserver")
 local tsserver = handle:read("*a")
@@ -191,6 +192,7 @@ nvim_lsp.tsserver.setup {
     },
     capabilities = nvim_cmp_capabilities
 }
+
 nvim_lsp.ccls.setup {
     on_attach = on_attach,
     flags = {
@@ -199,43 +201,24 @@ nvim_lsp.ccls.setup {
     capabilities = nvim_cmp_capabilities
 }
 
-function _G.setup_pylsp()
-    -- Try and setup proper python environment based on heuristics:
-    -- if there is a flake.nix containing python-lsp-server, we assume "nix devlop" puts us in a proper development environment containing all dependencies and pylsp
+nvim_lsp.pylsp.setup {
+    cmd = { "pylsp_wrapped" },
+    flags = {
+        debounce_text_changes = 150,
+    },
+    on_attach = on_attach,
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = { enabled = false },
+                mccabe = { enabled = false }
+            },
+        }
+    },
+    capabilities = nvim_cmp_capabilities
+}
 
-    local handle = io.popen("cat flake.nix | grep 'python-lsp-server'")
-    local grep_res = handle:read("*a")
-    local assume_dev = string.find(grep_res, "lsp")
-    handle:close()
-    if(assume_dev) then
-        print("Assuming development environment (nix develop) is set up containing pylsp...") 
-    end
-    nvim_lsp.pylsp.setup {
-        cmd = assume_dev and { "nix", "develop", "--command", "python3", "-m", "pylsp" } or { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
-        flags = {
-            debounce_text_changes = 150,
-        },
-        on_attach = on_attach,
-        settings = {
-            pylsp = {
-                plugins = {
-                    pycodestyle = { enabled = false },
-                    mccabe = { enabled = false }
-                },
-            }
-        },
-        capabilities = nvim_cmp_capabilities
-    }
-end
-
-setup_pylsp()
 EOF
-
-" Necessary to support project switching via telescope-project.nvim
-augroup SetupPyLsp
-    autocmd!
-    autocmd DirChanged * :lua setup_pylsp()
-augroup END 
 
 lua << EOF
 -- lspsaga
