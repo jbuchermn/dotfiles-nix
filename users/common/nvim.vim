@@ -236,7 +236,7 @@ nnoremap <silent> <leader>pb <cmd>lua require('telescope.builtin').file_browser(
 nnoremap <silent> <leader>pp <cmd>lua require('telescope').extensions.project.project{}<CR>
 nnoremap <silent> <leader>/ <cmd>lua require('telescope.builtin').live_grep()<CR>
 
-nnoremap <silent> <leader>gg :Git<CR>
+nnoremap <silent> <leader>gg :Neogit<CR>
 
 lua << EOF
 -- tree-sitter
