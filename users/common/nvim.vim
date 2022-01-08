@@ -302,8 +302,9 @@ require('orgmode').setup {}
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-map('n', '<leader>tt', '<CMD>lua require("FTerm").toggle()<CR>', opts)
-map('t', '<leader>tt', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
+map('n', '<C-Space>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
+map('t', '<C-Space>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
+
 
 EOF
 
