@@ -60,11 +60,11 @@
         "pywm": "pywm"
       },
       "locked": {
-        "lastModified": 1641474687,
-        "narHash": "sha256-GxxOTxbliluRYCLE8UhHOQM0NIv66YSNZXAQv6m1bTA=",
+        "lastModified": 1641634654,
+        "narHash": "sha256-yzunHgOl0ikCT9t3q/hM6SvB6V1n9SdDgZI8nmjv4vw=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "03ed7cf4f7060d7987c10472feb91bcaced7b6f8",
+        "rev": "37945c452f95e057f6fdd56ed980e67f2d0ca41c",
         "type": "github"
       },
       "original": {
@@ -76,11 +76,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1641230035,
-        "narHash": "sha256-hFyqihERaTbLxCOlugy/rpp22VLtLh8SPRnA2uu3F/8=",
+        "lastModified": 1641528457,
+        "narHash": "sha256-FyU9E63n1W7Ql4pMnhW2/rO9OftWZ37pLppn/c1aisY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "78cd22c1b8604de423546cd49bfe264b786eca13",
+        "rev": "ff377a78794d412a35245e05428c8f95fef3951f",
         "type": "github"
       },
       "original": {
@@ -92,11 +92,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1641230035,
-        "narHash": "sha256-hFyqihERaTbLxCOlugy/rpp22VLtLh8SPRnA2uu3F/8=",
+        "lastModified": 1641528457,
+        "narHash": "sha256-FyU9E63n1W7Ql4pMnhW2/rO9OftWZ37pLppn/c1aisY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "78cd22c1b8604de423546cd49bfe264b786eca13",
+        "rev": "ff377a78794d412a35245e05428c8f95fef3951f",
         "type": "github"
       },
       "original": {
@@ -108,11 +108,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1641459998,
-        "narHash": "sha256-irk2awKcEyXNsjTMEgK4RTEnNFXhJkkyApxTsiod8EU=",
+        "lastModified": 1641619351,
+        "narHash": "sha256-3HM3dZoPsKCt731ORbFCnR2fhHwnImGaks1zNpxN9MU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "d325bf2bda6a65b5c0c914d4a8bcd4590f2df803",
+        "rev": "8dd9183b31af54e7e37bed6033f0405f00d3916f",
         "type": "github"
       },
       "original": {
@@ -127,11 +127,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1641421115,
-        "narHash": "sha256-Fckr92LnxoDJB5/8mwpI696Lcx/EVclti2rBP02LMgk=",
+        "lastModified": 1641599965,
+        "narHash": "sha256-osryKwRLxT+vCQsKwowJPX4FmpNARrWkVFZvQ8tLBK8=",
         "owner": "jbuchermn",
         "repo": "pywm",
-        "rev": "0cca4a8c466c63b9cacb02531dee0351a6e14cfa",
+        "rev": "39cce3d06275b9ba28685770e2b218060cd61e11",
         "type": "github"
       },
       "original": {

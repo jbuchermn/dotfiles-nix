@@ -3,6 +3,8 @@
 {
   programs.home-manager.enable = true;
 
+  home.file.".local/bin/home-manager-quickcheck".source = ./shell/home-manager-quickcheck.sh;
+
   fonts.fontconfig.enable = true;
   home.packages = if providePkgs then with pkgs; [
     powerstat
