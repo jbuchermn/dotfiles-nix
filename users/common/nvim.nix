@@ -41,6 +41,16 @@
       telescope-nvim
       telescope-project-nvim
 
+      nvim-cmp
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+      cmp-nvim-lsp
+
+      vim-vsnip
+      cmp-vsnip
+
+
       (nvim-treesitter.withPlugins (
           # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
           plugins: with plugins; [

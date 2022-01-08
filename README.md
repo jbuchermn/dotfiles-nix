@@ -14,6 +14,10 @@
 
 ## ViM
 
-[ ] Jumping around when errors appear and disappear
+[x] Jumping around when errors appear and disappear
 
-[ ] Autocomplete
+[x] Autocomplete
+
+[ ] Bar at bottom
+
+[ ] vsnips

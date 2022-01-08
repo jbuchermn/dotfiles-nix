@@ -95,6 +95,54 @@ vnoremap <silent> <leader>cc :TComment<CR>
 nnoremap <expr> - g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @% == '' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'
 
 lua << EOF
+-- nvim-cmp
+local cmp = require('cmp')
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+          vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    mapping = {
+        ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+        ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+        ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'vsnip' },
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
+
+local nvim_cmp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+EOF
+
+set completeopt=menu,menuone,noselect
+
+lua << EOF
+
 -- nvim-lspconfig
 local nvim_lsp = require('lspconfig')
 
@@ -140,13 +188,15 @@ nvim_lsp.tsserver.setup {
     on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,
-    }
+    },
+    capabilities = nvim_cmp_capabilities
 }
 nvim_lsp.ccls.setup {
     on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,
-    }
+    },
+    capabilities = nvim_cmp_capabilities
 }
 
 function _G.setup_pylsp()
@@ -157,22 +207,24 @@ function _G.setup_pylsp()
     local grep_res = handle:read("*a")
     local assume_dev = string.find(grep_res, "lsp")
     handle:close()
-    if(assume_dev) then print("Assuming development environment (nix develop) is set up containing pylsp...") end
+    if(assume_dev) then
+        print("Assuming development environment (nix develop) is set up containing pylsp...") 
+    end
     nvim_lsp.pylsp.setup {
-        cmd = assume_dev and { "nix", "develop", "--command", "python3", "-m", "pylsp" } or
-            { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
+        cmd = assume_dev and { "nix", "develop", "--command", "python3", "-m", "pylsp" } or { "nvim-python3", "-m", "pylsp", "-vv", "--log-file", "/tmp/pylsp.log" },
         flags = {
             debounce_text_changes = 150,
         },
         on_attach = on_attach,
         settings = {
-          pylsp = {
-            plugins = {
-                pycodestyle = { enabled = false },
-                mccabe = { enabled = false }
-            },
-         }
-        }
+            pylsp = {
+                plugins = {
+                    pycodestyle = { enabled = false },
+                    mccabe = { enabled = false }
+                },
+            }
+        },
+        capabilities = nvim_cmp_capabilities
     }
 end
 
