@@ -225,7 +225,7 @@ energy = {
 }
 
 focus = {
-    'color': '#92f0f5a1',
+    'color': '#92f0f5d1',
     'enabled': True
 }
 

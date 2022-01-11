@@ -18,6 +18,9 @@ in
     nur.repos.kira-bruneau.rofi-wayland
     mako
     libnotify
+
+    grim
+    slurp
   ] else [];
 
   home.sessionVariables = if isVirtual then {
