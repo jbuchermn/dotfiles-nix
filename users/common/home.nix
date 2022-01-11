@@ -4,6 +4,7 @@
   programs.home-manager.enable = true;
 
   home.file.".local/bin/home-manager-quickcheck".source = ./shell/home-manager-quickcheck.sh;
+  home.file.".local/bin/nix-search".source = ./shell/nix-search.sh;
 
   fonts.fontconfig.enable = true;
   home.packages = if providePkgs then with pkgs; [
