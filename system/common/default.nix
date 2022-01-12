@@ -21,6 +21,8 @@
     options = "--delete-older-than 30d";
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   # Locale / Timezone
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -31,10 +33,22 @@
     git
     wget
     htop
+
+    gnupg
+    pass
   ];
 
   programs.zsh.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
+  programs = {
+    gnupg.agent = {
+      pinentryFlavor = "curses";
+      enable = true;
+    };
+  };
+  environment.shellInit = ''
+    export GPG_TTY="$(tty)"
+    gpg-connect-agent /bye
+  '';
 }
 
