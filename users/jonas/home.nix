@@ -19,6 +19,10 @@
     ../common/alacritty.nix
     ../common/nvim.nix
     ../common/newm.nix
-    ../common/neomutt.nix
+    # ../common/neomutt.nix
+  ];
+
+  home.packages = with pkgs; [
+    aerc
   ];
 }
