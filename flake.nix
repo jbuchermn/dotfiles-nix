@@ -12,6 +12,7 @@
 
     # newm-pkg.url = "path:/home/jonas/newm-dev/newm";
     # newm-pkg.inputs.pywm.url = "path:/home/jonas/newm-dev/pywm";
+    # newm-pkg.inputs.dasbus.url = "path:/home/jonas/newm-dev/newm/dist/nixos/dasbus";
   };
 
   outputs = { nixpkgs, nur, home-manager, newm-pkg, ... }:

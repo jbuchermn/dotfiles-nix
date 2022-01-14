@@ -15,6 +15,8 @@
     tree
     neofetch
 
+    nix-tree
+
     (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
     imv
     mpv
@@ -23,6 +25,5 @@
     firefox
     chromium
     libreoffice
-    zathura
   ] else [];
 }
