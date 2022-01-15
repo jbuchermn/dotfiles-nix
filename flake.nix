@@ -7,12 +7,12 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # newm-pkg.url = "github:jbuchermn/newm";
     newm-pkg.url = "github:jbuchermn/newm/v0.3";
     newm-pkg.inputs.nixpkgs.follows = "nixpkgs";
 
     # newm-pkg.url = "path:/home/jonas/newm-dev/newm";
     # newm-pkg.inputs.pywm.url = "path:/home/jonas/newm-dev/pywm";
-    # newm-pkg.inputs.dasbus.url = "path:/home/jonas/newm-dev/newm/dist/nixos/dasbus";
   };
 
   outputs = { nixpkgs, nur, home-manager, newm-pkg, ... }:

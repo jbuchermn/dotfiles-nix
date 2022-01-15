@@ -1,15 +1,7 @@
 import os
-import pwd
-import time
-import psutil
-import subprocess
 import logging
 
 logger = logging.getLogger(__name__)
-
-def execute(command: str) -> str:
-    proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
-    return proc.stdout.read().decode() if proc.stdout is not None else ""
 
 from pywm import (
     PYWM_MOD_LOGO,
@@ -23,6 +15,8 @@ from pywm import (
     PYWM_TRANSFORM_FLIPPED_180,
     PYWM_TRANSFORM_FLIPPED_270,
 )
+
+from newm.helper import BacklightManager, WobRunner, PaCtl
 
 def on_startup():
     os.system("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots")
@@ -102,40 +96,14 @@ background = {
 anim_time = .25
 blend_time = .5
 
-class BacklightManager:
-    def __init__(self) -> None:
-        self._current = 0
-        self._max = 1
-        self._enabled = True
-        try:
-            self._current = int(execute("brightnessctl g"))
-            self._max = int(execute("brightnessctl m"))
-        except Exception:
-            logger.exception("Disabling BacklightManager")
-            self._enabled = False
+wob_runner = WobRunner("wob -a bottom -M 100")
+backlight_manager = BacklightManager(anim_time=1., bar_display=wob_runner)
+kbdlight_manager = BacklightManager(args="--device='*::kbd_backlight'", anim_time=1., bar_display=wob_runner)
+def synchronous_update() -> None:
+    backlight_manager.update()
+    kbdlight_manager.update()
 
-        self._predim = self._current
-
-    def callback(self, code: str) -> None:
-        if code in ["lock", "idle-lock"]:
-            self._current = int(self._predim / 2)
-            execute("brightnessctl s %d" % self._current)
-        elif code == "idle":
-            self._current = int(self._predim / 1.5)
-            execute("brightnessctl s %d" % self._current)
-        elif code == "active":
-            self._current = self._predim
-            execute("brightnessctl s %d" % self._current)
-
-    def adjust(self, factor: float) -> None:
-        if self._predim < .3*self._max and factor > 1.:
-            self._predim += int(.1*self._max)
-        else:
-            self._predim = max(0, min(self._max, int(self._predim * factor)))
-        self._current = self._predim
-        execute("brightnessctl s %d" % self._current)
-
-backlight_manager = BacklightManager()
+pactl = PaCtl(0, wob_runner)
 
 key_bindings = lambda layout: [
     ("M-h", lambda: layout.move(-1, 0)),
@@ -175,8 +143,19 @@ key_bindings = lambda layout: [
 
     ("ModPress", lambda: layout.toggle_overview(only_active_workspace=False)),
 
-    ("XF86MonBrightnessUp", lambda: backlight_manager.adjust(1.1)),
-    ("XF86MonBrightnessDown", lambda: backlight_manager.adjust(0.9)),
+    ("XF86MonBrightnessUp", lambda: backlight_manager.set(backlight_manager.get() + 0.1)),
+    ("XF86MonBrightnessDown", lambda: backlight_manager.set(backlight_manager.get() - 0.1)),
+    ("XF86KbdBrightnessUp", lambda: kbdlight_manager.set(kbdlight_manager.get() + 0.1)),
+    ("XF86KbdBrightnessDown", lambda: kbdlight_manager.set(kbdlight_manager.get() - 0.1)),
+    ("XF86AudioRaiseVolume", lambda: pactl.volume_adj(5)),
+    ("XF86AudioLowerVolume", lambda: pactl.volume_adj(-5)),
+    ("XF86AudioMute", lambda: pactl.mute()),
+
+    ("XF86LaunchA", lambda: None),
+    ("XF86LaunchB", lambda: None),
+    ("XF86AudioPrev", lambda: None),
+    ("XF86AudioPlay", lambda: None),
+    ("XF86AudioNext", lambda: None),
 ]
 
 bar = {
@@ -228,5 +207,7 @@ focus = {
     'color': '#92f0f5d1',
     'enabled': True
 }
+
+
 
 

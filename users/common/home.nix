@@ -22,8 +22,10 @@
     mpv
 
     gnome.adwaita-icon-theme
+    vlc
     firefox
     chromium
     libreoffice
+    spotify
   ] else [];
 }

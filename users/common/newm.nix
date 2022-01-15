@@ -7,6 +7,22 @@ in
     ${builtins.readFile ./newm.py}
     ${modText}
   '';
+  xdg.configFile."newm/launcher.py".text = ''
+    entries = {
+      "chromium": "chromium --enable-features=UseOzonePlatform --ozone-platform=wayland",
+      "firefox": "MOZ_ENABLE_WAYLAND=1 firefox",
+      "nautilus": "nautilus",
+      "spotify": "DISPLAY=\":0\" spotify",
+      "alacritty": "alacritty",
+    }
+
+    shortcuts = {
+      1: ("Chromium", "chromium --enable-features=UseOzonePlatform --ozone-platform=wayland"),
+      2: ("Firefox", "MOZ_ENABLE_WAYLAND=1 firefox"),
+      3: ("Vim", "alacritty -e vim"),
+      4: ("Nautilus", "nautilus")
+    }
+  '';
 
   xdg.configFile."waybar/config".source = ./waybar/config;
   xdg.configFile."waybar/style.css".source = ./waybar/style.css;
@@ -15,12 +31,15 @@ in
   home.packages = if providePkgs then with pkgs; [
     newm
     waybar
+    wob
     nur.repos.kira-bruneau.rofi-wayland
     mako
     libnotify
 
     grim
     slurp
+
+    gnome.nautilus
   ] else [];
 
   home.sessionVariables = if isVirtual then {
