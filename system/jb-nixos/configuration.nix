@@ -47,7 +47,7 @@
   # Console
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "de";
+    keyMap = "de-latin1";
   };
 
   # Names

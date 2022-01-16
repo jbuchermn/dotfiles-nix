@@ -60,11 +60,11 @@
         "pywm": "pywm"
       },
       "locked": {
-        "lastModified": 1642254899,
-        "narHash": "sha256-ryoqw4cTPZvfPW/6GeYlvWHCLeXUXXBsQi7dx9dCUTk=",
+        "lastModified": 1642262544,
+        "narHash": "sha256-yB3aq6rRfF+2v7f1yDn6I2wwCBHgvrQubB8bzLsqa6I=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "7cc69acdcbb6f54f2f3a84a353abb004edf094ae",
+        "rev": "5d9a8c7e92737cf87ade029e788502f4ef97f8a6",
         "type": "github"
       },
       "original": {
@@ -92,27 +92,27 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1642254074,
-        "narHash": "sha256-3tLy6i/q3Z3hRCd0xpz3eI+CS5tXPDQH7JzkoETnMeI=",
+        "lastModified": 1642104392,
+        "narHash": "sha256-m71b7MgMh9FDv4MnI5sg9MiBVW6DhE1zq+d/KlLWSC8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "751d92acb4c1c7af323e7e85a853b1138220182b",
+        "rev": "5aaed40d22f0d9376330b6fa413223435ad6fee5",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "master",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nur": {
       "locked": {
-        "lastModified": 1642242604,
-        "narHash": "sha256-irKLj1G7ENT4IpQ9puxG450kENPs0ZHttlhhfjQFhtU=",
+        "lastModified": 1642328983,
+        "narHash": "sha256-JfH58YxetrQV98g8c8MUiSXKgDOfSpEgnitTIVkU9U0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "20aaed53524e4f5344c70af3e7e83e3e208ab5d3",
+        "rev": "0adc52492cc686077ddf026f7b357caf222df6e3",
         "type": "github"
       },
       "original": {

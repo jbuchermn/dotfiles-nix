@@ -156,6 +156,8 @@ key_bindings = lambda layout: [
     ("XF86AudioPrev", lambda: None),
     ("XF86AudioPlay", lambda: None),
     ("XF86AudioNext", lambda: None),
+
+    ("M-z", lambda: layout.swallow_focused_view()),
 ]
 
 bar = {
