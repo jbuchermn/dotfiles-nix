@@ -79,7 +79,7 @@ nnoremap : <nop>
 vnoremap : <nop>
 
 " Clear highlights
-nmap <silent> <ESC> :noh<CR>
+nnoremap <silent> <ESC> :noh<CR>
 
 " Highlight without jumping
 nnoremap * *N
