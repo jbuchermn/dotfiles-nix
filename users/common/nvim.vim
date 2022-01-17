@@ -9,11 +9,15 @@ set hidden
 set autoindent
 set smartindent
 
+" Tabwidth per filetype
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+
 set expandtab
 set smarttab
+
 
 set splitbelow
 set splitright
@@ -71,8 +75,8 @@ nnoremap <C-h> <C-w><C-h>
 " Easier to reach
 nnoremap , :
 vnoremap , :
-nmap : <nop>
-vmap : <nop>
+nnoremap : <nop>
+vnoremap : <nop>
 
 " Clear highlights
 nmap <silent> <ESC> :noh<CR>

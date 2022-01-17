@@ -22,6 +22,9 @@ font:
 
 background_opacity: 0.9
 
+# macOS makes this necessary
 alt_send_esc: false
+key_bindings:
+- { key: Space, mods: Control, chars: "\x00" }
   '';
 }
