@@ -33,7 +33,7 @@ in
 
       nodePackages.typescript nodePackages.typescript-language-server
 
-      gcc # Necessary to coompile tree-sitter plugins
+      gcc # Necessary to compile tree-sitter plugins
     ];
 
     plugins = (with pkgs.vimPlugins; [

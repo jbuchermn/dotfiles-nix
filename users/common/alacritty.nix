@@ -20,7 +20,7 @@ font:
         style: Bold Italic
     size: 8
 
-background_opacity: 0.9
+background_opacity: 0.95
 
 # macOS makes this necessary
 alt_send_esc: false

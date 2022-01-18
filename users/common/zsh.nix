@@ -21,6 +21,8 @@
     };
 
     initExtra = ''
+      gcgh(){ git clone https://github.com/"$@" };
+
       neofetch
     '';
 
