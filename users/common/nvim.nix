@@ -40,7 +40,6 @@ in
       oceanic-next
 
       orgmode
-      (pluginGit "HEAD" "07b703257bd61b8d532cc9f4335e651d9e0378fb" "lukas-reineke/headlines.nvim")
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
 
 
