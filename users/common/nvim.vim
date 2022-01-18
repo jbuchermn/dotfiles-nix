@@ -31,17 +31,13 @@ syntax enable
 
 set signcolumn=yes " prevent jumping on opening and closing of sign column
 
-" Theming
-colorscheme OceanicNext
-
 if (has("termguicolors"))
  set termguicolors
 endif
 
-hi Normal guibg=NONE ctermbg=NONE
-hi LineNr guibg=NONE ctermbg=NONE
-hi SignColumn guibg=NONE ctermbg=NONE
-hi EndOfBuffer guibg=NONE ctermbg=NONE
+" Theming
+let g:neon_transparent=1
+colorscheme neon
 
 " }}}
 
