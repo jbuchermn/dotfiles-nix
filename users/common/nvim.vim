@@ -55,6 +55,7 @@ set undofile
 " Folding
 set foldmethod=syntax
 set foldlevelstart=20
+set nofoldenable
 
 augroup filetype_vim
     autocmd!

@@ -60,11 +60,11 @@
         "pywm": "pywm"
       },
       "locked": {
-        "lastModified": 1642454340,
-        "narHash": "sha256-XJAOrzgqot1xWkVY0yEkp5Ydhy4rApcBZyTGd8oTxZ0=",
+        "lastModified": 1642799090,
+        "narHash": "sha256-9rQ3vsWBSBy+uPrNus7AP4g6admDsDXK43fCmeMR/Ts=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "6fa216cf787dbc700a67e15d7e7e7a29f1c606bd",
+        "rev": "cf00620aad458436048e4c9785071807e06a44bb",
         "type": "github"
       },
       "original": {
@@ -108,11 +108,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1642706874,
-        "narHash": "sha256-zG7i18Z0pzPW7fWEbh/FMuZH8q3mTxHaLE9bPqGlZlw=",
+        "lastModified": 1642777528,
+        "narHash": "sha256-TVX0jdJyzEmM20GsPsXEw0abu46p7rUDuijIhg2eHPE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "f90ded289b8e1dd38f460d57983065f5f9318778",
+        "rev": "b5c10ba94f96e3699a9810456db6305693dc31e2",
         "type": "github"
       },
       "original": {
