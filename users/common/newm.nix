@@ -36,6 +36,8 @@ in
     mako
     libnotify
 
+    pywm-fullscreen
+
     grim
     slurp
 
