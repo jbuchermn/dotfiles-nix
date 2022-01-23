@@ -7,18 +7,14 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # newm-pkg.url = "github:jbuchermn/newm";
-    newm-pkg.url = "github:jbuchermn/newm/v0.3";
-    newm-pkg.inputs.nixpkgs.follows = "nixpkgs";
+    newmpkg.url = "github:jbuchermn/newm/v0.3";
+    newmpkg.inputs.nixpkgs.follows = "nixpkgs";
 
-    pywm-fullscreen-pkg.url = "github:jbuchermn/pywm-fullscreen";
-    pywm-fullscreen-pkg.inputs.nixpkgs.follows = "nixpkgs";
-
-    # newm-pkg.url = "path:/home/jonas/newm-dev/newm";
-    # newm-pkg.inputs.pywm.url = "path:/home/jonas/newm-dev/pywm";
+    pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
+    pywm-fullscreenpkg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, nur, home-manager, newm-pkg, pywm-fullscreen-pkg, ... }:
+  outputs = { nixpkgs, nur, home-manager, newmpkg, pywm-fullscreenpkg, ... }:
   {
     packages = builtins.mapAttrs (system: _:
       let
@@ -31,7 +27,10 @@
           };
           overlays = [
             nur.overlay
-            (final: prev: { newm = newm-pkg.packages.${system}.newm; pywm-fullscreen = pywm-fullscreen-pkg.packages.${system}.pywm-fullscreen; })
+            (self: super: {
+              newm = newmpkg.packages.${system}.newm;
+              pywm-fullscreen = pywm-fullscreenpkg.packages.${system}.pywm-fullscreen; 
+            })
           ];
         };
 
