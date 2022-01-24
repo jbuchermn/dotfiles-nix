@@ -8,7 +8,12 @@ Follow NixOS manual, be sure to setup
 - `vim`
 - `git`
 
-on first setup. Then clone this repo, (possibly add entries for user and hostname), add `hardware-configuration.nix` and apply.
+on first setup. Then clone this repo and
+- possibly add entry for hostname adding new folder under `system`,
+- possibly add entry for user adding new folder under `users`,
+- check / update `hardware-configuration.nix`.
+
+Then apply.
 
 # ToDo
 

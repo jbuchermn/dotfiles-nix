@@ -7,60 +7,27 @@
       ../common
     ];
 
-  hardware.opengl.enable = true;
+  # Hostname
+  networking.hostName = "jb-nixos";
 
-  # EFI on MBP
+  # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # WiFi using NetworkManager
+  # Networking: NetworkManager
   networking.useDHCP = false;
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
-  # Sound - PA
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  # OpenGL
+  hardware.opengl.enable = true;
 
-  # Sound (and screenshare) - PipeWire
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  # ScreenShare on wlroots
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-      ];
-    };
-  };
-
-  # MacBook Webcam
+  # MBP Webcam
   hardware.facetimehd.enable = true;
 
-  # Console
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "de-latin1";
-  };
-
-  # Names
-  networking.hostName = "jb-nixos";
-  users.users.jonas = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" "video" ];
-    shell = pkgs.zsh;
-  };
-
+  # MBP Backlights
   environment.systemPackages = with pkgs; [
     brightnessctl
-    pulseaudio
   ];
 
 }

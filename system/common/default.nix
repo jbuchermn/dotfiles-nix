@@ -27,6 +27,12 @@
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # Console
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "de-latin1";
+  };
+
   # Basic functionality
   environment.systemPackages = with pkgs; [
     vim
@@ -40,6 +46,7 @@
 
   programs.zsh.enable = true;
 
+  # GnuPG with fix
   programs = {
     gnupg.agent = {
       pinentryFlavor = "curses";
@@ -50,5 +57,34 @@
     export GPG_TTY="$(tty)"
     gpg-connect-agent /bye
   '';
+
+  # Sound (and screenshare) - PipeWire
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+  environment.systemPackages = with pkgs; [
+    pulseaudio # pactl
+  ];
+
+  # ScreenShare on wlroots
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+      ];
+    };
+  };
+
+  # User
+  users.users.jonas = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "input" "video" ];
+    shell = pkgs.zsh;
+  };
 }
 
