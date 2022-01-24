@@ -43,6 +43,11 @@
             modules = [ ./system/jb-nixos/configuration.nix ];
           }; 
 
+          jb-nixos-tuxedo = lib.nixosSystem {
+            inherit system;
+            modules = [ ./system/jb-nixos-tuxedo/configuration.nix ];
+          }; 
+
           jb-nixos-qemu = lib.nixosSystem {
             inherit system;
             modules = [ ./system/jb-nixos-qemu/configuration.nix ];
