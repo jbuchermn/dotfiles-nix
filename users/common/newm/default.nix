@@ -51,4 +51,8 @@ in
   } else {};
 
   home.file."wallpaper.jpg".source = ./wallpaper.jpg;
+
+  programs.zsh.loginExtra = ''
+    [[ "$(tty)" == /dev/tty1 ]] && start-newm
+  '';
 }
