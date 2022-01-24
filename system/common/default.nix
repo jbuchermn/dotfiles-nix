@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -42,6 +41,8 @@
 
     gnupg
     pass
+
+    pulseaudio # pactl
   ];
 
   programs.zsh.enable = true;
@@ -66,9 +67,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    pulseaudio # pactl
-  ];
 
   # ScreenShare on wlroots
   xdg = {

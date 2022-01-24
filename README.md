@@ -15,6 +15,18 @@ on first setup. Then clone this repo and
 
 Then apply.
 
+# Build install medium
+
+```sh
+nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
+```
+
+# Full update
+
+```sh
+./update.sh && ./apply-user.sh jonas-nixos [jonas-mbp / ...] && sudo ./apply-system.sh
+```
+
 # ToDo
 
 ## General

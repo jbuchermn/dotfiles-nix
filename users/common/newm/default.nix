@@ -1,10 +1,12 @@
-{ config, pkgs, isVirtual, providePkgs, ... }:
+input@{ config, pkgs, ... }:
 let 
+  isVirtual = if builtins.hasAttr "isVirtual" input then input.isVirtual else false;
+  providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
   modText = if isVirtual then "mod = PYWM_MOD_ALT" else "";
 in
 {
   xdg.configFile."newm/config.py".text = ''
-    ${builtins.readFile ./newm.py}
+    ${builtins.readFile ./config.py}
     ${modText}
   '';
   xdg.configFile."newm/launcher.py".text = ''
@@ -47,4 +49,6 @@ in
   home.sessionVariables = if isVirtual then {
     WLR_NO_HARDWARE_CURSORS = 1; # Hardware cursors don't properly work inside qemu
   } else {};
+
+  home.file."wallpaper.jpg".source = ./wallpaper.jpg;
 }

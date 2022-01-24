@@ -3,7 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../common
+    ../common/default.nix
+    ../common/user.nix
   ];
 
   # Hostname

@@ -177,20 +177,14 @@ panels = {
         'w': 0.7,
         'h': 0.6,
         'corner_radius': 50,
-        # 'cmd': 'npm run start -- lock',
-        # 'cwd': '/home/jonas/newm-panel-nwjs'
     },
     'launcher': {
         'cmd': 'alacritty -e newm-panel-basic launcher',
         'w': 0.7,
         'h': 0.6,
         'corner_radius': 50,
-        # 'cmd': 'npm run start -- launcher',
-        # 'cwd': '/home/jonas/newm-panel-nwjs'
     },
     'notifiers': {
-        # 'cmd': 'npm run start -- notifiers',
-        # 'cwd': '/home/jonas/newm-panel-nwjs'
     }
 }
 

@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   programs.git = {
     enable = true;
@@ -18,8 +17,7 @@
     ../common/zsh.nix
     ../common/alacritty.nix
     ../common/nvim.nix
-    ../common/newm.nix
-    # ../common/neomutt.nix
+    ../common/newm
   ];
 
   home.packages = with pkgs; [

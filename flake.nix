@@ -38,15 +38,43 @@
       in
       {
         nixosConfigurations = {
+          jb-nixos = lib.nixosSystem {
+            inherit system;
+            modules = [ ./system/jb-nixos/configuration.nix ];
+          }; 
+
           jb-nixos-qemu = lib.nixosSystem {
             inherit system;
             modules = [ ./system/jb-nixos-qemu/configuration.nix ];
           }; 
 
-          jb-nixos = lib.nixosSystem {
-            inherit system;
-            modules = [ ./system/jb-nixos/configuration.nix ];
-          }; 
+          jb-nixos-live = lib.nixosSystem {
+            inherit system pkgs;
+            modules = [
+              ./system/jb-nixos-live/configuration.nix
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+              home-manager.nixosModules.home-manager
+
+              ({ config, pkgs, ... }: {
+                home-manager.users.nixos = {
+                  fonts.fontconfig.enable = lib.mkForce true; # Specified as false somewhere in installation-cd-base
+
+                  imports = [
+                    ./users/jonas/home.nix
+                  ];
+
+                  home.stateVersion = stateVersion;
+                  home.username = "nixos";
+                  home.homeDirectory = "/home/nixos";
+                };
+
+                home-manager.useGlobalPkgs = true;
+
+                home-manager.extraSpecialArgs = {
+                };
+              })
+            ];
+          };
         }; 
 
         homeManagerConfigurations = {
@@ -63,8 +91,6 @@
             };
 
             extraSpecialArgs = {
-              isVirtual = false;
-              providePkgs = true;
             };
           };
 
@@ -82,7 +108,6 @@
 
             extraSpecialArgs = {
               isVirtual = true;
-              providePkgs = true;
             };
           };
 
@@ -99,8 +124,6 @@
             };
 
             extraSpecialArgs = {
-              isMHP = false;
-              isVirtual = false;
               providePkgs = false;
             };
           };
@@ -118,8 +141,7 @@
             };
 
             extraSpecialArgs = {
-              isMHP = true;
-              isVirtual = false;
+              isWork = true;
               providePkgs = false;
             };
           };
@@ -137,7 +159,6 @@
             };
 
             extraSpecialArgs = {
-              isVirtual = false;
               providePkgs = false;
             };
           };

@@ -3,33 +3,21 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
       ../common/default.nix
-      ../common/user.nix
     ];
 
   # Hostname
-  networking.hostName = "jb-nixos";
+  networking.hostName = "jb-nixos-live";
 
   # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking: NetworkManager
-  networking.useDHCP = false;
-  networking.interfaces.wlp3s0.useDHCP = true;
+  networking.wireless.enable = false;
   networking.networkmanager.enable = true;
 
   # OpenGL
   hardware.opengl.enable = true;
-
-  # MBP Webcam
-  hardware.facetimehd.enable = true;
-
-  # MBP Backlights
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
-
 }
 

@@ -1,7 +1,9 @@
-{ config, pkgs, isMHP, ... }:
-
+input@{ config, pkgs, ... }:
+let
+  isWork = if builtins.hasAttr "isWork" input then input.isWork else false;
+in
 {
-  programs.git = if isMHP then {
+  programs.git = if isWork then {
     enable = true;
     userName = "Jonas Bucher";
     userEmail = "jonas.bucher@mhp.com";

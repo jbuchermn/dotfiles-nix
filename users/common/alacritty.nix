@@ -1,5 +1,7 @@
-{ config, pkgs, providePkgs, ... }:
-
+input@{ config, pkgs, ... }:
+let
+  providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
+in
 {
   programs.alacritty = if providePkgs then {
     enable = true;
