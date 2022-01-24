@@ -77,6 +77,8 @@
 
                 home-manager.extraSpecialArgs = {
                 };
+
+                users.users.nixos.shell = pkgs.zsh;
               })
             ];
           };
