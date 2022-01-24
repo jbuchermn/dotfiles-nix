@@ -7,9 +7,8 @@ Follow NixOS manual, be sure to setup
 - `nix flake`
 - `vim`
 - `git`
-on first setup.
 
-Then clone this repo, (possibly add entries for user and hostname), add `hardware-configuration.nix` and apply.
+on first setup. Then clone this repo, (possibly add entries for user and hostname), add `hardware-configuration.nix` and apply.
 
 # ToDo
 
