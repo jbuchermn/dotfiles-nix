@@ -21,7 +21,6 @@ from newm.helper import BacklightManager, WobRunner, PaCtl
 def on_startup():
     os.system("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots")
     os.system("waybar &")
-    # os.system("catapult &")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
@@ -37,7 +36,8 @@ outputs = [
 ]
 
 pywm = {
-    'xkb_model': "macintosh",
+    # 'xkb_model': "macintosh",
+    'xkb_model': "PLACEHOLDER_xkb_model",
     'xkb_layout': "de,de",
     'xkb_options': "caps:escape",
 
@@ -50,9 +50,6 @@ pywm = {
     'natural_scroll': True,
 
     'texture_shaders': 'basic'
-
-    # v0.1
-    # 'round_scale': 2.
 }
 
 def should_float(view):
@@ -164,7 +161,10 @@ bar = {
 
 gestures = {
     'lp_freq': 120.,
-    'lp_inertia': 0.4
+    'lp_inertia': 0.4,
+
+    'c': PLACEHOLDER_c_gestures,
+    'pyevdev': PLACEHOLDER_pyevdev_gestures,
 }
 
 swipe = {

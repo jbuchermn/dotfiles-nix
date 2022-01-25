@@ -76,6 +76,7 @@
                 home-manager.useGlobalPkgs = true;
 
                 home-manager.extraSpecialArgs = {
+                  isMBP = false;
                 };
 
                 users.users.nixos.shell = pkgs.zsh;
@@ -98,6 +99,23 @@
             };
 
             extraSpecialArgs = {
+            };
+          };
+
+          jonas-nixos-tuxedo = home-manager.lib.homeManagerConfiguration {
+            inherit system pkgs stateVersion;
+
+            username = "jonas";
+            homeDirectory = "/home/jonas";
+
+            configuration = {
+              imports = [
+                ./users/jonas/home.nix
+              ];
+            };
+
+            extraSpecialArgs = {
+              isMBP = false;
             };
           };
 

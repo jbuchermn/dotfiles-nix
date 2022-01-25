@@ -1,14 +1,21 @@
 input@{ config, pkgs, ... }:
 let 
   isVirtual = if builtins.hasAttr "isVirtual" input then input.isVirtual else false;
+  isMBP = if builtins.hasAttr "isMBP" input then input.isMBP else true;
   providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
-  modText = if isVirtual then "mod = PYWM_MOD_ALT" else "";
+
+  confFile = builtins.replaceStrings
+    ["PLACEHOLDER_xkb_model" "PLACEHOLDER_mod" "PLACEHOLDER_c_gestures" "PLACEHOLDER_pyevdev_gestures"]
+    [
+      (if isMBP then "macintosh" else "de-latin1")
+      (if isVirtual then "PYWM_MOD_ALT" else "PYWM_MOD_LOGO")
+      (if isMBP then "{'enabled': False}" else "{'enabled': True, 'scale_px': 800.}")
+      (if isMBP then "{'enabled': True}" else "{'enabled': False}")
+    ]
+    (builtins.readFile ./config.py);
 in
 {
-  xdg.configFile."newm/config.py".text = ''
-    ${builtins.readFile ./config.py}
-    ${modText}
-  '';
+  xdg.configFile."newm/config.py".text = confFile;
   xdg.configFile."newm/launcher.py".text = ''
     entries = {
       "chromium": "chromium --enable-features=UseOzonePlatform --ozone-platform=wayland",
