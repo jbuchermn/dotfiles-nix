@@ -18,6 +18,12 @@
       gd = "git diff";
       ga = "git add";
       gst = "git status";
+
+      # Old world
+      nix-env = "echo \"Goodbye, old world.\"";
+      nix-shell = "echo \"Goodbye, old world.\"";
+      nix-build = "echo \"Goodbye, old world.\"";
+      nix-channel = "echo \"Goodbye, old world.\"";
     };
 
     initExtra = ''

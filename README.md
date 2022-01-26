@@ -29,7 +29,7 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 # ToDo
 
-- [ ] Fix nix-search for flakes (shows outdated results as it is)
+- [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
 - [ ] Add home-manager and nixos-options to nix-search
 
 ## General

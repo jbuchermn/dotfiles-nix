@@ -69,6 +69,8 @@ in
             tree-sitter-c
             tree-sitter-cpp
             tree-sitter-bash
+            tree-sitter-org
+            tree-sitter-nix
           ]
         ))
 
@@ -82,4 +84,9 @@ in
       nix develop --command python3 -m pylsp || (>&2 echo "No valid nix development environment containing pylsp found - defaulting" && nvim-python3 -m pylsp)
     '';
   home.file.".local/bin/pylsp_wrapped".executable = true;
+
+  # Prevent errors on first startup (telescope-project e.g.)
+  programs.zsh.initExtra = ''
+    mkdir -p ~/.local/share/nvim
+  '';
 }

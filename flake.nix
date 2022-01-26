@@ -35,54 +35,57 @@
         };
 
         lib = nixpkgs.lib;
+
+        nixosSystem = _modules: lib.nixosSystem {
+            inherit system pkgs;
+            modules = [ 
+              ({ config, pkgs, ... }: {
+                nix.registry.nixpkgs.flake = nixpkgs;
+              })
+            ] ++ _modules;
+        };
       in
       {
         nixosConfigurations = {
-          jb-nixos = lib.nixosSystem {
-            inherit system;
-            modules = [ ./system/jb-nixos/configuration.nix ];
-          }; 
+          jb-nixos = nixosSystem [ 
+            ./system/jb-nixos/configuration.nix 
+          ];
 
-          jb-nixos-tuxedo = lib.nixosSystem {
-            inherit system;
-            modules = [ ./system/jb-nixos-tuxedo/configuration.nix ];
-          }; 
+          jb-nixos-tuxedo = nixosSystem [
+            ./system/jb-nixos-tuxedo/configuration.nix
+          ];
 
-          jb-nixos-qemu = lib.nixosSystem {
-            inherit system;
-            modules = [ ./system/jb-nixos-qemu/configuration.nix ];
-          }; 
+          jb-nixos-qemu = nixosSystem [
+            ./system/jb-nixos-qemu/configuration.nix 
+          ];
 
-          jb-nixos-live = lib.nixosSystem {
-            inherit system pkgs;
-            modules = [
-              ./system/jb-nixos-live/configuration.nix
-              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-              home-manager.nixosModules.home-manager
+          jb-nixos-live = nixosSystem [
+            ./system/jb-nixos-live/configuration.nix
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+            home-manager.nixosModules.home-manager
 
-              ({ config, pkgs, ... }: {
-                home-manager.users.nixos = {
-                  fonts.fontconfig.enable = lib.mkForce true; # Specified as false somewhere in installation-cd-base
+            ({ config, pkgs, ... }: {
+              home-manager.users.nixos = {
+                fonts.fontconfig.enable = lib.mkForce true; # Specified as false somewhere in installation-cd-base
 
-                  imports = [
-                    ./users/jonas/home.nix
-                  ];
+                imports = [
+                  ./users/nixos/home.nix
+                ];
 
-                  home.stateVersion = stateVersion;
-                  home.username = "nixos";
-                  home.homeDirectory = "/home/nixos";
-                };
+                home.stateVersion = stateVersion;
+                home.username = "nixos";
+                home.homeDirectory = "/home/nixos";
+              };
 
-                home-manager.useGlobalPkgs = true;
+              home-manager.useGlobalPkgs = true;
 
-                home-manager.extraSpecialArgs = {
-                  isMBP = false;
-                };
+              home-manager.extraSpecialArgs = {
+                isMBP = false;
+              };
 
-                users.users.nixos.shell = pkgs.zsh;
-              })
-            ];
-          };
+              users.users.nixos.shell = pkgs.zsh;
+            })
+          ];
         }; 
 
         homeManagerConfigurations = {

@@ -5,6 +5,11 @@ in
 {
   programs.home-manager.enable = true;
 
+  home.sessionPath = [ "$HOME/.local/bin" ];
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
+
   home.file.".local/bin/home-manager-quickcheck".source = ./shell/home-manager-quickcheck.sh;
   home.file.".local/bin/nix-search".source = ./shell/nix-search.sh;
 
@@ -18,6 +23,7 @@ in
     neofetch
 
     nix-tree
+    jq # required by nix-search
 
     (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
     imv
