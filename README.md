@@ -29,6 +29,9 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 # ToDo
 
+- [ ] Fix nix-search for flakes (shows outdated results as it is)
+- [ ] Add home-manager and nixos-options to nix-search
+
 ## General
 
 - [ ] newm-sidecar
