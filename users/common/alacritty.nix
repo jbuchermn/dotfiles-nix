@@ -22,7 +22,8 @@ font:
         style: Bold Italic
     size: 8
 
-window.opacity: 0.95
+window:
+    opacity: 0.95
 
 # macOS makes this necessary
 alt_send_esc: false
