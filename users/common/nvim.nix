@@ -65,11 +65,11 @@ in
       (nvim-treesitter.withPlugins (
           # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
           plugins: with plugins; [
-            tree-sitter-python
+            # tree-sitter-python  # Broken atm
             tree-sitter-c
             tree-sitter-cpp
             tree-sitter-bash
-            tree-sitter-org
+            tree-sitter-org-nvim
             tree-sitter-nix
           ]
         ))

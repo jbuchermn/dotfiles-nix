@@ -52,15 +52,15 @@ pywm = {
     'texture_shaders': 'basic'
 }
 
-def should_float(view):
+def rules(view):
     if view.app_id == "catapult":
-        return True, None, (0.5, 0.25)
+        return { 'float': True, 'float_pos': (0.5, 0.25) }
     if view.app_id == "pavucontrol":
-        return True, (340, 600), (0.15, 0.4)
-    # if view.app_id == "rofi":
-    #     return True, (800, 800), (0.5, 0.5)
+        return { 'float': True, 'float_size': (340, 600), 'float_pos': (0.15, 0.4) }
     if view.title is not None and view.title.strip() == "Firefox — Sharing Indicator":
-        return True, (100, 40), (0.5, 0.1)
+        return { 'float': True, 'float_size': (100, 40), 'float_pos': (0.5, 0.1) }
+    if view.app_id == "Alacritty":
+        return { 'blur': { 'radius': 5, 'passes': 3}}
     return None
 
 view = {
@@ -68,7 +68,7 @@ view = {
     'fullscreen_padding': 0,
     'send_fullscreen': False,
 
-    'should_float': should_float,
+    'rules': rules,
     'floating_min_size': False,
 
     'debug_scaling': True,

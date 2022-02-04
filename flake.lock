@@ -67,11 +67,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1643579427,
-        "narHash": "sha256-tV4M4+Aqd/3ZjEz1Q07j89KIlkt1oFH34RzpBkUeO/0=",
+        "lastModified": 1643933104,
+        "narHash": "sha256-NZPuFxRsZKN8pjRuHPpzlMyt6JQhcjiduBG8bMghSjE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a52aed72c84a2a10102a92397339fa01fc0fe9cf",
+        "rev": "63dccc4e60422c1db2c3929b2fd1541f36b7e664",
         "type": "github"
       },
       "original": {
@@ -90,11 +90,11 @@
         "pywmpkg": "pywmpkg"
       },
       "locked": {
-        "lastModified": 1643741664,
-        "narHash": "sha256-QwdVdrSNYkqg+sFciLV/dorSNZi6DjhYa80B38bkgj4=",
+        "lastModified": 1643985074,
+        "narHash": "sha256-WRxf9By9HTTfRhvm91nRHej+sAkjFFSoa6CTXFnzdeM=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "16813d0ad1c64ac8e58b00f0cc1496f0b6622586",
+        "rev": "eeeaa96d429e77cdc1a18f06008aff44e3cbbbdd",
         "type": "github"
       },
       "original": {
@@ -106,43 +106,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1643524588,
-        "narHash": "sha256-Qh5AazxdOQRORbGkkvpKoovDl6ej/4PhDabFsqnueqw=",
+        "lastModified": 1643805626,
+        "narHash": "sha256-AXLDVMG+UaAGsGSpOtQHPIKB+IZ0KSd9WS77aanGzgc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "efeefb2af1469a5d1f0ae7ca8f0dfd9bb87d5cfb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1643524588,
-        "narHash": "sha256-Qh5AazxdOQRORbGkkvpKoovDl6ej/4PhDabFsqnueqw=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "efeefb2af1469a5d1f0ae7ca8f0dfd9bb87d5cfb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1643524588,
-        "narHash": "sha256-Qh5AazxdOQRORbGkkvpKoovDl6ej/4PhDabFsqnueqw=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "efeefb2af1469a5d1f0ae7ca8f0dfd9bb87d5cfb",
+        "rev": "554d2d8aa25b6e583575459c297ec23750adb6cb",
         "type": "github"
       },
       "original": {
@@ -154,11 +122,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1643729771,
-        "narHash": "sha256-z8RWoKB4+2hJgOcYH7bfC6UCFurikM3xen+qetl9PD8=",
+        "lastModified": 1643980081,
+        "narHash": "sha256-in5mlBeeD33G+YNhRyEMTMeWDmMpDSuMhzEa9FTktPA=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "dfef00db1637f160dd34a46d8d0a2f3f0d8c6ba7",
+        "rev": "ab80961d0f6c9794fd38230762a2d7a5ef788362",
         "type": "github"
       },
       "original": {
@@ -170,7 +138,10 @@
     "pywm": {
       "inputs": {
         "flake-utils": "flake-utils_4",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": [
+          "pywm-fullscreenpkg",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1643741560,
@@ -212,14 +183,17 @@
     "pywmpkg": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "newmpkg",
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1643741560,
-        "narHash": "sha256-ZWyfHPuFYS/63DlM3O2P6TEV+4WvxOqkn7rqtF0T3GA=",
+        "lastModified": 1643984905,
+        "narHash": "sha256-StnNed/JVFloli8dbv7ERezqK6o5+NBdjhxHzG/A/qU=",
         "owner": "jbuchermn",
         "repo": "pywm",
-        "rev": "ef4a650d7b67a51673f9a428a764c1641edfbef9",
+        "rev": "6432006544ac3f784b03d9fc1a98d7ff921ef049",
         "type": "github"
       },
       "original": {
@@ -233,7 +207,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "newmpkg": "newmpkg",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nur": "nur",
         "pywm-fullscreenpkg": "pywm-fullscreenpkg"
       }

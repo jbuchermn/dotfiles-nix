@@ -23,7 +23,7 @@ font:
     size: 8
 
 window:
-    opacity: 0.95
+    opacity: 0.8
 
 # macOS makes this necessary
 alt_send_esc: false
