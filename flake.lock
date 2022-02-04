@@ -90,11 +90,11 @@
         "pywmpkg": "pywmpkg"
       },
       "locked": {
-        "lastModified": 1643985074,
-        "narHash": "sha256-WRxf9By9HTTfRhvm91nRHej+sAkjFFSoa6CTXFnzdeM=",
+        "lastModified": 1644001491,
+        "narHash": "sha256-YE/FWAYx7XiCwX71mcnX/V0uuy1R6bm8X7Qzi4slB+Y=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "eeeaa96d429e77cdc1a18f06008aff44e3cbbbdd",
+        "rev": "49db430f6c354c17b17049515e81d3436db23111",
         "type": "github"
       },
       "original": {
@@ -189,11 +189,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1643984905,
-        "narHash": "sha256-StnNed/JVFloli8dbv7ERezqK6o5+NBdjhxHzG/A/qU=",
+        "lastModified": 1644001463,
+        "narHash": "sha256-6wBTFMnUa8uWVrI0yiVIl9aMDO3W5q4q40hJ3kzbMRw=",
         "owner": "jbuchermn",
         "repo": "pywm",
-        "rev": "6432006544ac3f784b03d9fc1a98d7ff921ef049",
+        "rev": "5f4903ab4c37fd9128c124cae0c3d9ecf9a37c1f",
         "type": "github"
       },
       "original": {
