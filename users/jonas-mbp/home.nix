@@ -24,6 +24,7 @@ in
     ../common/zsh.nix
     ../common/alacritty.nix
     ../common/nvim.nix
+    ../common/nix.nix
   ];
 
   home.packages = with pkgs; [
