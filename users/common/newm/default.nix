@@ -33,6 +33,14 @@ in
     }
   '';
 
+  xdg.configFile."mako/config".text = ''
+    layer=overlay
+    background-color=#0D2D2A
+    default-timeout=5000
+    border-size=0
+    border-radius=12
+  '';
+
   xdg.configFile."waybar/config".source = ./waybar/config;
   xdg.configFile."waybar/style.css".source = ./waybar/style.css;
   xdg.configFile."rofi/config.rasi".source = ./rofi.rasi;
