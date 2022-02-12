@@ -21,9 +21,10 @@ in
     zip
     tree
     neofetch
+    btop
 
     nix-tree
-    jq # required by nix-search
+    jq fzf # required by nix-search
 
     (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
     imv
