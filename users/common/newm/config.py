@@ -68,6 +68,7 @@ view = {
     'padding': 8,
     'fullscreen_padding': 0,
     'send_fullscreen': False,
+    'accept_fullscreen': False,
 
     'rules': rules,
     'floating_min_size': False,

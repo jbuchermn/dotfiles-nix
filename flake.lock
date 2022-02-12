@@ -90,11 +90,11 @@
         "pywmpkg": "pywmpkg"
       },
       "locked": {
-        "lastModified": 1644001491,
-        "narHash": "sha256-YE/FWAYx7XiCwX71mcnX/V0uuy1R6bm8X7Qzi4slB+Y=",
+        "lastModified": 1644676737,
+        "narHash": "sha256-ivt20HNy9qmkMW+QpC+jj/ztK1+Ygw+drhSCjUPFNCI=",
         "owner": "jbuchermn",
         "repo": "newm",
-        "rev": "49db430f6c354c17b17049515e81d3436db23111",
+        "rev": "43b1c45422df5530770e334a02bbcfb423a99d03",
         "type": "github"
       },
       "original": {
@@ -122,11 +122,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1643980081,
-        "narHash": "sha256-in5mlBeeD33G+YNhRyEMTMeWDmMpDSuMhzEa9FTktPA=",
+        "lastModified": 1644091330,
+        "narHash": "sha256-KmHOVgfsfmXNcM1jRNkvFtzLDrET5hrGlJQBzV9oXh8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "ab80961d0f6c9794fd38230762a2d7a5ef788362",
+        "rev": "4c42e300ce2862de5952b1000d89b7cdd11a2ffe",
         "type": "github"
       },
       "original": {
@@ -189,11 +189,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1644001463,
-        "narHash": "sha256-6wBTFMnUa8uWVrI0yiVIl9aMDO3W5q4q40hJ3kzbMRw=",
+        "lastModified": 1644676005,
+        "narHash": "sha256-ur9hoAGXALQEwwcczl7SqmtZcebVzMlPPSz0qZaezCM=",
         "owner": "jbuchermn",
         "repo": "pywm",
-        "rev": "5f4903ab4c37fd9128c124cae0c3d9ecf9a37c1f",
+        "rev": "08d3f668ffa0dedc5f3822d42602c4814379ac18",
         "type": "github"
       },
       "original": {
