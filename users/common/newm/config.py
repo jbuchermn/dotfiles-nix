@@ -20,7 +20,6 @@ from newm.helper import BacklightManager, WobRunner, PaCtl
 
 def on_startup():
     os.system("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots")
-    os.system("waybar &")
 
 def on_reconfigure():
     os.system("notify-send newm \"Reloaded config\" &")
@@ -61,6 +60,8 @@ def rules(view):
     if view.title is not None and view.title.strip() == "Firefox — Sharing Indicator":
         return { 'float': True, 'float_size': (100, 40), 'float_pos': (0.5, 0.1) }
     if view.app_id == "Alacritty":
+        return { 'blur': { 'radius': 5, 'passes': 3}}
+    if view.app_id == "waybar":
         return { 'blur': { 'radius': 5, 'passes': 3}}
     return None
 
@@ -186,7 +187,11 @@ panels = {
         'h': 0.6,
         'corner_radius': 50,
     },
-    'notifiers': {
+    'bar': {
+        'cmd': 'waybar'
+    },
+    'top_bar': {
+        'permanent': 24
     }
 }
 
