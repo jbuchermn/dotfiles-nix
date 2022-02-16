@@ -23,7 +23,7 @@ in
 
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
-      pylsp-mypy
+      (pylsp-mypy.overrideAttrs (old: { pytestCheckPhase = "true"; }))
       mypy
     ]);
 
@@ -43,7 +43,6 @@ in
 
       orgmode
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
-
 
       nerdtree
       tcomment_vim
@@ -66,7 +65,7 @@ in
 
       (nvim-treesitter.withPlugins (
           plugins: with plugins; [
-            # tree-sitter-python  # still broken
+            tree-sitter-python
             tree-sitter-c
             tree-sitter-cpp
             tree-sitter-bash
