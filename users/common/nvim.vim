@@ -232,6 +232,14 @@ nvim_lsp.pylsp.setup {
     capabilities = nvim_cmp_capabilities
 }
 
+nvim_lsp.hls.setup {
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    capabilities = nvim_cmp_capabilities
+}
+
 EOF
 
 lua << EOF

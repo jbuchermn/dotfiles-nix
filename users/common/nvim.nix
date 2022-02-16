@@ -31,6 +31,8 @@ in
       ccls
       ripgrep
 
+      haskell-language-server
+
       nodePackages.typescript nodePackages.typescript-language-server
 
       gcc # Necessary to compile tree-sitter plugins
@@ -63,14 +65,14 @@ in
       cmp-vsnip
 
       (nvim-treesitter.withPlugins (
-          # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/development/tools/parsing/tree-sitter/grammars
           plugins: with plugins; [
-            # tree-sitter-python  # Broken atm
+            # tree-sitter-python  # still broken
             tree-sitter-c
             tree-sitter-cpp
             tree-sitter-bash
             tree-sitter-org-nvim
             tree-sitter-nix
+            tree-sitter-haskell
           ]
         ))
 
