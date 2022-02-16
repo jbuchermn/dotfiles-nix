@@ -299,6 +299,8 @@ nnoremap <silent> <leader>gg :Neogit<CR>
 
 lua << EOF
 -- tree-sitter
+
+-- hack as tree-sitter-org-nvim is broken
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.org = {
   install_info = {

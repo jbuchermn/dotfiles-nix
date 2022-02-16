@@ -59,6 +59,8 @@ in
     slurp
 
     gnome.nautilus
+
+    sway
   ] else [];
 
   home.sessionVariables = if isVirtual then {
