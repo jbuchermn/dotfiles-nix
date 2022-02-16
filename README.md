@@ -5,7 +5,7 @@ Follow NixOS manual, be sure to setup
 - Hostname
 - User and password
 - `nix flake`
-- `vim`
+- `(n)vim`
 - `git`
 
 on first setup. Then clone this repo and
@@ -38,7 +38,7 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 - [ ] gsync
 - [ ] macho
 
-## ViM
+## (n)ViM
 
 - [x] Jumping around when errors appear and disappear
 - [x] Autocomplete
