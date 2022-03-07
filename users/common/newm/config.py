@@ -4,9 +4,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 from pywm import (
-    PYWM_MOD_LOGO,
-    PYWM_MOD_ALT,
-
     PYWM_TRANSFORM_90,
     PYWM_TRANSFORM_180,
     PYWM_TRANSFORM_270,
@@ -84,7 +81,7 @@ swipe_zoom = {
 }
 
 
-mod = PYWM_MOD_LOGO
+mod = "PLACEHOLDER_mod"
 background = {
     'path': os.environ['HOME'] + '/wallpaper.jpg',
     'time_scale': 0.125,
@@ -104,42 +101,41 @@ def synchronous_update() -> None:
 pactl = PaCtl(0, wob_runner)
 
 key_bindings = lambda layout: [
-    ("M-h", lambda: layout.move(-1, 0)),
-    ("M-j", lambda: layout.move(0, 1)),
-    ("M-k", lambda: layout.move(0, -1)),
-    ("M-l", lambda: layout.move(1, 0)),
-    ("M-t", lambda: layout.move_in_stack(1)),
+    (mod+"-h", lambda: layout.move(-1, 0)),
+    (mod+"-j", lambda: layout.move(0, 1)),
+    (mod+"-k", lambda: layout.move(0, -1)),
+    (mod+"-l", lambda: layout.move(1, 0)),
+    (mod+"-t", lambda: layout.move_in_stack(1)),
 
-    ("M-H", lambda: layout.move_focused_view(-1, 0)),
-    ("M-J", lambda: layout.move_focused_view(0, 1)),
-    ("M-K", lambda: layout.move_focused_view(0, -1)),
-    ("M-L", lambda: layout.move_focused_view(1, 0)),
+    (mod+"-H", lambda: layout.move_focused_view(-1, 0)),
+    (mod+"-J", lambda: layout.move_focused_view(0, 1)),
+    (mod+"-K", lambda: layout.move_focused_view(0, -1)),
+    (mod+"-L", lambda: layout.move_focused_view(1, 0)),
 
-    ("M-C-h", lambda: layout.resize_focused_view(-1, 0)),
-    ("M-C-j", lambda: layout.resize_focused_view(0, 1)),
-    ("M-C-k", lambda: layout.resize_focused_view(0, -1)),
-    ("M-C-l", lambda: layout.resize_focused_view(1, 0)),
+    (mod+"-C-h", lambda: layout.resize_focused_view(-1, 0)),
+    (mod+"-C-j", lambda: layout.resize_focused_view(0, 1)),
+    (mod+"-C-k", lambda: layout.resize_focused_view(0, -1)),
+    (mod+"-C-l", lambda: layout.resize_focused_view(1, 0)),
 
-    ("M-v", lambda: layout.toggle_focused_view_floating()),
-    ("M-w", lambda: layout.change_focused_view_workspace()),
-    ("M-W", lambda: layout.move_workspace()),
-    ("M-S", lambda: os.system("grim -g \"$(slurp)\" &")),
+    (mod+"-v", lambda: layout.toggle_focused_view_floating()),
+    (mod+"-w", lambda: layout.change_focused_view_workspace()),
+    (mod+"-W", lambda: layout.move_workspace()),
+    (mod+"-S", lambda: os.system("grim -g \"$(slurp)\" &")),
 
-    ("M-Return", lambda: os.system("alacritty &")),
-    ("M-e", lambda: os.system("emacsclient -c -a \"emacs\" &")),
-    ("M-c", lambda: os.system("chromium --enable-features=UseOzonePlatform --ozone-platform=wayland &")),
-    ("M-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
-    ("M-q", lambda: layout.close_view()),
+    (mod+"-Return", lambda: os.system("alacritty &")),
+    (mod+"-e", lambda: os.system("emacsclient -c -a \"emacs\" &")),
+    (mod+"-c", lambda: os.system("chromium --enable-features=UseOzonePlatform --ozone-platform=wayland &")),
+    (mod+"-m", lambda: os.system("bash /$HOME/.shell/macho-gui.sh &")),
+    (mod+"-q", lambda: layout.close_view()),
 
-    ("M-p", lambda: layout.ensure_locked(dim=True)),
-    ("M-P", lambda: layout.terminate()),
-    ("M-C", lambda: layout.update_config()),
+    (mod+"-p", lambda: layout.ensure_locked(dim=True)),
+    (mod+"-P", lambda: layout.terminate()),
+    (mod+"-C", lambda: layout.update_config()),
 
-    # ("M-r", lambda: os.system("catapult &")),
-    ("M-r", lambda: os.system("rofi -show run &")),
-    ("M-f", lambda: layout.toggle_fullscreen()),
+    (mod+"-r", lambda: os.system("rofi -show run &")),
+    (mod+"-f", lambda: layout.toggle_fullscreen()),
 
-    ("ModPress", lambda: layout.toggle_overview(only_active_workspace=False)),
+    (mod+"-", lambda: layout.toggle_overview(only_active_workspace=False)),
 
     ("XF86MonBrightnessUp", lambda: backlight_manager.set(backlight_manager.get() + 0.1)),
     ("XF86MonBrightnessDown", lambda: backlight_manager.set(backlight_manager.get() - 0.1)),
@@ -155,7 +151,7 @@ key_bindings = lambda layout: [
     ("XF86AudioPlay", lambda: None),
     ("XF86AudioNext", lambda: None),
 
-    ("M-z", lambda: layout.swallow_focused_view()),
+    (mod+"-z", lambda: layout.swallow_focused_view()),
 ]
 
 bar = {

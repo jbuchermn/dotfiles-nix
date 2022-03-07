@@ -32,6 +32,7 @@ in
       ripgrep
 
       haskell-language-server
+      stylish-haskell
 
       nodePackages.typescript nodePackages.typescript-language-server
 
@@ -78,6 +79,7 @@ in
       FTerm-nvim
 
       vim-nix
+      stylish-haskell
     ]);
   };
 

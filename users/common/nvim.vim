@@ -14,6 +14,9 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType typescriptreact setloca ts=2 sts=2 sw=2
+autocmd FileType haskell setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
 
 set expandtab
 set smarttab
@@ -125,7 +128,7 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },

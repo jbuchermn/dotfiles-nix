@@ -8,7 +8,7 @@ let
     ["PLACEHOLDER_xkb_model" "PLACEHOLDER_mod" "PLACEHOLDER_c_gestures" "PLACEHOLDER_pyevdev_gestures"]
     [
       (if isMBP then "macintosh" else "de-latin1")
-      (if isVirtual then "PYWM_MOD_ALT" else "PYWM_MOD_LOGO")
+      (if isVirtual then "A" else "L")
       (if isMBP then "{'enabled': False}" else "{'enabled': True, 'scale_px': 800.}")
       (if isMBP then "{'enabled': True}" else "{'enabled': False}")
     ]
