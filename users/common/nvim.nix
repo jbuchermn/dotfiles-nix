@@ -70,7 +70,6 @@ in
             tree-sitter-c
             tree-sitter-cpp
             tree-sitter-bash
-            # tree-sitter-org-nvim  # currently broken
             tree-sitter-nix
             tree-sitter-haskell
           ]

@@ -45,9 +45,9 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 - [x] Autocomplete
 - [ ] Bar at bottom
 - [ ] vsnips
+- [ ] Tree-sitter grammar for org requires `:TSUpdate` - not nice
 
 
 ## Temporary hacks fixing nixos-unstable bugs
 
 - pylsp-mypy: pytestCheckPhase disabled
-- tree-sitter-org-nvim is broken

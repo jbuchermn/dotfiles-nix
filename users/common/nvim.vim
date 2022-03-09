@@ -319,11 +319,11 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     additional_vim_regex_highlighting = {'org'},
   },
-  ensure_installed = {'org'},
 }
 
 -- orgmode
 require('orgmode').setup {}
+require('orgmode').setup_ts_grammar()
 require("org-bullets").setup {
   symbols = { "◉", "○", "✸", "✿" }
 }
