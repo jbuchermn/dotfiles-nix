@@ -21,6 +21,5 @@
   ];
 
   home.packages = with pkgs; [
-    aerc
   ];
 }

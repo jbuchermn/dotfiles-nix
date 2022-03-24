@@ -43,6 +43,8 @@
     pass
 
     pulseaudio # pactl
+
+    openvpn
   ];
 
   programs.zsh.enable = true;

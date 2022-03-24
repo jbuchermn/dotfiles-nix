@@ -37,10 +37,13 @@ in
       nodePackages.typescript nodePackages.typescript-language-server
 
       gcc # Necessary to compile tree-sitter plugins
+
+      wl-clipboard
     ];
 
     plugins = (with pkgs.vimPlugins; [
       neon
+      vim-wayland-clipboard
 
       orgmode
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")

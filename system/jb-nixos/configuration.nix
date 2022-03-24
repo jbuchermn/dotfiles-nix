@@ -42,5 +42,9 @@
     brightnessctl
   ];
 
+  # VirtualBox
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "jonas" ];
+
 }
 
