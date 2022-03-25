@@ -154,10 +154,6 @@ key_bindings = lambda layout: [
     (mod+"-z", lambda: layout.swallow_focused_view()),
 ]
 
-bar = {
-    'enabled': False,
-}
-
 gestures = {
     'lp_freq': 120.,
     'lp_inertia': 0.4,
@@ -186,9 +182,6 @@ panels = {
     'bar': {
         'cmd': 'waybar'
     },
-    'top_bar': {
-        'permanent': 24
-    }
 }
 
 grid = {
