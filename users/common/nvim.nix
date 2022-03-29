@@ -31,15 +31,16 @@ in
       ccls
       ripgrep
 
-      haskell-language-server
+      (haskell-language-server.override { supportedGhcVersions = [ "8107" ]; })
       stylish-haskell
 
       nodePackages.typescript nodePackages.typescript-language-server
 
       gcc # Necessary to compile tree-sitter plugins
 
+    ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
-    ];
+    ] else []);
 
     plugins = (with pkgs.vimPlugins; [
       neon

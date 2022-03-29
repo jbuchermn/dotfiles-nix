@@ -14,19 +14,22 @@ in
   home.file.".local/bin/nix-search".source = ./shell/nix-search.sh;
 
   fonts.fontconfig.enable = true;
-  home.packages = if providePkgs then with pkgs; [
-    powerstat
-    rsync
+
+  # Basic
+  home.packages = with pkgs; [
+    neofetch
     unzip
     zip
     tree
-    neofetch
-    btop
+    rsync
 
     nix-tree
     jq fzf # required by nix-search
 
-    (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+  ] ++ (if providePkgs then with pkgs; [
+    powerstat
+    btop
+
     imv
     mpv
 
@@ -36,5 +39,5 @@ in
     chromium
     libreoffice
     spotify
-  ] else [];
+  ] else []);
 }

@@ -1,5 +1,7 @@
-{ config, pkgs, ... }:
-
+input@{ config, pkgs, ... }:
+let
+  providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
+in
 {
   programs.zsh = {
     enable = true;
@@ -29,6 +31,7 @@
     initExtra = ''
       gcgh(){ git clone https://github.com/"$@" };
 
+      eval "$(starship init zsh)"
       neofetch
     '';
 
@@ -55,9 +58,9 @@
     enableZshIntegration = true;
   };
 
-  programs.starship = {
+  programs.starship = if providePkgs then {
     enable = true;
-    enableZshIntegration = true;
-  };
+  } else {};
+
   xdg.configFile."starship/starship.toml".source = ./starship.toml;
 }

@@ -174,6 +174,23 @@
             };
           };
 
+          jonas-mba = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs system stateVersion;
+
+            username = "jonas";
+            homeDirectory = "/Users/jonas";
+
+            configuration = {
+              imports = [
+                ./users/jonas-mba/home.nix
+              ];
+            };
+
+            extraSpecialArgs = {
+              providePkgs = false;
+            };
+          };
+
           jonas = home-manager.lib.homeManagerConfiguration {
             inherit system pkgs stateVersion;
 
@@ -192,6 +209,6 @@
           };
         };
       }
-    ) {"x86_64-linux" = 1; "x86_64-darwin" = 1; };
+    ) {"x86_64-linux" = 1; "x86_64-darwin" = 1; "aarch64-darwin" = 1; };
   };
 }

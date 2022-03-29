@@ -6,6 +6,11 @@ in
   programs.alacritty = if providePkgs then {
     enable = true;
   } else {};
+
+  home.packages = [
+    (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+  ];
+
   xdg.configFile."alacritty/alacritty.yml".text = ''
 font:
     normal:
