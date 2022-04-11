@@ -28,23 +28,28 @@ in
     ]);
 
     extraPackages = with pkgs; [
-      ccls
       ripgrep
+      gcc # Necessary to compile tree-sitter plugins
+
+      # Language-servers and utilities
+      ccls
 
       (haskell-language-server.override { supportedGhcVersions = [ "8107" ]; })
       stylish-haskell
 
       nodePackages.typescript nodePackages.typescript-language-server
 
-      gcc # Necessary to compile tree-sitter plugins
+      nodePackages.purescript-language-server
 
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
+
+      # Language-servers and utilities
+      dart  # Install via brew on macOS
     ] else []);
 
     plugins = (with pkgs.vimPlugins; [
       neon
-      vim-wayland-clipboard
 
       orgmode
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
@@ -76,14 +81,20 @@ in
             tree-sitter-bash
             tree-sitter-nix
             tree-sitter-haskell
+            tree-sitter-dart
           ]
         ))
 
       FTerm-nvim
 
+      # Language-specific plugins
       vim-nix
       stylish-haskell
-    ]);
+      purescript-vim
+
+    ] ++ (if pkgs.stdenv.isLinux then with pkgs.vimPlugins; [
+      vim-wayland-clipboard
+    ] else []));
   };
 
   home.file.".local/bin/pylsp_wrapped".text = ''
