@@ -7,7 +7,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    newmpkg.url = "github:jbuchermn/newm/v0.3";
+    newmpkg.url = "github:jbuchermn/newm";
     newmpkg.inputs.nixpkgs.follows = "nixpkgs";
 
     pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
