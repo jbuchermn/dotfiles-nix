@@ -46,7 +46,7 @@ pywm = {
     'natural_scroll': True,
 
     'texture_shaders': 'basic',
-    'renderer_mode': 'indirect'
+    'renderer_mode': 'pywm'
 }
 
 def rules(view):
