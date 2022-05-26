@@ -119,6 +119,38 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1653407748,
+        "narHash": "sha256-g9puJaILRTb9ttlLQ7IehpV7Wcy0n+vs8LOFu6ylQcM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5ce6597eca7d7b518c03ecda57d45f9404b5e060",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1653407748,
+        "narHash": "sha256-g9puJaILRTb9ttlLQ7IehpV7Wcy0n+vs8LOFu6ylQcM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5ce6597eca7d7b518c03ecda57d45f9404b5e060",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1653538104,
@@ -137,10 +169,7 @@
     "pywm": {
       "inputs": {
         "flake-utils": "flake-utils_4",
-        "nixpkgs": [
-          "pywm-fullscreenpkg",
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1652256791,
@@ -181,10 +210,7 @@
     "pywmpkg": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "newmpkg",
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1652256791,
@@ -204,7 +230,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "newmpkg": "newmpkg",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "pywm-fullscreenpkg": "pywm-fullscreenpkg"
       }
