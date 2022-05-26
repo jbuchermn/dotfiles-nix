@@ -1,15 +1,16 @@
 input@{ config, pkgs, ... }:
 let
   providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
+  provideFont = if builtins.hasAttr "provideFont" input then input.provideFont else true;
 in
 {
   programs.alacritty = if providePkgs then {
     enable = true;
   } else {};
 
-  home.packages = [
+  home.packages = if provideFont then [
     (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
-  ];
+  ] else [];
 
   xdg.configFile."alacritty/alacritty.yml".text = ''
 font:

@@ -171,6 +171,7 @@
             extraSpecialArgs = {
               isWork = true;
               providePkgs = false;
+              provideFont = false; # Some weird home-manager bug
             };
           };
 
