@@ -17,6 +17,8 @@ autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 autocmd FileType typescriptreact setloca ts=2 sts=2 sw=2
 autocmd FileType haskell setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
+autocmd FileType scss setlocal ts=2 sts=2 sw=2
+autocmd FileType purescript setlocal ts=2 sts=2 sw=2
 
 set expandtab
 set smarttab

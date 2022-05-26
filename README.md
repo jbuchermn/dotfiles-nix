@@ -35,7 +35,7 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 ## General
 
 - [ ] newm-sidecar
-- [ ] gsync
+- [X] gsync
 - [ ] macho
 - [ ] vaapi
 
