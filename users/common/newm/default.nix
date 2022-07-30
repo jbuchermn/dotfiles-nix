@@ -49,7 +49,7 @@ in
     newm
     waybar
     wob
-    nur.repos.kira-bruneau.rofi-wayland
+    rofi-wayland
     mako
     libnotify
 

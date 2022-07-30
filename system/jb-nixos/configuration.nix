@@ -37,9 +37,12 @@
   # MBP Webcam
   hardware.facetimehd.enable = true;
 
-  # MBP Backlights
   environment.systemPackages = with pkgs; [
+    # MBP Backlights
     brightnessctl
+
+    # MBP Card Reader
+    udisks2
   ];
 
   # VirtualBox
