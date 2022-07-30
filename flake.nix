@@ -110,7 +110,7 @@
         };
 
         jonas-nixos-tuxedo = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.${system};
+          inherit pkgs;
 
           modules = [
             ./users/jonas/home.nix
@@ -130,7 +130,7 @@
         };
 
         jonas-nixos-virtual = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.${system};
+          inherit pkgs;
 
           modules = [
             ./users/jonas/home.nix
@@ -150,7 +150,7 @@
         };
 
         jonas-mbp = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.${system};
+          inherit pkgs;
 
           modules = [
             ./users/jonas-mbp/home.nix
@@ -171,7 +171,7 @@
         };
 
         jonasmhp-mbp = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.${system};
+          inherit pkgs;
 
           modules = [
             ./users/jonas-mbp/home.nix
@@ -193,7 +193,7 @@
         };
 
         jonas-mba = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.${system};
+          inherit pkgs;
 
           modules = [
             ./users/jonas-mba/home.nix
@@ -213,7 +213,7 @@
         };
 
         jonas = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.${system};
+          inherit pkgs;
 
           modules = [
             ./users/jonas/home.nix
