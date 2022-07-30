@@ -29,8 +29,9 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 # ToDo
 
-- [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
+- [ ] Ensure `nix shell` and setting up a flake initially uses the systems nixpkgs
 - [ ] Add home-manager and nixos-options to nix-search
+- [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
 
 ## General
 

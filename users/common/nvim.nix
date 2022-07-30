@@ -23,7 +23,7 @@ in
 
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
-      (pylsp-mypy.overrideAttrs (old: { pytestCheckPhase = "true"; }))
+      pylsp-mypy
       mypy
     ]);
 
@@ -34,7 +34,7 @@ in
       # Language-servers and utilities
       ccls
 
-      (haskell-language-server.override { supportedGhcVersions = [ "8107" ]; })
+      (haskell-language-server.override { supportedGhcVersions = [ "902" ]; })
       stylish-haskell
 
       nodePackages.typescript nodePackages.typescript-language-server
