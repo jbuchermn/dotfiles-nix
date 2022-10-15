@@ -51,4 +51,4 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 ## Temporary hacks fixing nixos-unstable bugs
 
-- pylsp-mypy: pytestCheckPhase disabled
+None atm
