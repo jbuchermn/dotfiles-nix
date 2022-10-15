@@ -38,13 +38,30 @@
 
       lib = nixpkgs.lib;
 
-      nixosSystem = _modules: lib.nixosSystem {
+      nixosSystem = modules: lib.nixosSystem {
           inherit system pkgs;
           modules = [ 
             ({ config, pkgs, ... }: {
               nix.registry.nixpkgs.flake = nixpkgs;
             })
-          ] ++ _modules;
+          ] ++ modules;
+      };
+
+      homeManagerConfiguration = { modules, username, homeDirectory, extraSpecialArgs ? {} }: home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          {
+            nix.registry.nixpkgs.flake = nixpkgs;
+          }
+          {
+            home = {
+              inherit username homeDirectory stateVersion;
+            };
+          }
+        ] ++ modules;
+
+        inherit extraSpecialArgs;
       };
     in
     {
@@ -94,75 +111,48 @@
       }; 
 
       packages.homeManagerConfigurations = {
-        jonas-nixos = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonas-nixos = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/home/jonas";
 
           modules = [
             ./users/jonas/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/home/jonas";
-                stateVersion = stateVersion;
-              };
-            }
           ];
         };
 
-        jonas-nixos-tuxedo = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonas-nixos-tuxedo = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/home/jonas";
 
           modules = [
             ./users/jonas/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/home/jonas";
-                stateVersion = stateVersion;
-              };
-            }
           ];
-
 
           extraSpecialArgs = {
             isMBP = false;
           };
         };
 
-        jonas-nixos-virtual = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonas-nixos-virtual = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/home/jonas";
 
           modules = [
             ./users/jonas/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/home/jonas";
-                stateVersion = stateVersion;
-              };
-            }
           ];
-
 
           extraSpecialArgs = {
             isVirtual = true;
           };
         };
 
-        jonas-mbp = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonas-mbp = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/Users/jonas";
 
           modules = [
             ./users/jonas-mbp/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/Users/jonas";
-                stateVersion = stateVersion;
-              };
-            }
           ];
-
 
           extraSpecialArgs = {
             providePkgs = false;
@@ -170,20 +160,13 @@
           };
         };
 
-        jonasmhp-mbp = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonasmhp-mbp = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/Users/jonasmhp";
 
           modules = [
             ./users/jonas-mbp/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/Users/jonasmhp";
-                stateVersion = stateVersion;
-              };
-            }
           ];
-
 
           extraSpecialArgs = {
             isWork = true;
@@ -192,40 +175,26 @@
           };
         };
 
-        jonas-mba = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonas-mba = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/Users/jonas";
 
           modules = [
             ./users/jonas-mba/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/Users/jonas";
-                stateVersion = stateVersion;
-              };
-            }
           ];
-
 
           extraSpecialArgs = {
             providePkgs = false;
           };
         };
 
-        jonas = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        jonas = homeManagerConfiguration {
+          username = "jonas";
+          homeDirectory = "/home/jonas";
 
           modules = [
             ./users/jonas/home.nix
-            {
-              home = {
-                username = "jonas";
-                homeDirectory = "/home/jonas";
-                stateVersion = stateVersion;
-              };
-            }
           ];
-
 
           extraSpecialArgs = {
             providePkgs = false;
