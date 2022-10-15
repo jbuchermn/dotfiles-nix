@@ -9,7 +9,6 @@
   system.stateVersion = "21.11"; # Did you read the comment?
 
   # Nix
-  nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes 
   '';

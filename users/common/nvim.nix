@@ -82,6 +82,7 @@ in
             tree-sitter-nix
             tree-sitter-haskell
             tree-sitter-dart
+            tree-sitter-org-nvim
           ]
         ))
 
