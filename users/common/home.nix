@@ -13,6 +13,7 @@ in
   home.file.".local/bin/home-manager-quickcheck".source = ./shell/home-manager-quickcheck.sh;
   home.file.".local/bin/nix-search".source = ./shell/nix-search.sh;
   home.file.".local/bin/gsync".source = ./shell/gsync.py;
+  home.file.".local/bin/nix-flake-lock-nixpkgs".source = ./shell/nix-flake-lock-nixpkgs.sh;
 
   fonts.fontconfig.enable = true;
 
