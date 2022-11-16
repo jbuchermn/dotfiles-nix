@@ -29,8 +29,8 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 # ToDo
 
-- [ ] Ensure `nix shell` and setting up a flake initially uses the systems nixpkgs
 - [ ] Add home-manager and nixos-options to nix-search
+- [X] Ensure `nix shell` and setting up a flake initially uses the systems nixpkgs: `nix-flake-lock-nixpkgs`
 - [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
 
 ## General
@@ -51,4 +51,4 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 ## Temporary hacks fixing nixos-unstable bugs
 
-None atm
+- Haskell-Language-Server currently disabled (does not build on ARM)
