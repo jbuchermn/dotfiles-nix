@@ -35,7 +35,8 @@ in
       ccls
 
       # (haskell-language-server.override { supportedGhcVersions = [ "902" ]; })
-      # stylish-haskell
+      haskell-language-server
+      stylish-haskell
 
       nodePackages.typescript nodePackages.typescript-language-server
 
