@@ -34,7 +34,6 @@ in
       # Language-servers and utilities
       ccls
 
-      # (haskell-language-server.override { supportedGhcVersions = [ "902" ]; })
       haskell-language-server
       stylish-haskell
 
@@ -100,9 +99,16 @@ in
   };
 
   home.file.".local/bin/pylsp_wrapped".text = ''
+      #!/usr/bin/env sh
       nix develop --command python3 -m pylsp || (>&2 echo "No valid nix development environment containing pylsp found - defaulting" && nvim-python3 -m pylsp)
     '';
   home.file.".local/bin/pylsp_wrapped".executable = true;
+
+  home.file.".local/bin/hls_wrapped".text = ''
+      #!/usr/bin/env sh
+      nix develop --command haskell-language-server || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server)
+    '';
+  home.file.".local/bin/hls_wrapped".executable = true;
 
   # Prevent errors on first startup (telescope-project e.g.)
   programs.zsh.initExtra = ''
