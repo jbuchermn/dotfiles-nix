@@ -100,13 +100,13 @@ in
 
   home.file.".local/bin/pylsp_wrapped".text = ''
       #!/usr/bin/env sh
-      nix develop --command python3 -m pylsp || (>&2 echo "No valid nix development environment containing pylsp found - defaulting" && nvim-python3 -m pylsp)
+      nix develop --command python3 -m pylsp "$@" || (>&2 echo "No valid nix development environment containing pylsp found - defaulting" && nvim-python3 -m pylsp "$@" )
     '';
   home.file.".local/bin/pylsp_wrapped".executable = true;
 
   home.file.".local/bin/hls_wrapped".text = ''
       #!/usr/bin/env sh
-      nix develop --command haskell-language-server || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server)
+      nix develop --command "haskell-language-server-wrapper --lsp $@" || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server-wrapper --lsp "$@")
     '';
   home.file.".local/bin/hls_wrapped".executable = true;
 
