@@ -41,7 +41,7 @@ if (has("termguicolors"))
 endif
 
 " Theming
-colorscheme tokyonight-moon
+colorscheme OceanicNext
 
 " }}}
 
