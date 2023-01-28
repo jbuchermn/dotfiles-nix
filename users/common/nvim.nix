@@ -41,6 +41,9 @@ in
 
       nodePackages.purescript-language-server
 
+      nodePackages.svelte-language-server
+      nodePackages."@tailwindcss/language-server"
+
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
 
@@ -49,7 +52,7 @@ in
     ] else []);
 
     plugins = (with pkgs.vimPlugins; [
-      neon
+      tokyonight-nvim
 
       orgmode
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
@@ -83,6 +86,9 @@ in
             tree-sitter-haskell
             tree-sitter-dart
             tree-sitter-org-nvim
+            tree-sitter-svelte
+            tree-sitter-javascript
+            tree-sitter-typescript
           ]
         ))
 

@@ -41,8 +41,7 @@ if (has("termguicolors"))
 endif
 
 " Theming
-let g:neon_transparent=1
-colorscheme neon
+colorscheme tokyonight-moon
 
 " }}}
 
@@ -255,6 +254,22 @@ nvim_lsp.dartls.setup {
 }
 
 nvim_lsp.purescriptls.setup {
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    capabilities = nvim_cmp_capabilities
+}
+
+nvim_lsp.svelte.setup {
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    capabilities = nvim_cmp_capabilities
+}
+
+nvim_lsp.tailwindcss.setup {
     on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,
