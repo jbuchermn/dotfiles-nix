@@ -19,10 +19,13 @@ autocmd FileType haskell setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
 autocmd FileType scss setlocal ts=2 sts=2 sw=2
 autocmd FileType purescript setlocal ts=2 sts=2 sw=2
+autocmd FileType typescript setlocal ts=2 sts=2 sw=2
+autocmd FileType svelte setlocal ts=2 sts=2 sw=2
 
 set expandtab
 set smarttab
 
+set filetype
 
 set splitbelow
 set splitright
@@ -110,9 +113,25 @@ let g:tcomment_maps = 0
 nnoremap <silent> <leader>cc :TComment<CR>
 vnoremap <silent> <leader>cc :TComment<CR>
 
-nnoremap <expr> - g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @% == '' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'
+" Bugfix for nvim-tree
+nnoremap - :NvimTreeFindFileToggle!<CR>
 
 lua << EOF
+
+-- nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require("nvim-tree").setup({
+  view = {
+    mappings = {
+      list = {
+        { key = "-", action = "close" },
+      },
+    },
+  },
+})
+
+
 -- nvim-cmp
 local cmp = require('cmp')
 
@@ -129,7 +148,7 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -178,13 +197,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<Up>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', '<Down>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', '<leader>cd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>cR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<leader>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>cR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>cA', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
@@ -277,28 +291,6 @@ nvim_lsp.tailwindcss.setup {
     capabilities = nvim_cmp_capabilities
 }
 
-EOF
-
-lua << EOF
--- lspsaga
-local saga = require 'lspsaga'
-
-saga.init_lsp_saga {
-  error_sign = '',
-  warn_sign = '',
-  hint_sign = '',
-  infor_sign = '',
-  border_style = "round",
-  code_action_prompt = {
-      enable = false
-  }
-}
-EOF
-
-nnoremap <silent> <leader>cF :Lspsaga lsp_finder<CR>
-nnoremap <silent> <leader>cP :Lspsaga preview_definition<CR>
-
-lua << EOF
 
 -- telescope
 function telescope_buffer_dir()
@@ -328,9 +320,16 @@ telescope.setup{
 EOF
 
 nnoremap <silent> <leader>pf <cmd>lua require('telescope.builtin').find_files()<CR>
-nnoremap <silent> <leader>pb <cmd>lua require('telescope.builtin').file_browser()<CR>
+nnoremap <silent> <leader>pF <cmd>lua require('telescope.builtin').find_files{ hidden = true}<CR>
 nnoremap <silent> <leader>pp <cmd>lua require('telescope').extensions.project.project{}<CR>
 nnoremap <silent> <leader>/ <cmd>lua require('telescope.builtin').live_grep()<CR>
+
+" LSP and Telescope
+nnoremap <silent> <leader>cD <cmd>lua require('telescope.builtin').diagnostics()<CR>
+nnoremap <silent> <leader>cr <cmd>lua require('telescope.builtin').lsp_references()<CR>
+nnoremap <silent> <leader>cd <cmd>lua require('telescope.builtin').lsp_definitions()<CR>
+nnoremap <silent> <leader>ct <cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>
+nnoremap <silent> <leader>ci <cmd>lua require('telescope.builtin').lsp_implementations()<CR>
 
 nnoremap <silent> <leader>gg :Neogit<CR>
 

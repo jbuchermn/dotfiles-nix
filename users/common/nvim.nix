@@ -57,13 +57,14 @@ in
       orgmode
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
 
-      nerdtree
+      nvim-tree-lua
+      nvim-web-devicons
+
       tcomment_vim
       vim-fugitive
       neogit
 
       nvim-lspconfig
-      lspsaga-nvim
       telescope-nvim
       telescope-project-nvim
 
@@ -89,6 +90,8 @@ in
             tree-sitter-svelte
             tree-sitter-javascript
             tree-sitter-typescript
+            tree-sitter-html
+            tree-sitter-css
           ]
         ))
 
