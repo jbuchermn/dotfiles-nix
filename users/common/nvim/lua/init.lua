@@ -60,7 +60,7 @@ vim.cmd [[
 ]]
 
 -- Save undos
-set.undodir = '~/.config/nvim/undodir'
+set.undodir = os.getenv( "HOME" ) .. '/.config/nvim/undodir'
 set.undofile = true
 
 -- Folding
@@ -356,6 +356,8 @@ map('n', '<leader>cr', '<cmd>lua require("telescope.builtin").lsp_references()<C
 map('n', '<leader>cd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>')
 map('n', '<leader>ct', '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>')
 map('n', '<leader>ci', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>')
+map('n', '<leader>cs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>')
+map('n', '<leader>cS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>')
 
 
 
