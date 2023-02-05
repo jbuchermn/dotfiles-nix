@@ -36,8 +36,7 @@ set.splitbelow = true
 set.splitright = true
 
 set.list = true
-set.listchars.tab = '|▸'
-set.listchars.trail = '·'
+set.listchars = { tab = '|▸', trail = '·' }
 
 vim.cmd [[
     syntax enable

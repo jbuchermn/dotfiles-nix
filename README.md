@@ -27,28 +27,13 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 ./update.sh && ./apply-user.sh jonas-nixos [jonas-mbp / ...] && sudo ./apply-system.sh
 ```
 
-# ToDo
+# Open
 
 - [ ] Add home-manager and nixos-options to nix-search
 - [X] Ensure `nix shell` and setting up a flake initially uses the systems nixpkgs: `nix-flake-lock-nixpkgs`
 - [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
 
-## General
-
 - [ ] newm-sidecar
 - [X] gsync
 - [ ] macho
 - [ ] vaapi
-
-## (n)ViM
-
-- [x] Jumping around when errors appear and disappear
-- [x] Autocomplete
-- [ ] Bar at bottom
-- [ ] vsnips
-- [ ] Tree-sitter grammar for org requires `:TSUpdate` - not nice
-
-
-## Temporary hacks fixing nixos-unstable bugs
-
-- Haskell-Language-Server currently disabled (does not build on ARM)
