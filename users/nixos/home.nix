@@ -8,7 +8,7 @@
     ../common/home.nix
     ../common/zsh.nix
     ../common/alacritty.nix
-    ../common/nvim.nix
+    ../common/nvim
     ../common/newm
   ];
 }

@@ -11,6 +11,11 @@ let
   };
 in
 {
+  xdg.configFile."nvim/lua" = {
+    source = ./lua;
+    recursive = true;
+  };
+
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -19,7 +24,7 @@ in
 
     withNodeJs = true;
 
-    extraConfig = builtins.readFile ./nvim.vim;
+    extraConfig = ":luafile ~/.config/nvim/lua/init.lua";
 
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
@@ -43,6 +48,8 @@ in
 
       nodePackages.svelte-language-server
       nodePackages."@tailwindcss/language-server"
+
+      sumneko-lua-language-server
 
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
@@ -96,6 +103,7 @@ in
             tree-sitter-typescript
             tree-sitter-html
             tree-sitter-css
+            tree-sitter-lua
           ]
         ))
 
