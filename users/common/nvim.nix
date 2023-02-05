@@ -52,30 +52,34 @@ in
     ] else []);
 
     plugins = (with pkgs.vimPlugins; [
-      oceanic-next
-
-      orgmode
-      (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
 
       nvim-tree-lua
       nvim-web-devicons
+
+      oceanic-next
+      lualine-nvim
 
       tcomment_vim
       vim-fugitive
       neogit
 
+      orgmode
+      (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
+
       nvim-lspconfig
       telescope-nvim
       telescope-project-nvim
+
+      luasnip
+      friendly-snippets
 
       nvim-cmp
       cmp-buffer
       cmp-path
       cmp-cmdline
       cmp-nvim-lsp
+      cmp_luasnip
 
-      vim-vsnip
-      cmp-vsnip
 
       (nvim-treesitter.withPlugins (
           plugins: with plugins; [

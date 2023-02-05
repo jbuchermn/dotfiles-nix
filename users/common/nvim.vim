@@ -132,13 +132,28 @@ require("nvim-tree").setup({
 })
 
 
+-- lualine
+require('lualine').setup({
+    options = {
+        icons_enabled = true,
+    },
+    sections = {
+        lualine_a = {
+            { 'filename', path = 1 }
+        }
+    }
+})
+
+
+
 -- nvim-cmp
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 cmp.setup({
     snippet = {
         expand = function(args)
-          vim.fn["vsnip#anonymous"](args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     mapping = {
@@ -148,11 +163,13 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback) luasnip.jump(1) end),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'vsnip' },
+        { name = 'luasnip' },
     }, {
         { name = 'buffer' },
     })
@@ -173,6 +190,9 @@ cmp.setup.cmdline(':', {
 })
 
 local nvim_cmp_capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- luasnip
+require("luasnip.loaders.from_vscode").lazy_load()
 
 EOF
 
