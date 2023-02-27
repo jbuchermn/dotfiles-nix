@@ -66,7 +66,8 @@ in
       oceanic-next
       lualine-nvim
 
-      tcomment_vim
+      comment-nvim
+      nvim-ts-context-commentstring
 
       vim-fugitive
       neogit

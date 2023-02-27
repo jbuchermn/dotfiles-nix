@@ -60,7 +60,7 @@ vim.cmd [[
 ]]
 
 -- Save undos
-set.undodir = os.getenv( "HOME" ) .. '/.config/nvim/undodir'
+set.undodir = os.getenv("HOME") .. '/.config/nvim/undodir'
 set.undofile = true
 
 -- Folding
@@ -106,9 +106,17 @@ map('n', 'Q', '<nop>')
 
 
 -- Plugins
-vim.g.tcomment_maps = 0
-map('n', '<leader>cc', ':TComment<CR>', { silent = true })
-map('v', '<leader>cc', ':TComment<CR>', { silent = true })
+require('Comment').setup({
+  toggler = {
+    line = '<leader>cc',
+    block = '<leader>cb',
+  },
+  opleader = {
+    line = '<leader>cc',
+    block = '<leader>cb',
+  },
+  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+})
 
 map('n', '-', ':NvimTreeFindFileToggle!<CR>', { silent = true })
 
@@ -202,6 +210,7 @@ local nvim_lsp = require('lspconfig')
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -384,4 +393,3 @@ require('orgmode').setup_ts_grammar()
 require("org-bullets").setup {
   symbols = { "◉", "○", "✸", "✿" }
 }
-
