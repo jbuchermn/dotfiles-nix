@@ -360,7 +360,8 @@ telescope.setup {
 
 -- Telescope: Files and grep
 map('n', '<leader>pf', '<cmd>lua require("telescope.builtin").find_files()<CR>')
-map('n', '<leader>pF', '<cmd>lua require("telescope.builtin").find_files{ hidden = true}<CR>')
+map('n', '<leader>pF',
+  '<cmd>lua require("telescope.builtin").find_files{ hidden = true, no_ignore = true, no_ignore_parent = true }<CR>')
 map('n', '<leader>pp', '<cmd>lua require("telescope").extensions.project.project{}<CR>')
 map('n', '<leader>/', '<cmd>lua require("telescope.builtin").live_grep()<CR>')
 

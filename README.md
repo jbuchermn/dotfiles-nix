@@ -27,6 +27,10 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 ./update.sh && ./apply-user.sh jonas-nixos [jonas-mbp / ...] && sudo ./apply-system.sh
 ```
 
+# macOS update
+
+[See this bug](https://github.com/NixOS/nix/issues/3616)
+
 # Open
 
 - [ ] Add home-manager and nixos-options to nix-search
