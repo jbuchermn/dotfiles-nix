@@ -49,7 +49,7 @@ in
       nodePackages.svelte-language-server
       nodePackages."@tailwindcss/language-server"
 
-      sumneko-lua-language-server
+      lua-language-server
 
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
