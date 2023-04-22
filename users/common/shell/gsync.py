@@ -23,7 +23,7 @@ def sync_git(path_from, path_to):
         call(["git", "pull", "--rebase", "--", str(path_from)], cwd=path_to)
     else:
         print("Cloning git repo: %s -> %s" % (path_from, path_to))
-        call(["git", "clone", str(path_from)], cwd=path_to.parents[0])
+        call(["git", "clone", str(path_from), path_to.name], cwd=path_to.parents[0])
 
 def sync_dir(path_from, path_to):
     if not is_git_repo(path_from):

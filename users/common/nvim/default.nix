@@ -28,7 +28,7 @@ in
 
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
-      pylsp-mypy
+      (pylsp-mypy.overrideAttrs(old: { pytestCheckPhase = "true"; })) # Just keep the test disabled, breaks so fucking often
       mypy
     ]);
 
