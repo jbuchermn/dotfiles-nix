@@ -89,14 +89,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1685802355,
-        "narHash": "sha256-mo9K2hOtA5K5isEItqvP49IwZ8v7v9eppubE09suqXI=",
-        "path": "/home/jonas/dev/guacamole",
-        "type": "path"
+        "lastModified": 1685803364,
+        "narHash": "sha256-i44OtFvqoevHYHhObwLlmFGT+4f2g6N1FaBnId9o4Aw=",
+        "owner": "jbuchermn",
+        "repo": "guacamole-nixos",
+        "rev": "57484d21610c75e7a4c1facd0efb700fb0bca9a6",
+        "type": "github"
       },
       "original": {
-        "path": "/home/jonas/dev/guacamole",
-        "type": "path"
+        "owner": "jbuchermn",
+        "repo": "guacamole-nixos",
+        "type": "github"
       }
     },
     "home-manager": {
