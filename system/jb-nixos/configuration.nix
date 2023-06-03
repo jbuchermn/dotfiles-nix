@@ -28,7 +28,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965
+      vaapiIntel # LIBVA_DRIVER_NAME=i965
       vaapiVdpau
       libvdpau-va-gl
     ];
@@ -49,5 +49,6 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "jonas" ];
 
+  services.guacamole.enable = true;
 }
 

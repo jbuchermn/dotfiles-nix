@@ -51,6 +51,8 @@ in
 
       lua-language-server
 
+      rnix-lsp
+
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
 

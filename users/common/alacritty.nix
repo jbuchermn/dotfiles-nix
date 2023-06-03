@@ -32,7 +32,7 @@ window:
     opacity: 0.8
 
 # macOS makes this necessary
-alt_send_esc: false
+# alt_send_esc: false
 key_bindings:
 - { key: Space, mods: Control, chars: "\x00" }
   '';

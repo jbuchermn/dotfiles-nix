@@ -388,6 +388,14 @@ nvim_lsp.lua_ls.setup {
   capabilities = nvim_cmp_capabilities
 }
 
+nvim_lsp.rnix.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = nvim_cmp_capabilities
+}
+
 
 -- telescope
 function telescope_buffer_dir()
