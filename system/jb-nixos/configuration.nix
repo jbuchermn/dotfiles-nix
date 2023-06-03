@@ -50,6 +50,6 @@
   users.extraGroups.vboxusers.members = [ "jonas" ];
 
   # Guacamole
-  services.guacamole.enable = true;
+  services.guacamole.enable = false;
 }
 
