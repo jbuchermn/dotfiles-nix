@@ -198,6 +198,10 @@ require("nvim-tree").setup({
   end
 })
 
+-- oil.nvim
+require('oil').setup()
+vim.keymap.set('n', '_', require('oil').open, { desc = "Open oil in parent directory" });
+
 
 -- lualine
 require('lualine').setup({
@@ -438,7 +442,6 @@ map('n', '<leader>ct', '<cmd>lua require("telescope.builtin").lsp_type_definitio
 map('n', '<leader>ci', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>')
 map('n', '<leader>cs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>')
 map('n', '<leader>cS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>')
-
 
 
 -- tree-sitter

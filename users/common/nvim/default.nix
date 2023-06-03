@@ -28,7 +28,7 @@ in
 
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
-      (pylsp-mypy.overrideAttrs(old: { pytestCheckPhase = "true"; })) # Just keep the test disabled, breaks so fucking often
+      (pylsp-mypy.overrideAttrs (old: { pytestCheckPhase = "true"; })) # Just keep the test disabled, breaks so fucking often
       mypy
     ]);
 
@@ -42,7 +42,8 @@ in
       haskell-language-server
       stylish-haskell
 
-      nodePackages.typescript nodePackages.typescript-language-server
+      nodePackages.typescript
+      nodePackages.typescript-language-server
 
       nodePackages.purescript-language-server
 
@@ -57,8 +58,8 @@ in
       wl-clipboard
 
       # Language-servers and utilities
-      dart  # Install via brew on macOS
-    ] else []);
+      dart # Install via brew on macOS
+    ] else [ ]);
 
     plugins = (with pkgs.vimPlugins; [
 
@@ -74,6 +75,8 @@ in
       vim-fugitive
       neogit
       gitsigns-nvim
+
+      oil-nvim
 
       orgmode
       (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
@@ -94,23 +97,23 @@ in
 
 
       (nvim-treesitter.withPlugins (
-          plugins: with plugins; [
-            tree-sitter-python
-            tree-sitter-c
-            tree-sitter-cpp
-            tree-sitter-bash
-            tree-sitter-nix
-            tree-sitter-haskell
-            tree-sitter-dart
-            tree-sitter-org-nvim
-            tree-sitter-svelte
-            tree-sitter-javascript
-            tree-sitter-typescript
-            tree-sitter-html
-            tree-sitter-css
-            tree-sitter-lua
-          ]
-        ))
+        plugins: with plugins; [
+          tree-sitter-python
+          tree-sitter-c
+          tree-sitter-cpp
+          tree-sitter-bash
+          tree-sitter-nix
+          tree-sitter-haskell
+          tree-sitter-dart
+          tree-sitter-org-nvim
+          tree-sitter-svelte
+          tree-sitter-javascript
+          tree-sitter-typescript
+          tree-sitter-html
+          tree-sitter-css
+          tree-sitter-lua
+        ]
+      ))
 
       FTerm-nvim
 
@@ -121,19 +124,19 @@ in
 
     ] ++ (if pkgs.stdenv.isLinux then with pkgs.vimPlugins; [
       vim-wayland-clipboard
-    ] else []));
+    ] else [ ]));
   };
 
   home.file.".local/bin/pylsp_wrapped".text = ''
-      #!/usr/bin/env sh
-      nix develop --command python3 -m pylsp "$@" || (>&2 echo "No valid nix development environment containing pylsp found - defaulting" && nvim-python3 -m pylsp "$@" )
-    '';
+    #!/usr/bin/env sh
+    nix develop --command python3 -m pylsp "$@" || (>&2 echo "No valid nix development environment containing pylsp found - defaulting" && nvim-python3 -m pylsp "$@" )
+  '';
   home.file.".local/bin/pylsp_wrapped".executable = true;
 
   home.file.".local/bin/hls_wrapped".text = ''
-      #!/usr/bin/env sh
-      nix develop --command "haskell-language-server-wrapper --lsp $@" || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server-wrapper --lsp "$@")
-    '';
+    #!/usr/bin/env sh
+    nix develop --command "haskell-language-server-wrapper --lsp $@" || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server-wrapper --lsp "$@")
+  '';
   home.file.".local/bin/hls_wrapped".executable = true;
 
   # Prevent errors on first startup (telescope-project e.g.)
