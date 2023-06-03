@@ -41,6 +41,11 @@ in
     border-radius=12
   '';
 
+  xdg.configFile."newm/wob.ini".text = ''
+    anchor = bottom
+    margin = 100
+  '';
+
   xdg.configFile."waybar/config".source = ./waybar/config;
   xdg.configFile."waybar/style.css".source = ./waybar/style.css;
   xdg.configFile."rofi/config.rasi".source = ./rofi.rasi;

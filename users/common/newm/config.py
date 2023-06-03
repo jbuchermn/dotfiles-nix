@@ -91,7 +91,7 @@ background = {
 anim_time = .25
 blend_time = .5
 
-wob_runner = WobRunner("wob -a bottom -M 100")
+wob_runner = WobRunner("wob -c " + os.environ['HOME'] + '/.config/newm/wob.ini')
 backlight_manager = BacklightManager(anim_time=1., bar_display=wob_runner)
 kbdlight_manager = BacklightManager(args="--device='*::kbd_backlight'", anim_time=1., bar_display=wob_runner)
 def synchronous_update() -> None:
