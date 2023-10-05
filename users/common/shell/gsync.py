@@ -15,7 +15,10 @@ def sync_git(path_from, path_to):
     if path_to.exists() and not is_git_repo(path_to):
         backup = Path("/tmp") / "backup" 
         backup.mkdir(parents=True, exist_ok=True)
-        print("Warning! %s exists, but is not a git repo - moving to /tmp/backup" % path_to)
+        print("Warning! %s exists, but is not a git repo!" % path_to)
+        cont = input("Continue? Directory will be moved to /tmp/backup [y/N] ")
+        if cont != "y":
+            exit(1)
         path_to.replace(backup / path_to.name)
 
     if path_to.exists():
