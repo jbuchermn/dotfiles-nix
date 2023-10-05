@@ -14,6 +14,7 @@ in
   home.file.".local/bin/nix-search".source = ./shell/nix-search.sh;
   home.file.".local/bin/gsync".source = ./shell/gsync.py;
   home.file.".local/bin/nix-flake-lock-nixpkgs".source = ./shell/nix-flake-lock-nixpkgs.sh;
+  home.file.".local/bin/nix-vim-nixpkgs".source = ./shell/nix-vim-nixpkgs.sh;
 
   fonts.fontconfig.enable = true;
 
@@ -26,7 +27,10 @@ in
     rsync
 
     nix-tree
-    jq fzf # required by nix-search
+
+    # nix-search
+    jq
+    fzf
 
   ] ++ (if providePkgs then with pkgs; [
     powerstat
@@ -41,5 +45,5 @@ in
     chromium
     libreoffice
     spotify
-  ] else []);
+  ] else [ ]);
 }

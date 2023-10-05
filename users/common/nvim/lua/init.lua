@@ -31,6 +31,13 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'sh',
+  callback = function()
+    set.expandtab = false
+  end
+})
+
 
 set.splitbelow = true
 set.splitright = true
