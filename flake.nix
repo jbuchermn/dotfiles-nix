@@ -15,7 +15,7 @@
     pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
     pywm-fullscreenpkg.inputs.nixpkgs.follows = "nixpkgs";
 
-    guacamolepkg.url = "github:jbuchermn/guacamole-nixos";
+    guacamolepkg.url = "path:/home/jonas/dev/guacamole";
     guacamolepkg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -34,8 +34,8 @@
             nur.overlay
             (self: super: { }
               // newmpkg.packages.${system}
-              // pywm-fullscreenpkg.packages.${system}
-              // guacamolepkg.packages.${system})
+              // pywm-fullscreenpkg.packages.${system})
+            guacamolepkg.overlays.default
           ];
         };
 
@@ -47,7 +47,7 @@
             ({ config, pkgs, ... }: {
               nix.registry.nixpkgs.flake = nixpkgs;
             })
-            guacamolepkg.nixosModules.${system}.guacamole
+            guacamolepkg.nixosModules.guacamole
           ] ++ modules;
         };
 

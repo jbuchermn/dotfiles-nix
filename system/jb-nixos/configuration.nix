@@ -50,6 +50,23 @@
   users.extraGroups.vboxusers.members = [ "jonas" ];
 
   # Guacamole
-  services.guacamole.enable = false;
+  services.guacamole = {
+    enable = true;
+    baseDir = "/var/guacamole";
+    userMapping = ''
+      <user-mapping>
+        <authorize
+          username="user"
+          password="password">
+
+          <connection name="localhost">
+              <protocol>vnc</protocol>
+              <param name="hostname">localhost</param>
+              <param name="port">5900</param>
+          </connection>
+        </authorize>
+      </user-mapping>
+    '';
+  };
 }
 
