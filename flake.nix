@@ -3,23 +3,16 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     nur.url = "github:nix-community/NUR";
+
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    newmpkg.url = "github:jbuchermn/newm";
-    newmpkg.inputs.nixpkgs.follows = "nixpkgs";
-
-    pywm-fullscreenpkg.url = "github:jbuchermn/pywm-fullscreen";
-    pywm-fullscreenpkg.inputs.nixpkgs.follows = "nixpkgs";
-
-    guacamolepkg.url = "path:/home/jonas/dev/guacamole";
-    guacamolepkg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, flake-utils, nur, home-manager, newmpkg, pywm-fullscreenpkg, guacamolepkg, ... }:
+  outputs = { nixpkgs, flake-utils, nur, home-manager, ... }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -32,10 +25,6 @@
           };
           overlays = [
             nur.overlay
-            (self: super: { }
-              // newmpkg.packages.${system}
-              // pywm-fullscreenpkg.packages.${system})
-            guacamolepkg.overlays.default
           ];
         };
 
@@ -45,7 +34,6 @@
             {
               nix.registry.nixpkgs.flake = nixpkgs;
             }
-            guacamolepkg.nixosModules.guacamole
           ] ++ modules;
         };
 
