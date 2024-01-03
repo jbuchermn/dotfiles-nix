@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  pluginGit = ref: rev: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  pluginGit = ref: rev: repo: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = ref;
     src = builtins.fetchGit {
@@ -28,7 +28,7 @@ in
 
     extraPython3Packages = (ps: with ps; [
       python-lsp-server
-      (pylsp-mypy.overrideAttrs (old: { pytestCheckPhase = "true"; })) # Just keep the test disabled, breaks so fucking often
+      pylsp-mypy
       mypy
     ]);
 

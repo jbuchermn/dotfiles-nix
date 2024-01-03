@@ -19,8 +19,6 @@
     options = "--delete-older-than 30d";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   # Locale / Timezone
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -76,14 +74,15 @@
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
       ];
+      config.common.default = "*";
     };
   };
 
   # inotify watchers
   boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches"   = 1048576;   # default:  8192
-    "fs.inotify.max_user_instances" =    1024;   # default:   128
-    "fs.inotify.max_queued_events"  =   32768;   # default: 16384
+    "fs.inotify.max_user_watches" = 1048576; # default:  8192
+    "fs.inotify.max_user_instances" = 1024; # default:   128
+    "fs.inotify.max_queued_events" = 32768; # default: 16384
   };
 }
 

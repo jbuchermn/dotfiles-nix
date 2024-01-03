@@ -17,7 +17,8 @@
     ../common/zsh.nix
     ../common/alacritty.nix
     ../common/nvim
-    ../common/newm
+    # ../common/newm
+    ../common/hyprland.nix
   ];
 
   home.packages = with pkgs; [

@@ -21,14 +21,11 @@
   networking.networkmanager.enable = true;
 
   # OpenGL and vaapi
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel # LIBVA_DRIVER_NAME=i965
+      (vaapiIntel.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965
       vaapiVdpau
       libvdpau-va-gl
     ];

@@ -39,14 +39,12 @@
           ];
         };
 
-        lib = nixpkgs.lib;
-
-        nixosSystem = modules: lib.nixosSystem {
+        nixosSystem = modules: nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           modules = [
-            ({ config, pkgs, ... }: {
+            {
               nix.registry.nixpkgs.flake = nixpkgs;
-            })
+            }
             guacamolepkg.nixosModules.guacamole
           ] ++ modules;
         };
@@ -88,7 +86,7 @@
             home-manager.nixosModules.home-manager
 
             ({ config, pkgs, ... }: {
-              fonts.fontconfig.enable = lib.mkForce true; # Specified as false somewhere in installation-cd-base
+              fonts.fontconfig.enable = with pkgs; lib.mkForce true; # Specified as false somewhere in installation-cd-base
               home-manager = {
                 users.nixos = {
                   imports = [

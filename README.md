@@ -31,6 +31,7 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 - `nix flake show`
 - `nix repl` and `:lf .`
+- Debug derivations: `nix develop --ignore-environment .#derivation.system`
 
 - `nix-flake-lock-nixpkgs`
 - `nix-vim-nixpkgs`
@@ -41,11 +42,17 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 # Open
 
+- [ ] Use nixpkgs version of guacamole
+
 - [ ] Add home-manager and nixos-options to nix-search
 - [X] Ensure `nix shell` and setting up a flake initially uses the systems nixpkgs: `nix-flake-lock-nixpkgs`
 - [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
 
-- [ ] newm-sidecar
-- [X] gsync
 - [ ] macho
 - [ ] vaapi
+
+- [X] gsync
+
+# Backlog
+
+- [ ] Reenable newm, add newm-sidecar
