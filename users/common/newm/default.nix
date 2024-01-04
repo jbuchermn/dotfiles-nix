@@ -1,11 +1,11 @@
 input@{ config, pkgs, ... }:
-let 
+let
   isVirtual = if builtins.hasAttr "isVirtual" input then input.isVirtual else false;
   isMBP = if builtins.hasAttr "isMBP" input then input.isMBP else true;
   providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
 
   confFile = builtins.replaceStrings
-    ["PLACEHOLDER_xkb_model" "PLACEHOLDER_mod" "PLACEHOLDER_c_gestures" "PLACEHOLDER_pyevdev_gestures"]
+    [ "PLACEHOLDER_xkb_model" "PLACEHOLDER_mod" "PLACEHOLDER_c_gestures" "PLACEHOLDER_pyevdev_gestures" ]
     [
       (if isMBP then "macintosh" else "de-latin1")
       (if isVirtual then "A" else "L")
@@ -50,29 +50,31 @@ in
   xdg.configFile."waybar/style.css".source = ./waybar/style.css;
   xdg.configFile."rofi/config.rasi".source = ./rofi.rasi;
 
-  home.packages = if providePkgs then with pkgs; [
-    newm
-    waybar
-    wob
-    rofi-wayland
-    mako
-    libnotify
+  home.packages =
+    if providePkgs then with pkgs; [
+      newm
+      waybar
+      wob
+      rofi-wayland
+      mako
+      libnotify
 
-    pywm-fullscreen
+      pywm-fullscreen
 
-    grim
-    slurp
+      grim
+      slurp
 
-    gnome.nautilus
+      gnome.nautilus
 
-    sway
-  ] else [];
+      sway
+    ] else [ ];
 
-  home.sessionVariables = if isVirtual then {
-    WLR_NO_HARDWARE_CURSORS = 1; # Hardware cursors don't properly work inside qemu
-  } else {};
+  home.sessionVariables =
+    if isVirtual then {
+      WLR_NO_HARDWARE_CURSORS = 1; # Hardware cursors don't properly work inside qemu
+    } else { };
 
-  home.file."wallpaper.jpg".source = ./wallpaper.jpg;
+  home.file."wallpaper.jpg".source = ../wallpaper.jpg;
 
   programs.zsh.loginExtra = ''
     [[ "$(tty)" == /dev/tty1 ]] && start-newm

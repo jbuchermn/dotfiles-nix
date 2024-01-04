@@ -127,10 +127,14 @@ require('Comment').setup({
 
 map('n', '-', ':NvimTreeFindFileToggle!<CR>', { silent = true })
 
-map('n', '<leader>gg', ':Neogit<CR>', { silent = true })
 
 map('n', '<C-Space>', '<CMD>lua require("FTerm").toggle()<CR>', { silent = true })
 map('t', '<C-Space>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { silent = true })
+
+-- neogit
+require("neogit").setup {
+}
+map('n', '<leader>gg', ':Neogit<CR>', { silent = true })
 
 -- gitsigns
 require("gitsigns").setup()
