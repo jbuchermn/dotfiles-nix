@@ -42,14 +42,14 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 # Open
 
-- [ ] Use nixpkgs version of guacamole
+- [ ] Get vaapi running on MacBookPro12,1 (chromium takes an incredible amount of cpu)
+- [ ] Get Cirrus CS4208 running on MacBookPro12,1 (no bass)
 
 - [ ] Add home-manager and nixos-options to nix-search
 - [X] Ensure `nix shell` and setting up a flake initially uses the systems nixpkgs: `nix-flake-lock-nixpkgs`
 - [X] Fix nix-search format for "nix search" instead of "nix-env -qaP"
 
 - [ ] macho
-- [ ] vaapi
 
 - [X] gsync
 

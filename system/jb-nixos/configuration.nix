@@ -20,16 +20,21 @@
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
-  # OpenGL and vaapi
+  # OpenGL and vaapi - not working
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      (vaapiIntel.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965
+      # vaapiIntel # LIBVA_DRIVER_NAME=i965
       vaapiVdpau
       libvdpau-va-gl
     ];
   };
+
+  # Cirrus CS4208 - not working
+  boot.extraModprobeConfig = ''
+    options snd-hda-intel model=auto,mbp11
+  '';
 
   # MBP Webcam
   hardware.facetimehd.enable = true;
@@ -40,6 +45,14 @@
 
     # MBP Card Reader
     udisks2
+
+    # libva debug
+    libva-utils
+
+    # audio debug
+    pavucontrol
+    alsa-utils
+    alsa-tools
   ];
 
   # VirtualBox

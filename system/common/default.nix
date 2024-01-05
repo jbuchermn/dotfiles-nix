@@ -39,8 +39,6 @@
     gnupg
     pass
 
-    pulseaudio # pactl
-
     openvpn
   ];
 
