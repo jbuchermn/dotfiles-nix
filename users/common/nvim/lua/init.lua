@@ -320,28 +320,26 @@ if handle ~= nil then
   -- print("Found tsserver at '" .. tsserver .. "'")
 end
 
+local flags = {
+  debounce_text_changes = 150
+}
+
 nvim_lsp.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio", "--tsserver-path", tsserver },
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.ccls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.pylsp.setup {
   cmd = { "pylsp_wrapped" },
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   on_attach = on_attach,
   settings = {
     pylsp = {
@@ -357,58 +355,51 @@ nvim_lsp.pylsp.setup {
 nvim_lsp.hls.setup {
   cmd = { "hls_wrapped" },
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.dartls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.purescriptls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.svelte.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.tailwindcss.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.rnix.setup {
+nvim_lsp.nil_ls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  capabilities = nvim_cmp_capabilities
+  flags = flags,
+  capabilities = nvim_cmp_capabilities,
+  settings = {
+    ['nil'] = {
+      formatting = {
+        command = { 'nixpkgs-fmt' }
+      }
+    }
+  }
 }
 
 
