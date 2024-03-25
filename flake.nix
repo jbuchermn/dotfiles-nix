@@ -10,9 +10,12 @@
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, flake-utils, nur, home-manager, ... }:
+  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, ... }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -70,11 +73,11 @@
 
           jb-nixos-live = nixosSystem [
             ./system/jb-nixos-live/configuration.nix
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
             home-manager.nixosModules.home-manager
+            nixos-generators.nixosModules.all-formats
 
             ({ config, pkgs, ... }: {
-              fonts.fontconfig.enable = with pkgs; lib.mkForce true; # Specified as false somewhere in installation-cd-base
+              fonts.fontconfig.enable = true;
               home-manager = {
                 users.nixos = {
                   imports = [
@@ -82,7 +85,7 @@
                   ];
 
                   home = {
-                    stateVersion = stateVersion;
+                    inherit stateVersion;
                     username = "nixos";
                     homeDirectory = "/home/nixos";
                   };
@@ -94,8 +97,6 @@
                   isMBP = false;
                 };
               };
-
-              users.users.nixos.shell = pkgs.zsh;
             })
           ];
         };
