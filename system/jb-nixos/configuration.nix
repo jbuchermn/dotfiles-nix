@@ -55,8 +55,8 @@
     alsa-tools
   ];
 
-  # VirtualBox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "jonas" ];
+  # Virtualisation
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 }
 
