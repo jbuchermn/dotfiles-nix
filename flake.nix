@@ -72,22 +72,22 @@
           ];
 
           jb-nixos-live = nixosSystem [
-            ./system/jb-nixos-live/configuration.nix
-            home-manager.nixosModules.home-manager
             nixos-generators.nixosModules.all-formats
+            home-manager.nixosModules.home-manager
+
+            ./system/jb-nixos-live/configuration.nix
 
             ({ config, pkgs, ... }: {
-              fonts.fontconfig.enable = true;
               home-manager = {
-                users.nixos = {
+                users.jonas = {
                   imports = [
-                    ./users/nixos/home.nix
+                    ./users/jonas-live/home.nix
                   ];
 
                   home = {
                     inherit stateVersion;
-                    username = "nixos";
-                    homeDirectory = "/home/nixos";
+                    username = "jonas";
+                    homeDirectory = "/home/jonas";
                   };
                 };
 

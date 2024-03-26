@@ -55,6 +55,8 @@ nix build .#nixosConfigurations.jb-nixos-live.config.formats.[raw|raw-efi|instal
 
 - [X] gsync
 
+- [ ] Clean up minimal / default includes
+
 # Backlog
 
 - [ ] Reenable newm, add newm-sidecar
