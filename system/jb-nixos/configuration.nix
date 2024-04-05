@@ -53,10 +53,28 @@
     pavucontrol
     alsa-utils
     alsa-tools
+
+    # Virtualisation
+    spice
+    spice-gtk
+    spice-protocol
+    win-virtio
+    win-spice
   ];
 
   # Virtualisation
-  virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
+  services.spice-vdagentd.enable = true;
 }
 
