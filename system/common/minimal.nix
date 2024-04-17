@@ -45,12 +45,8 @@
   programs.zsh.enable = true;
 
   # GnuPG with fix
-  programs = {
-    gnupg.agent = {
-      pinentryFlavor = "curses";
-      enable = true;
-    };
-  };
+  programs.gnupg.agent.enable = true;
+
   environment.shellInit = ''
     export GPG_TTY="$(tty)"
     gpg-connect-agent /bye

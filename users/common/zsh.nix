@@ -5,10 +5,10 @@ in
 {
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     completionInit = ''
-        autoload -U compinit && compinit -u
+      autoload -U compinit && compinit -u
     '';
     shellAliases = {
       ll = "ls -lah";
@@ -58,9 +58,10 @@ in
     enableZshIntegration = true;
   };
 
-  programs.starship = if providePkgs then {
-    enable = true;
-  } else {};
+  programs.starship =
+    if providePkgs then {
+      enable = true;
+    } else { };
 
   xdg.configFile."starship/starship.toml".source = ./starship.toml;
 }

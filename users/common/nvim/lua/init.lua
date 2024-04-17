@@ -460,7 +460,6 @@ vim.opt.runtimepath:append(ts_parser_install_dir)
 
 -- orgmode
 require('orgmode').setup {}
-require('orgmode').setup_ts_grammar()
 require("org-bullets").setup {
   symbols = { "◉", "○", "✸", "✿" }
 }
