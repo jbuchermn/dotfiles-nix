@@ -17,8 +17,10 @@ Then apply.
 
 # Build install medium
 
+See [nixos-generators](https://github.com/nix-community/nixos-generators)
+
 ```sh
-nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
+nix build .#nixosConfigurations.jb-nixos-live.config.formats.[raw|raw-efi|install-iso]
 ```
 
 # Full update
@@ -62,6 +64,8 @@ to `/etc/zshrc`
 - [ ] macho
 
 - [X] gsync
+
+- [ ] Clean up minimal / default includes
 
 # Backlog
 

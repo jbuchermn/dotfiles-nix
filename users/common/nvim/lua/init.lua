@@ -303,36 +303,32 @@ local on_attach = function(client, bufnr)
   end
 end
 
-nvim_lsp.ccls.setup {
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
+
+local flags = {
+  debounce_text_changes = 150
 }
 
--- This workaround is necessary, as for some reasen typescript-language-server does not list typescript as a dependency (?!)
+nvim_lsp.ccls.setup {
+  on_attach = on_attach,
+  flags = flags
+}
+
 nvim_lsp.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" },
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.ccls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.pylsp.setup {
   cmd = { "pylsp_wrapped" },
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   on_attach = on_attach,
   settings = {
     pylsp = {
@@ -348,58 +344,51 @@ nvim_lsp.pylsp.setup {
 nvim_lsp.hls.setup {
   cmd = { "hls_wrapped" },
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.dartls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.purescriptls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.svelte.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.tailwindcss.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
 nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.rnix.setup {
+nvim_lsp.nil_ls.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  capabilities = nvim_cmp_capabilities
+  flags = flags,
+  capabilities = nvim_cmp_capabilities,
+  settings = {
+    ['nil'] = {
+      formatting = {
+        command = { 'nixpkgs-fmt' }
+      }
+    }
+  }
 }
 
 
@@ -460,7 +449,6 @@ vim.opt.runtimepath:append(ts_parser_install_dir)
 
 -- orgmode
 require('orgmode').setup {}
-require('orgmode').setup_ts_grammar()
 require("org-bullets").setup {
   symbols = { "◉", "○", "✸", "✿" }
 }

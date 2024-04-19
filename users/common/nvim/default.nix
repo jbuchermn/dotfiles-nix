@@ -52,7 +52,8 @@ in
 
       lua-language-server
 
-      rnix-lsp
+      nil
+      nixpkgs-fmt
 
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard

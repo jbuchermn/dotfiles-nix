@@ -6,9 +6,11 @@
 
   imports = [
     ../common/home.nix
+    # ../common/home-minimal.nix
+
     ../common/zsh.nix
-    ../common/alacritty.nix
     ../common/nvim
-    ../common/newm
+    ../common/alacritty.nix
+    ../common/hyprland
   ];
 }

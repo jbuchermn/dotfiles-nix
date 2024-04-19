@@ -19,6 +19,7 @@ in
       };
 
       general = {
+        layout = "master";
         gaps_in = 5;
         gaps_out = 5;
         border_size = 2;
@@ -73,12 +74,25 @@ in
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
+        "$mod, V, togglefloating, "
+        "$mod SHIFT, M, exec, hyprctl keyword general:layout \"master\""
+        "$mod SHIFT, D, exec, hyprctl keyword general:layout \"dwindle\""
+        "$mod SHIFT, H, layoutmsg, swapwithmaster"
 
         "$mod, F, fullscreen"
+
+        "$mod, Left, workspace, e-1"
+        "$mod, Right, workspace, e+1"
+
+        ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+        ", XF86KbdBrightnessUp, exec, brightnessctl --device='*::kbd_backlight' s 10%+"
+        ", XF86KbdBrightnessDown, exec, brightnessctl --device='*::kbd_backlight' s 10%-"
       ];
 
       bindm = [
         "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
       ];
 
       exec-once = [
@@ -86,29 +100,58 @@ in
         "waybar"
       ];
 
+      master = {
+        new_is_master = false;
+        mfact = 0.5;
+      };
+
       animation = [
-        "windows,1,5,default"
-        "workspaces,1,5,default"
+        "windows,1,2,my"
+        "workspaces,1,2,my"
+      ];
+      bezier = [
+        "my, 0, 0, 1, 1"
       ];
     };
   };
 
-  home.file."wallpaper.jpg".source = ../wallpaper.jpg;
+  #
 
   home.packages = with pkgs; [
     hyprpaper
     waybar
   ];
 
+  # Wallpaper
+  home.file."wallpaper.jpg".source = ../wallpaper.jpg;
   xdg.configFile."hypr/hyprpaper.conf".text = ''
     preload = ~/wallpaper.jpg
     wallpaper = ,~/wallpaper.jpg
   '';
 
+  # Waybar
   xdg.configFile."waybar/config".source = ./waybar/config;
   xdg.configFile."waybar/style.css".source = ./waybar/style.css;
 
+  # Autostart
   programs.zsh.loginExtra = ''
     [[ "$(tty)" == /dev/tty1 ]] && exec Hyprland
   '';
+
+  # Cursor (see https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/)
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 16;
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Grey-Darkest";
+    };
+  };
 }
