@@ -150,7 +150,7 @@
           };
 
           jonasmhp-mbp = homeManagerConfiguration {
-            username = "jonas";
+            username = "jonasmhp";
             homeDirectory = "/Users/jonasmhp";
 
             modules = [

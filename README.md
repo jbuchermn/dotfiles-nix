@@ -40,6 +40,16 @@ nix build .#nixosConfigurations.jb-nixos-live.config.system.build.isoImage
 
 [See this bug](https://github.com/NixOS/nix/issues/3616)
 
+Add
+
+```
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+```
+
+to `/etc/zshrc`
+
 # Open
 
 - [ ] Get vaapi running on MacBookPro12,1 (chromium takes an incredible amount of cpu)
