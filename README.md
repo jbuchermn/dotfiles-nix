@@ -38,7 +38,9 @@ nix build .#nixosConfigurations.jb-nixos-live.config.formats.[raw|raw-efi|instal
 - `nix-flake-lock-nixpkgs`
 - `nix-vim-nixpkgs`
 
-# macOS update
+# Troubleshooting
+
+- macOS update breaks environment
 
 [See this bug](https://github.com/NixOS/nix/issues/3616)
 
@@ -51,6 +53,10 @@ fi
 ```
 
 to `/etc/zshrc`
+
+- Alacritty not working properly
+
+Update using brew.
 
 # Open
 

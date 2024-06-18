@@ -161,6 +161,9 @@
             extraSpecialArgs = {
               isWork = true;
               providePkgs = false;
+              extraEnv = ''
+                export MHP="/Users/jonasmhp/Library/CloudStorage/OneDrive-mhp-group.com/Documents/MHP"
+              '';
             };
           };
 
@@ -193,3 +196,4 @@
       }
     );
 }
+

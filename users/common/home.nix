@@ -8,6 +8,7 @@ in
   ];
 
   fonts.fontconfig.enable = true;
+
   home.packages = (if providePkgs then with pkgs; [
     powerstat
     btop
