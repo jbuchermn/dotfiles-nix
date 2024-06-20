@@ -1,4 +1,6 @@
+-------------------------------------
 -- Basic
+-------------------------------------
 local vim = vim
 local set = vim.opt
 local setlocal = vim.opt_local
@@ -22,52 +24,16 @@ set.tabstop = 4
 set.softtabstop = 4
 set.shiftwidth = 4
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
-  callback = function()
-    setlocal.ts = 2
-    setlocal.sts = 2
-    setlocal.sw = 2
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'sh',
-  callback = function()
-    set.expandtab = false
-  end
-})
-
-
 set.splitbelow = true
 set.splitright = true
 
 set.list = true
 set.listchars = { tab = '|▸', trail = '·' }
 
-vim.cmd [[
-    syntax enable
-]]
-
 set.signcolumn = 'yes'
 
--- Theming
-set.termguicolors = true
-vim.cmd [[
-    colorscheme OceanicNext
-]]
-
--- Behaviour
--- Remember cursor position between sessions
-vim.cmd [[
-    autocmd BufReadPost *
-                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-                \   exe "normal! g'\"" |
-                \ endif
-]]
-
 -- Save undos
-set.undodir = os.getenv("HOME") .. '/.config/nvim/undodir'
+set.undodir = vim.env.HOME .. '/.config/nvim/undodir'
 set.undofile = true
 
 -- Folding
@@ -75,8 +41,9 @@ set.foldmethod = 'syntax'
 set.foldlevelstart = 20
 set.foldenable = false
 
-
+-------------------------------------
 -- Key bindings
+-------------------------------------
 vim.g.mapleader = " "
 map('n', '<Space>', '<nop>')
 
@@ -106,13 +73,17 @@ map('n', '<Right>', '>>')
 map('v', '<Left>', '<gv')
 map('v', '<Right>', '>gv')
 
-
 -- Prevent accidental command history buffer
 map('n', 'q:', '<nop>')
 map('n', 'Q', '<nop>')
 
+-- Fold with Tab
+map('n', '<Tab>', 'za', { noremap = true })
 
+
+-------------------------------------
 -- Plugins
+-------------------------------------
 require('Comment').setup({
   toggler = {
     line = '<leader>cc',
@@ -392,6 +363,7 @@ nvim_lsp.nil_ls.setup {
 }
 
 
+
 -- telescope
 function telescope_buffer_dir()
   return vim.fn.expand('%:p:h')
@@ -418,14 +390,14 @@ telescope.setup {
   }
 }
 
--- Telescope: Files and grep
+-- telescope: files and grep
 map('n', '<leader>pf', '<cmd>lua require("telescope.builtin").find_files()<CR>')
 map('n', '<leader>pF',
   '<cmd>lua require("telescope.builtin").find_files{ hidden = true, no_ignore = true, no_ignore_parent = true }<CR>')
 map('n', '<leader>pp', '<cmd>lua require("telescope").extensions.project.project{}<CR>')
 map('n', '<leader>/', '<cmd>lua require("telescope.builtin").live_grep()<CR>')
 
--- Telescope: LSP
+-- telescope: LSP
 map('n', '<leader>cD', '<cmd>lua require("telescope.builtin").diagnostics()<CR>')
 map('n', '<leader>cr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>')
 map('n', '<leader>cd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>')
@@ -434,21 +406,149 @@ map('n', '<leader>ci', '<cmd>lua require("telescope.builtin").lsp_implementation
 map('n', '<leader>cs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>')
 map('n', '<leader>cS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>')
 
-
 -- tree-sitter
 local ts_parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
-require('nvim-treesitter.configs').setup {
+require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
+    disable = { 'org' },
     additional_vim_regex_highlighting = { 'org' },
   },
-  ensure_installed = {},
+  ensure_installed = { 'org' },
   parser_install_dir = ts_parser_install_dir
 }
 vim.opt.runtimepath:append(ts_parser_install_dir)
 
 -- orgmode
-require('orgmode').setup {}
-require("org-bullets").setup {
-  symbols = { "◉", "○", "✸", "✿" }
+require('orgmode').setup {
+  org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
+  org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
+  org_startup_folded = 'showeverything',
+  mappings = {
+    disable_all = true
+  }
 }
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  callback = function()
+    vim.api.nvim_set_hl(0, '@org.headline.level4', {})
+    vim.api.nvim_set_hl(0, '@org.headline.level5', {})
+    vim.api.nvim_set_hl(0, '@org.headline.level6', {})
+    vim.api.nvim_set_hl(0, '@org.headline.level7', {})
+
+    vim.api.nvim_set_hl(0, '@org.priority.highest', { bold = true, fg = '#EE82EE' })
+    vim.api.nvim_set_hl(0, '@org.priority.default', { bold = true, fg = '#FF0000' })
+    vim.api.nvim_set_hl(0, '@org.priority.lowest', { bold = true, fg = '#62B3B2' })
+
+    vim.api.nvim_set_hl(0, '@org.keyword.todo', { italic = true })
+    vim.api.nvim_set_hl(0, '@org.keyword.done', { italic = true })
+  end
+})
+
+require("headlines").setup {
+  org = {
+    fat_headlines = false
+  },
+}
+
+
+-------------------------------------
+-- Autocommands / Themeing / ...
+-------------------------------------
+vim.cmd [[
+    syntax enable
+]]
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
+  callback = function()
+    setlocal.ts = 2
+    setlocal.sts = 2
+    setlocal.sw = 2
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'sh',
+  callback = function()
+    set.expandtab = false
+  end
+})
+
+-- Theming
+set.termguicolors = true
+vim.cmd [[
+    colorscheme OceanicNext
+]]
+
+-- Remember cursor position between sessions
+vim.cmd [[
+    autocmd BufReadPost *
+                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+                \   exe "normal! g'\"" |
+                \ endif
+]]
+
+-------------------------------------
+-- Playground
+-------------------------------------
+
+
+-- neorg
+-- require("neorg").setup {
+--   load = {
+--     ["core.defaults"] = {},
+--     ["core.dirman"] = {
+--       config = {
+--         workspaces = {
+--           main = "~/agenda",
+--           mhp = vim.env.MHP .. "/Agenda"
+--         },
+--         default_workspace = "main"
+--       },
+--     },
+--     ["core.concealer"] = {
+--       config = {
+--         icons = {
+--           todo = {
+--             urgent = {
+--               icon = "",
+--             },
+--             undone = {
+--               icon = " ",
+--             },
+--             cancelled = {
+--               icon = "x",
+--             },
+--             done = {
+--               icon = "",
+--             },
+--             pending = {
+--               icon = "-",
+--             },
+--             on_hold = {
+--               icon = "h",
+--             },
+--             recurring = {
+--               icon = "r",
+--             },
+--           },
+--         },
+--       },
+--     }
+--   }
+-- }
+
+
+-- require("org-bullets").setup {
+--   concealcursor = false,
+--   symbols = {
+--     list = "•",
+--     headlines = { "◉", "○", "✸", "✿" },
+--     checkboxes = {
+--       done = { "✓", "OrgDone" },
+--       todo = { "˟", "OrgTODO" },
+--     },
+--   }
+-- }
