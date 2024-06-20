@@ -7,6 +7,7 @@ local setlocal = vim.opt_local
 local map = vim.keymap.set
 
 -- Settings
+set.termguicolors = true
 set.encoding = 'utf8'
 set.mouse = 'a'
 set.so = 999 -- Keep cursor centered vertically
@@ -82,7 +83,34 @@ map('n', '<Tab>', 'za', { noremap = true })
 
 
 -------------------------------------
--- Plugins
+-- Autocommands
+-------------------------------------
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
+  callback = function()
+    setlocal.ts = 2
+    setlocal.sts = 2
+    setlocal.sw = 2
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'sh',
+  callback = function()
+    set.expandtab = false
+  end
+})
+
+-- Remember cursor position between sessions
+vim.cmd [[
+    autocmd BufReadPost *
+                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+                \   exe "normal! g'\"" |
+                \ endif
+]]
+
+-------------------------------------
+-- Plugins - TODO: Move to seperate files (https://www.reddit.com/r/NixOS/comments/xa30jq/homemanager_nvim_lua_config_for_plugins/)
 -------------------------------------
 require('Comment').setup({
   toggler = {
@@ -420,81 +448,69 @@ require 'nvim-treesitter.configs'.setup {
 vim.opt.runtimepath:append(ts_parser_install_dir)
 
 -- orgmode
-require('orgmode').setup {
-  org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
-  org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
-  org_startup_folded = 'showeverything',
-  mappings = {
-    disable_all = true
-  }
-}
 
 vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = '*',
   callback = function()
+    vim.api.nvim_set_hl(0, '@org.headline.level1', { bold = true, underline = true })
+    vim.api.nvim_set_hl(0, '@org.headline.level2', { bold = true, underline = true })
+    vim.api.nvim_set_hl(0, '@org.headline.level3', { bold = true, underline = true })
+
     vim.api.nvim_set_hl(0, '@org.headline.level4', {})
     vim.api.nvim_set_hl(0, '@org.headline.level5', {})
     vim.api.nvim_set_hl(0, '@org.headline.level6', {})
     vim.api.nvim_set_hl(0, '@org.headline.level7', {})
-
-    vim.api.nvim_set_hl(0, '@org.priority.highest', { bold = true, fg = '#EE82EE' })
-    vim.api.nvim_set_hl(0, '@org.priority.default', { bold = true, fg = '#FF0000' })
-    vim.api.nvim_set_hl(0, '@org.priority.lowest', { bold = true, fg = '#62B3B2' })
-
-    vim.api.nvim_set_hl(0, '@org.keyword.todo', { italic = true })
-    vim.api.nvim_set_hl(0, '@org.keyword.done', { italic = true })
   end
 })
 
+require('orgmode').setup {
+  org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
+  org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
+  org_startup_folded = 'showeverything',
+  org_todo_keywords = { 'OPEN(o)', 'BACK(2)', 'CURR(1)', 'PRIO(0)', 'PEND(p)', '|', 'DONE(d)' },
+  org_todo_keyword_faces = {
+    OPEN = ':foreground #FFFFFF :weight bold',
+    BACK = ':foreground #00FFFF :weight bold',
+    CURR = ':foreground #FF0000 :weight bold',
+    PRIO = ':foreground #EE82EE :weight bold',
+    PEND = ':foreground #00FFFF :weight bold',
+    DONE = ':foreground #568203 :weight regular :slant italic',
+  },
+  org_log_done = false,
+
+  mappings = {
+    org = {
+      org_cycle = false,
+      org_todo = '<leader>t'
+    }
+  },
+}
+
+vim.cmd [[highlight Headline1 guibg=#512bd4]]
+vim.cmd [[highlight Headline2 guibg=#00afff]]
+vim.cmd [[highlight Headline3 guibg=#6699cc]]
+
 require("headlines").setup {
   org = {
-    fat_headlines = false
+    fat_headlines = false,
+    bullets = { "◉", "○", "✸", "-" },
+    headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4" },
   },
 }
 
 
 -------------------------------------
--- Autocommands / Themeing / ...
+-- Theming
 -------------------------------------
 vim.cmd [[
     syntax enable
-]]
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
-  callback = function()
-    setlocal.ts = 2
-    setlocal.sts = 2
-    setlocal.sw = 2
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'sh',
-  callback = function()
-    set.expandtab = false
-  end
-})
-
--- Theming
-set.termguicolors = true
-vim.cmd [[
     colorscheme OceanicNext
 ]]
 
--- Remember cursor position between sessions
-vim.cmd [[
-    autocmd BufReadPost *
-                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-                \   exe "normal! g'\"" |
-                \ endif
-]]
 
 -------------------------------------
 -- Playground
 -------------------------------------
-
-
 -- neorg
 -- require("neorg").setup {
 --   load = {
