@@ -73,6 +73,8 @@ in
       comment-nvim
       nvim-ts-context-commentstring
 
+      fwatch-nvim
+
       vim-fugitive
       neogit
       gitsigns-nvim
@@ -80,7 +82,9 @@ in
       oil-nvim
 
       orgmode
-      (pluginGit "main" "73407e765c65006bf1f7740e8d4fb4450a82aa0b" "akinsho/org-bullets.nvim")
+      headlines-nvim
+      # neorg
+      # (pluginGit "main" "3623e86e0fa6d07f45042f7207fc333c014bf167" "akinsho/org-bullets.nvim")
 
       nvim-lspconfig
       telescope-nvim
@@ -106,13 +110,14 @@ in
           tree-sitter-nix
           tree-sitter-haskell
           tree-sitter-dart
-          tree-sitter-org-nvim
           tree-sitter-svelte
           tree-sitter-javascript
           tree-sitter-typescript
           tree-sitter-html
           tree-sitter-css
           tree-sitter-lua
+          tree-sitter-org
+          tree-sitter-vimdoc
         ]
       ))
 

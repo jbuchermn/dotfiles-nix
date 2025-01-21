@@ -13,9 +13,13 @@
 
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+
+    neorg.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+    neorg.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
-  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, ... }:
+  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, neorg, ... }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -28,6 +32,7 @@
           };
           overlays = [
             nur.overlay
+            neorg.overlays.default
           ];
         };
 
@@ -151,7 +156,7 @@
           };
 
           jonasmhp-mbp = homeManagerConfiguration {
-            username = "jonas";
+            username = "jonasmhp";
             homeDirectory = "/Users/jonasmhp";
 
             modules = [
@@ -161,6 +166,9 @@
             extraSpecialArgs = {
               isWork = true;
               providePkgs = false;
+              extraEnv = ''
+                export MHP="/Users/jonasmhp/Library/CloudStorage/OneDrive-mhp-group.com/Documents/MHP"
+              '';
             };
           };
 
@@ -193,3 +201,4 @@
       }
     );
 }
+

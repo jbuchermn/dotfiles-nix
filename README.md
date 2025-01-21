@@ -38,9 +38,35 @@ nix build .#nixosConfigurations.jb-nixos-live.config.formats.[raw|raw-efi|instal
 - `nix-flake-lock-nixpkgs`
 - `nix-vim-nixpkgs`
 
-# macOS update
+# Troubleshooting
+
+- macOS update breaks environment
 
 [See this bug](https://github.com/NixOS/nix/issues/3616)
+
+Add
+
+```
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+```
+
+to `/etc/zshrc`
+
+- macOS update breaks alacritty
+
+Install using
+
+```
+brew install --cask alacritty --no-quarantine
+```
+
+to `/etc/zshrc`
+
+- Alacritty not working properly
+
+Update using brew.
 
 # Open
 

@@ -1,10 +1,13 @@
+-------------------------------------
 -- Basic
+-------------------------------------
 local vim = vim
 local set = vim.opt
 local setlocal = vim.opt_local
 local map = vim.keymap.set
 
 -- Settings
+set.termguicolors = true
 set.encoding = 'utf8'
 set.mouse = 'a'
 set.so = 999 -- Keep cursor centered vertically
@@ -22,52 +25,16 @@ set.tabstop = 4
 set.softtabstop = 4
 set.shiftwidth = 4
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
-  callback = function()
-    setlocal.ts = 2
-    setlocal.sts = 2
-    setlocal.sw = 2
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'sh',
-  callback = function()
-    set.expandtab = false
-  end
-})
-
-
 set.splitbelow = true
 set.splitright = true
 
 set.list = true
 set.listchars = { tab = '|▸', trail = '·' }
 
-vim.cmd [[
-    syntax enable
-]]
-
 set.signcolumn = 'yes'
 
--- Theming
-set.termguicolors = true
-vim.cmd [[
-    colorscheme OceanicNext
-]]
-
--- Behaviour
--- Remember cursor position between sessions
-vim.cmd [[
-    autocmd BufReadPost *
-                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-                \   exe "normal! g'\"" |
-                \ endif
-]]
-
 -- Save undos
-set.undodir = os.getenv("HOME") .. '/.config/nvim/undodir'
+set.undodir = vim.env.HOME .. '/.config/nvim/undodir'
 set.undofile = true
 
 -- Folding
@@ -75,8 +42,9 @@ set.foldmethod = 'syntax'
 set.foldlevelstart = 20
 set.foldenable = false
 
-
+-------------------------------------
 -- Key bindings
+-------------------------------------
 vim.g.mapleader = " "
 map('n', '<Space>', '<nop>')
 
@@ -106,13 +74,51 @@ map('n', '<Right>', '>>')
 map('v', '<Left>', '<gv')
 map('v', '<Right>', '>gv')
 
-
 -- Prevent accidental command history buffer
 map('n', 'q:', '<nop>')
 map('n', 'Q', '<nop>')
 
+-- Fold with Tab
+map('n', '<Tab>', 'za', { noremap = true })
 
--- Plugins
+
+-------------------------------------
+-- Autocommands
+-------------------------------------
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
+  callback = function()
+    setlocal.ts = 2
+    setlocal.sts = 2
+    setlocal.sw = 2
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'sh',
+  callback = function()
+    set.expandtab = false
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    set.conceallevel = 2
+  end
+})
+
+-- Remember cursor position between sessions
+vim.cmd [[
+    autocmd BufReadPost *
+                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+                \   exe "normal! g'\"" |
+                \ endif
+]]
+
+-------------------------------------
+-- Plugins - TODO: Move to seperate files (https://www.reddit.com/r/NixOS/comments/xa30jq/homemanager_nvim_lua_config_for_plugins/)
+-------------------------------------
 require('Comment').setup({
   toggler = {
     line = '<leader>cc',
@@ -303,29 +309,17 @@ local on_attach = function(client, bufnr)
   end
 end
 
-nvim_lsp.ccls.setup {
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
-}
-
--- This workaround is necessary, as for some reasen typescript-language-server does not list typescript as a dependency (?!)
-local handle = io.popen("/usr/bin/env which tsserver")
-local tsserver = "tsserver-not-found"
-if handle ~= nil then
-  tsserver = handle:read("*a")
-  tsserver = string.gsub(tsserver, "\n", "")
-  handle:close()
-  -- print("Found tsserver at '" .. tsserver .. "'")
-end
 
 local flags = {
   debounce_text_changes = 150
 }
 
-nvim_lsp.tsserver.setup {
-  cmd = { "typescript-language-server", "--stdio", "--tsserver-path", tsserver },
+nvim_lsp.ccls.setup {
+  on_attach = on_attach,
+  flags = flags
+}
+
+nvim_lsp.ts_ls.setup {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
@@ -403,6 +397,7 @@ nvim_lsp.nil_ls.setup {
 }
 
 
+
 -- telescope
 function telescope_buffer_dir()
   return vim.fn.expand('%:p:h')
@@ -429,14 +424,14 @@ telescope.setup {
   }
 }
 
--- Telescope: Files and grep
+-- telescope: files and grep
 map('n', '<leader>pf', '<cmd>lua require("telescope.builtin").find_files()<CR>')
 map('n', '<leader>pF',
   '<cmd>lua require("telescope.builtin").find_files{ hidden = true, no_ignore = true, no_ignore_parent = true }<CR>')
 map('n', '<leader>pp', '<cmd>lua require("telescope").extensions.project.project{}<CR>')
 map('n', '<leader>/', '<cmd>lua require("telescope.builtin").live_grep()<CR>')
 
--- Telescope: LSP
+-- telescope: LSP
 map('n', '<leader>cD', '<cmd>lua require("telescope.builtin").diagnostics()<CR>')
 map('n', '<leader>cr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>')
 map('n', '<leader>cd', '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>')
@@ -445,21 +440,177 @@ map('n', '<leader>ci', '<cmd>lua require("telescope.builtin").lsp_implementation
 map('n', '<leader>cs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>')
 map('n', '<leader>cS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>')
 
-
 -- tree-sitter
 local ts_parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
-require('nvim-treesitter.configs').setup {
+require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
+    disable = { 'org' },
     additional_vim_regex_highlighting = { 'org' },
   },
-  ensure_installed = {},
+  ensure_installed = { 'org' },
   parser_install_dir = ts_parser_install_dir
 }
 vim.opt.runtimepath:append(ts_parser_install_dir)
 
 -- orgmode
-require('orgmode').setup {}
-require("org-bullets").setup {
-  symbols = { "◉", "○", "✸", "✿" }
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  callback = function()
+    vim.api.nvim_set_hl(0, '@org.headline.level1', { bold = true, underline = true })
+    vim.api.nvim_set_hl(0, '@org.headline.level2', { bold = true, underline = true })
+    vim.api.nvim_set_hl(0, '@org.headline.level3', { bold = true, underline = true })
+
+    vim.api.nvim_set_hl(0, '@org.headline.level4', {})
+    vim.api.nvim_set_hl(0, '@org.headline.level5', {})
+    vim.api.nvim_set_hl(0, '@org.headline.level6', {})
+    vim.api.nvim_set_hl(0, '@org.headline.level7', {})
+  end
+})
+
+require('orgmode').setup {
+  org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
+  org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
+  org_startup_folded = 'showeverything',
+  org_todo_keywords = { 'OPEN(o)', 'BACK(3)', 'CURR(2)', 'PRIO(1)', 'PEND(p)', '|', 'DONE(d)' },
+  org_todo_keyword_faces = {
+    OPEN = ':foreground #FFFFFF :weight bold',
+    BACK = ':foreground #00FFFF :weight bold',
+    CURR = ':foreground #FF0000 :weight bold',
+    PRIO = ':foreground #EE82EE :weight bold',
+    PEND = ':foreground #00FFFF :weight bold',
+    DONE = ':foreground #568203 :weight regular :slant italic',
+  },
+  org_log_done = false,
+
+  mappings = {
+    org = {
+      org_cycle = false,
+      org_todo = '<leader>t'
+    }
+  },
 }
+
+vim.cmd [[highlight Headline1 guibg=#512bd4]]
+vim.cmd [[highlight Headline2 guibg=#00afff]]
+vim.cmd [[highlight Headline3 guibg=#6699cc]]
+
+require("headlines").setup {
+  org = {
+    fat_headlines = false,
+    bullets = { "◉", "○", "✸", "-" },
+    headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4" },
+  },
+}
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+    local update_script = nil
+
+    update_script = 'org_update.py'
+
+    if update_script ~= nil then
+      vim.api.nvim_create_autocmd('BufWritePost', {
+        pattern = '*',
+        callback = function()
+          vim.fn.jobstart(dir .. "/" .. update_script)
+        end
+      })
+    end
+  end
+})
+
+-- fwatch.nvim: autoread org_summary.org
+local fwatch = require('fwatch')
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    local name = vim.fs.basename(vim.api.nvim_buf_get_name(0))
+    if name == 'org_summary.org' then
+      vim.cmd [[ set autoread ]]
+
+      fwatch.watch(vim.api.nvim_buf_get_name(0), {
+        on_event = function()
+          vim.schedule(function()
+            vim.cmd [[ checktime ]]
+          end)
+        end
+      })
+    end
+  end
+})
+
+
+-------------------------------------
+-- Theming
+-------------------------------------
+vim.cmd [[
+    syntax enable
+    colorscheme OceanicNext
+]]
+
+
+-------------------------------------
+-- Playground
+-------------------------------------
+-- neorg
+-- require("neorg").setup {
+--   load = {
+--     ["core.defaults"] = {},
+--     ["core.dirman"] = {
+--       config = {
+--         workspaces = {
+--           main = "~/agenda",
+--           mhp = vim.env.MHP .. "/Agenda"
+--         },
+--         default_workspace = "main"
+--       },
+--     },
+--     ["core.concealer"] = {
+--       config = {
+--         icons = {
+--           todo = {
+--             urgent = {
+--               icon = "",
+--             },
+--             undone = {
+--               icon = " ",
+--             },
+--             cancelled = {
+--               icon = "x",
+--             },
+--             done = {
+--               icon = "",
+--             },
+--             pending = {
+--               icon = "-",
+--             },
+--             on_hold = {
+--               icon = "h",
+--             },
+--             recurring = {
+--               icon = "r",
+--             },
+--           },
+--         },
+--       },
+--     }
+--   }
+-- }
+
+
+-- require("org-bullets").setup {
+--   concealcursor = false,
+--   symbols = {
+--     list = "•",
+--     headlines = { "◉", "○", "✸", "✿" },
+--     checkboxes = {
+--       done = { "✓", "OrgDone" },
+--       todo = { "˟", "OrgTODO" },
+--     },
+--   }
+-- }

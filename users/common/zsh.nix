@@ -1,6 +1,7 @@
 input@{ config, pkgs, ... }:
 let
   providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
+  extraEnv = if builtins.hasAttr "extraEnv" input then input.extraEnv else "";
 in
 {
   programs.zsh = {
@@ -32,6 +33,7 @@ in
       gcgh(){ git clone https://github.com/"$@" };
 
       eval "$(starship init zsh)"
+      ${extraEnv}
       neofetch
     '';
 
