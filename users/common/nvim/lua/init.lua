@@ -470,8 +470,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 
 require('orgmode').setup {
-  org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
-  org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
+  -- org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
+  -- org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
   org_startup_folded = 'showeverything',
   org_todo_keywords = { 'OPEN(o)', 'BACK(3)', 'CURR(2)', 'PRIO(1)', 'PEND(p)', '|', 'DONE(d)' },
   org_todo_keyword_faces = {
@@ -508,9 +508,11 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'org',
   callback = function()
     local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-    local update_script = nil
+    local update_script = 'org_update.py'
 
-    update_script = 'org_update.py'
+    if not vim.uv.fs_stat(dir .. "/" .. update_script) then
+      update_script = nil
+    end
 
     if update_script ~= nil then
       vim.api.nvim_create_autocmd('BufWritePost', {
