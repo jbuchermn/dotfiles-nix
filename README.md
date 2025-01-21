@@ -54,6 +54,16 @@ fi
 
 to `/etc/zshrc`
 
+- macOS update breaks alacritty
+
+Install using
+
+```
+brew install --cask alacritty --no-quarantine
+```
+
+to `/etc/zshrc`
+
 - Alacritty not working properly
 
 Update using brew.

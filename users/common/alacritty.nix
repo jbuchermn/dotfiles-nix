@@ -9,7 +9,7 @@ in
     } else { };
 
   home.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+    pkgs.nerd-fonts.sauce-code-pro
   ];
 
   xdg.configFile."alacritty/alacritty.toml".text = ''

@@ -101,6 +101,13 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    set.conceallevel = 2
+  end
+})
+
 -- Remember cursor position between sessions
 vim.cmd [[
     autocmd BufReadPost *
@@ -312,8 +319,7 @@ nvim_lsp.ccls.setup {
   flags = flags
 }
 
-nvim_lsp.tsserver.setup {
-  cmd = { "typescript-language-server", "--stdio" },
+nvim_lsp.ts_ls.setup {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
@@ -467,7 +473,7 @@ require('orgmode').setup {
   org_agenda_files = { vim.env.MHP .. '/Agenda/**/*', '~/org/**/*' },
   org_default_notes_file = vim.env.MHP .. '~/Agenda/notes.org',
   org_startup_folded = 'showeverything',
-  org_todo_keywords = { 'OPEN(o)', 'BACK(2)', 'CURR(1)', 'PRIO(0)', 'PEND(p)', '|', 'DONE(d)' },
+  org_todo_keywords = { 'OPEN(o)', 'BACK(3)', 'CURR(2)', 'PRIO(1)', 'PEND(p)', '|', 'DONE(d)' },
   org_todo_keyword_faces = {
     OPEN = ':foreground #FFFFFF :weight bold',
     BACK = ':foreground #00FFFF :weight bold',
@@ -497,6 +503,46 @@ require("headlines").setup {
     headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4" },
   },
 }
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+    local update_script = nil
+
+    update_script = 'org_update.py'
+
+    if update_script ~= nil then
+      vim.api.nvim_create_autocmd('BufWritePost', {
+        pattern = '*',
+        callback = function()
+          vim.fn.jobstart(dir .. "/" .. update_script)
+        end
+      })
+    end
+  end
+})
+
+-- fwatch.nvim: autoread org_summary.org
+local fwatch = require('fwatch')
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    local name = vim.fs.basename(vim.api.nvim_buf_get_name(0))
+    if name == 'org_summary.org' then
+      vim.cmd [[ set autoread ]]
+
+      fwatch.watch(vim.api.nvim_buf_get_name(0), {
+        on_event = function()
+          vim.schedule(function()
+            vim.cmd [[ checktime ]]
+          end)
+        end
+      })
+    end
+  end
+})
 
 
 -------------------------------------

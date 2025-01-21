@@ -73,6 +73,8 @@ in
       comment-nvim
       nvim-ts-context-commentstring
 
+      fwatch-nvim
+
       vim-fugitive
       neogit
       gitsigns-nvim

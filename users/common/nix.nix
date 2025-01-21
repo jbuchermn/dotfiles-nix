@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    nixFlakes
+    nixVersions.stable
   ];
   xdg.configFile."nix/nix.conf".text = ''
     experimental-features = nix-command flakes
