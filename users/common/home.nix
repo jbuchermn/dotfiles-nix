@@ -16,7 +16,7 @@ in
     imv
     mpv
 
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     vlc
     firefox
     chromium

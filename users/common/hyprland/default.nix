@@ -28,7 +28,9 @@ in
       };
 
       decoration = {
-        drop_shadow = false;
+        shadow = {
+          enabled = true;
+        };
         rounding = 10;
         blur = {
           size = 5;

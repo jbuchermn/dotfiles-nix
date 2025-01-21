@@ -14,12 +14,9 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
-    neorg.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
-    neorg.inputs.nixpkgs.follows = "nixpkgs";
-
   };
 
-  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, neorg, ... }:
+  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, ... }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -31,8 +28,7 @@
             allowUnfree = true;
           };
           overlays = [
-            nur.overlay
-            neorg.overlays.default
+            nur.overlays.default
           ];
         };
 

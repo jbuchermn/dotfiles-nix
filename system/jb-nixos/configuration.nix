@@ -21,7 +21,7 @@
   networking.networkmanager.enable = true;
 
   # OpenGL and vaapi - not working
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD

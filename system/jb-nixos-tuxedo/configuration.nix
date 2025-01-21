@@ -22,7 +22,7 @@
   networking.networkmanager.enable = true;
 
   # OpenGL
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # Backlights
   environment.systemPackages = with pkgs; [
