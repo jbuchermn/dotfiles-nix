@@ -7,8 +7,8 @@ in
     enable = true;
     settings = {
       input = {
-        kb_layout = "de,de";
-        kb_model = "macintosh";
+        kb_layout = "de, de";
+        kb_variant = "mac, mac";
         kb_options = "caps:escape";
         follow_mouse = 1;
 
