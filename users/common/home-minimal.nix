@@ -15,7 +15,6 @@
 
   # Basic
   home.packages = with pkgs; [
-    neofetch
     unzip
     zip
     tree

@@ -6,6 +6,8 @@ local set = vim.opt
 local setlocal = vim.opt_local
 local map = vim.keymap.set
 
+vim.loader.enable()
+
 -- Settings
 set.termguicolors = true
 set.encoding = 'utf8'

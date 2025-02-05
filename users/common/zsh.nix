@@ -34,7 +34,6 @@ in
 
       eval "$(starship init zsh)"
       ${extraEnv}
-      neofetch
     '';
 
     history = {
