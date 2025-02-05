@@ -14,9 +14,11 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
   };
 
-  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, ... }:
+  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, nixos-hardware, ... }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -62,6 +64,7 @@
         packages.nixosConfigurations = {
           jb-nixos = nixosSystem [
             ./system/jb-nixos/configuration.nix
+            nixos-hardware.nixosModules.apple-macbook-pro-12-1
           ];
 
           jb-nixos-tuxedo = nixosSystem [

@@ -20,22 +20,6 @@
   networking.interfaces.wlp3s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
-  # OpenGL and vaapi - not working
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      # vaapiIntel # LIBVA_DRIVER_NAME=i965
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
-
-  # Cirrus CS4208 - not working
-  boot.extraModprobeConfig = ''
-    options snd-hda-intel model=auto,mbp11
-  '';
-
   # MBP Webcam
   hardware.facetimehd.enable = true;
 
@@ -92,6 +76,25 @@
   };
 
   # Disable firewall (for homekit)
-  networking.firewall.enable = true;
+  # networking.firewall.enable = false;
+
+  # Cirrus CS4208 - not working
+  # boot.extraModprobeConfig = ''
+  #   options snd-hda-intel model=auto,mbp11
+  # '';
+
+  hardware.graphics = {
+    enable = true;
+
+    # Does not seem to be working properly, e.g. in Chrome
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      # vaapiIntel # LIBVA_DRIVER_NAME=i965
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
+
 }
 
