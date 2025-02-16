@@ -64,7 +64,7 @@
         packages.nixosConfigurations = {
           jb-nixos = nixosSystem [
             ./system/jb-nixos/configuration.nix
-            nixos-hardware.nixosModules.apple-macbook-pro-12-1
+            # nixos-hardware.nixosModules.apple-macbook-pro-12-1
           ];
 
           jb-nixos-tuxedo = nixosSystem [
