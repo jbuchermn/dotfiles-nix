@@ -139,6 +139,20 @@ map('n', '-', ':NvimTreeFindFileToggle!<CR>', { silent = true })
 map('n', '<C-Space>', '<CMD>lua require("FTerm").toggle()<CR>', { silent = true })
 map('t', '<C-Space>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { silent = true })
 
+require('toggleterm').setup {}
+function _G.set_terminal_keymaps()
+  local opts = { buffer = 0 }
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
+
 -- neogit
 require("neogit").setup {
 }
@@ -288,13 +302,17 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- nvim-lspconfig
 local nvim_lsp = require('lspconfig')
 
-local on_attach = function(client, bufnr)
+local on_attach_enable_format = function(client, bufnr)
+  if client.server_capabilities.documentFormattingProvider then
+    vim.cmd [[augroup Format]]
+    vim.cmd [[autocmd! * <buffer>]]
+    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format { async = false }]]
+    vim.cmd [[augroup END]]
+  end
+end
+
+local on_attach_std_keybindings = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   local opts = { noremap = true, silent = true }
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<Up>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -302,13 +320,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>cR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>cA', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>cf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opts)
+end
 
-  if client.server_capabilities.documentFormattingProvider then
-    vim.cmd [[augroup Format]]
-    vim.cmd [[autocmd! * <buffer>]]
-    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format { async = false }]]
-    vim.cmd [[augroup END]]
-  end
+local on_attach = function(client, bufnr)
+  on_attach_std_keybindings(client, bufnr)
+  on_attach_enable_format(client, bufnr)
+
+  vim.api.nvim.buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 
@@ -348,11 +366,32 @@ nvim_lsp.pylsp.setup {
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.hls.setup {
-  cmd = { "hls_wrapped" },
-  on_attach = on_attach,
-  flags = flags,
-  capabilities = nvim_cmp_capabilities
+function on_attach_haskell(client, bufnr, ht)
+  local opts = { noremap = true, silent = true, buffer = bufnr, }
+
+  on_attach_enable_format(client, bufnr)
+  on_attach_std_keybindings(client, bufnr)
+
+  vim.keymap.set('n', '<leader>ch', ht.hoogle.hoogle_signature, opts)
+
+  vim.keymap.set('n', '<leader>ea', ht.lsp.buf_eval_all, opts)
+
+  vim.keymap.set('n', '<leader>rr', ht.repl.toggle, opts)
+  vim.keymap.set('n', '<leader>rf', function()
+    ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+  end, opts)
+  vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
+end
+
+vim.g.haskell_tools = {
+  hls = {
+    on_attach = on_attach_haskell
+  },
+  tools = {
+    repl = {
+      handler = 'toggleterm',
+    },
+  }
 }
 
 nvim_lsp.dartls.setup {
@@ -399,7 +438,6 @@ nvim_lsp.nil_ls.setup {
 }
 
 
-
 -- telescope
 function telescope_buffer_dir()
   return vim.fn.expand('%:p:h')
@@ -423,14 +461,14 @@ telescope.setup {
         ["<C-k>"] = actions.move_selection_previous
       },
     },
-  }
+  },
 }
 
 -- telescope: files and grep
+map('n', '<leader>pp', '<cmd>lua require("telescope").extensions.project.project{}<CR>')
 map('n', '<leader>pf', '<cmd>lua require("telescope.builtin").find_files()<CR>')
 map('n', '<leader>pF',
   '<cmd>lua require("telescope.builtin").find_files{ hidden = true, no_ignore = true, no_ignore_parent = true }<CR>')
-map('n', '<leader>pp', '<cmd>lua require("telescope").extensions.project.project{}<CR>')
 map('n', '<leader>/', '<cmd>lua require("telescope.builtin").live_grep()<CR>')
 
 -- telescope: LSP

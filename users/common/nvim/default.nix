@@ -36,11 +36,11 @@ in
       ripgrep
       gcc # Necessary to compile tree-sitter plugins
 
-      # Language-servers and utilities
+      ## Language-servers and utilities
       ccls
 
-      haskell-language-server
-      stylish-haskell
+      # TODO Expect hls in local dev env // hls_wrapped
+      # haskell-language-server
 
       nodePackages.typescript
       nodePackages.typescript-language-server
@@ -64,6 +64,7 @@ in
 
     plugins = (with pkgs.vimPlugins; [
 
+      ## General
       nvim-tree-lua
       nvim-web-devicons
 
@@ -81,11 +82,6 @@ in
 
       oil-nvim
 
-      orgmode
-      headlines-nvim
-      # neorg
-      # (pluginGit "main" "3623e86e0fa6d07f45042f7207fc333c014bf167" "akinsho/org-bullets.nvim")
-
       nvim-lspconfig
       telescope-nvim
       telescope-project-nvim
@@ -99,6 +95,20 @@ in
       cmp-cmdline
       cmp-nvim-lsp
       cmp_luasnip
+
+      FTerm-nvim
+      toggleterm-nvim
+
+      ## Language-specific
+      vim-nix
+
+      purescript-vim
+
+      haskell-tools-nvim
+
+      orgmode
+      headlines-nvim
+
 
 
       (nvim-treesitter.withPlugins (
@@ -121,12 +131,6 @@ in
         ]
       ))
 
-      FTerm-nvim
-
-      # Language-specific plugins
-      vim-nix
-      stylish-haskell
-      purescript-vim
 
     ] ++ (if pkgs.stdenv.isLinux then with pkgs.vimPlugins; [
       vim-wayland-clipboard
@@ -139,11 +143,11 @@ in
   '';
   home.file.".local/bin/pylsp_wrapped".executable = true;
 
-  home.file.".local/bin/hls_wrapped".text = ''
-    #!/usr/bin/env sh
-    nix develop --command "haskell-language-server-wrapper --lsp $@" || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server-wrapper --lsp "$@")
-  '';
-  home.file.".local/bin/hls_wrapped".executable = true;
+  # home.file.".local/bin/hls_wrapped".text = ''
+  #   #!/usr/bin/env sh
+  #   nix develop --command "haskell-language-server-wrapper --lsp $@" || (>&2 echo "No valid nix development environment containing haskell-language-server found - defaulting" && haskell-language-server-wrapper --lsp "$@")
+  # '';
+  # home.file.".local/bin/hls_wrapped".executable = true;
 
   # Prevent errors on first startup (telescope-project e.g.)
   programs.zsh.initExtra = ''
