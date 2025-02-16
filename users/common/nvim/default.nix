@@ -85,6 +85,7 @@ in
       nvim-lspconfig
       telescope-nvim
       telescope-project-nvim
+      telescope_hoogle
 
       luasnip
       friendly-snippets

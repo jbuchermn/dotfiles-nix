@@ -447,6 +447,7 @@ local telescope = require('telescope')
 local actions = require('telescope.actions')
 
 telescope.load_extension('project')
+telescope.load_extension('hoogle')
 
 telescope.setup {
   defaults = {
@@ -479,6 +480,9 @@ map('n', '<leader>ct', '<cmd>lua require("telescope.builtin").lsp_type_definitio
 map('n', '<leader>ci', '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>')
 map('n', '<leader>cs', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>')
 map('n', '<leader>cS', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>')
+
+-- telescope: Haskell
+map('n', '<leader>hh', '<cmd>lua require("telescope").extensions.hoogle.hoogle{}<CR>')
 
 -- tree-sitter
 local ts_parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"

@@ -70,6 +70,9 @@ Update using brew.
 
 # Open
 
+- [ ] Vim: Switch from FTerm to toggleterm
+- [ ] Manix
+
 - [ ] Get vaapi running on MacBookPro12,1 (chromium takes an incredible amount of cpu)
 - [ ] Get Cirrus CS4208 running on MacBookPro12,1 (no bass)
 
