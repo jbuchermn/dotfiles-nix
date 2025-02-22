@@ -88,7 +88,7 @@ map('n', '<Tab>', 'za', { noremap = true })
 -- Autocommands
 -------------------------------------
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua',
+  pattern = 'javascript,typescript,typescriptreact,haskell,css,scss,html,purescript,svelte,lua,c,h',
   callback = function()
     setlocal.ts = 2
     setlocal.sts = 2
@@ -326,7 +326,7 @@ local on_attach = function(client, bufnr)
   on_attach_std_keybindings(client, bufnr)
   on_attach_enable_format(client, bufnr)
 
-  vim.api.nvim.buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 end
 
 
