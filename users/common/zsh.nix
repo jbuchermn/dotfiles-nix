@@ -29,7 +29,7 @@ in
       nix-channel = "echo \"Goodbye, old world.\"";
     };
 
-    initExtra = ''
+    initContent = ''
       gcgh(){ git clone https://github.com/"$@" };
 
       eval "$(starship init zsh)"

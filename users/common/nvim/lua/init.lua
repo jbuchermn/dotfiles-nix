@@ -489,16 +489,15 @@ local ts_parser_install_dir = vim.fn.stdpath("cache") .. "/treesitters"
 require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    disable = { 'org' },
-    additional_vim_regex_highlighting = { 'org' },
+    disable = {},
+    additional_vim_regex_highlighting = {},
   },
-  ensure_installed = { 'org' },
+  ensure_installed = {},
   parser_install_dir = ts_parser_install_dir
 }
 vim.opt.runtimepath:append(ts_parser_install_dir)
 
 -- orgmode
-
 vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = '*',
   callback = function()
@@ -588,6 +587,36 @@ vim.api.nvim_create_autocmd('FileType', {
       })
     end
   end
+})
+
+-- avante.nvim
+require("avante_lib").load()
+require('avante').setup({
+  -- Your other config here!
+  provider = "gemini",
+  providers = {
+    claude = {
+      endpoint = "https://api.anthropic.com",
+      model = "claude-sonnet-4-20250514",
+      timeout = 30000, -- Timeout in milliseconds
+      extra_request_body = {
+        temperature = 0.75,
+        max_tokens = 20480,
+      },
+    },
+    gemini = {
+      endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+      model = "gemini-2.0-flash",
+      timeout = 30000, -- Timeout in milliseconds
+      context_window = 1048576,
+      use_ReAct_prompt = true,
+      extra_request_body = {
+        generationConfig = {
+          temperature = 0.75,
+        },
+      },
+    },
+  }
 })
 
 
