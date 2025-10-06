@@ -155,8 +155,8 @@
           };
 
           jonasmhp-mbp = homeManagerConfiguration {
-            username = "jonasmhp";
-            homeDirectory = "/Users/jonasmhp";
+            username = "jbucher2";
+            homeDirectory = "/Users/jbucher2";
 
             modules = [
               ./users/jonas-mbp/home.nix
@@ -166,7 +166,7 @@
               isWork = true;
               providePkgs = false;
               extraEnv = ''
-                export MHP="/Users/jonasmhp/Library/CloudStorage/OneDrive-mhp-group.com/Documents/MHP"
+                export MHP="/Users/jbucher2/Library/CloudStorage/OneDrive-mhp-group.com/Documents/MHP"
               '';
             };
           };

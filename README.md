@@ -64,6 +64,12 @@ brew install --cask alacritty --no-quarantine
 
 to `/etc/zshrc`
 
+Sometimes macOS decides you are not capable of your own decisions. Use:
+
+```
+xattr -rd com.apple.quarantine /Applications/Alacritty.app
+```
+
 - Alacritty not working properly
 
 Update using brew.
