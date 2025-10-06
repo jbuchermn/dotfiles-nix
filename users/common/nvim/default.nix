@@ -100,6 +100,8 @@ in
       FTerm-nvim
       toggleterm-nvim
 
+      avante-nvim
+
       ## Language-specific
       vim-nix
 
@@ -109,8 +111,6 @@ in
 
       orgmode
       headlines-nvim
-
-
 
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
@@ -127,7 +127,6 @@ in
           tree-sitter-html
           tree-sitter-css
           tree-sitter-lua
-          tree-sitter-org
           tree-sitter-vimdoc
         ]
       ))
@@ -151,7 +150,7 @@ in
   # home.file.".local/bin/hls_wrapped".executable = true;
 
   # Prevent errors on first startup (telescope-project e.g.)
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     mkdir -p ~/.local/share/nvim
   '';
 }
