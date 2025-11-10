@@ -47,8 +47,9 @@ in
 
       nodePackages.purescript-language-server
 
-      nodePackages.svelte-language-server
-      nodePackages."@tailwindcss/language-server"
+      # TODO Expect svelte-language-server in dev env
+      # nodePackages.svelte-language-server
+      # nodePackages."@tailwindcss/language-server"
 
       lua-language-server
 

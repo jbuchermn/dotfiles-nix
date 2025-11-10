@@ -16,6 +16,8 @@ set.so = 999 -- Keep cursor centered vertically
 set.number = true
 set.hidden = true
 
+set.shell = '/bin/bash'
+
 -- Indentation
 set.autoindent = true
 set.smartindent = true
