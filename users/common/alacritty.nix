@@ -4,9 +4,12 @@ let
 in
 {
   programs.alacritty =
-    if providePkgs then {
-      enable = true;
-    } else { };
+    if providePkgs then
+      {
+        enable = true;
+      }
+    else
+      { };
 
   home.packages = [
     pkgs.nerd-fonts.sauce-code-pro

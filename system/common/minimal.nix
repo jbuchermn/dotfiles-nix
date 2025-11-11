@@ -59,4 +59,3 @@
     "fs.inotify.max_queued_events" = 32768; # default: 16384
   };
 }
-

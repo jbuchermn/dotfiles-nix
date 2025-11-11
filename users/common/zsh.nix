@@ -60,9 +60,12 @@ in
   };
 
   programs.starship =
-    if providePkgs then {
-      enable = true;
-    } else { };
+    if providePkgs then
+      {
+        enable = true;
+      }
+    else
+      { };
 
   xdg.configFile."starship/starship.toml".source = ./starship.toml;
 

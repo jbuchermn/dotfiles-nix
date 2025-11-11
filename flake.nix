@@ -18,7 +18,16 @@
 
   };
 
-  outputs = { nixpkgs, flake-utils, nur, home-manager, nixos-generators, nixos-hardware, ... }:
+  outputs =
+    {
+      nixpkgs,
+      flake-utils,
+      nur,
+      home-manager,
+      nixos-generators,
+      nixos-hardware,
+      ...
+    }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
@@ -34,31 +43,42 @@
           ];
         };
 
-        nixosSystem = modules: nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          modules = [
-            {
-              nix.registry.nixpkgs.flake = nixpkgs;
-            }
-          ] ++ modules;
-        };
+        nixosSystem =
+          modules:
+          nixpkgs.lib.nixosSystem {
+            inherit system pkgs;
+            modules = [
+              {
+                nix.registry.nixpkgs.flake = nixpkgs;
+              }
+            ]
+            ++ modules;
+          };
 
-        homeManagerConfiguration = { modules, username, homeDirectory, extraSpecialArgs ? { } }: home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        homeManagerConfiguration =
+          {
+            modules,
+            username,
+            homeDirectory,
+            extraSpecialArgs ? { },
+          }:
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
 
-          modules = [
-            {
-              nix.registry.nixpkgs.flake = nixpkgs;
-            }
-            {
-              home = {
-                inherit username homeDirectory stateVersion;
-              };
-            }
-          ] ++ modules;
+            modules = [
+              {
+                nix.registry.nixpkgs.flake = nixpkgs;
+              }
+              {
+                home = {
+                  inherit username homeDirectory stateVersion;
+                };
+              }
+            ]
+            ++ modules;
 
-          inherit extraSpecialArgs;
-        };
+            inherit extraSpecialArgs;
+          };
       in
       {
         packages.nixosConfigurations = {
@@ -81,27 +101,30 @@
 
             ./system/jb-nixos-live/configuration.nix
 
-            ({ config, pkgs, ... }: {
-              home-manager = {
-                users.jonas = {
-                  imports = [
-                    ./users/jonas-live/home.nix
-                  ];
+            (
+              { config, pkgs, ... }:
+              {
+                home-manager = {
+                  users.jonas = {
+                    imports = [
+                      ./users/jonas-live/home.nix
+                    ];
 
-                  home = {
-                    inherit stateVersion;
-                    username = "jonas";
-                    homeDirectory = "/home/jonas";
+                    home = {
+                      inherit stateVersion;
+                      username = "jonas";
+                      homeDirectory = "/home/jonas";
+                    };
+                  };
+
+                  useGlobalPkgs = true;
+
+                  extraSpecialArgs = {
+                    isMBP = false;
                   };
                 };
-
-                useGlobalPkgs = true;
-
-                extraSpecialArgs = {
-                  isMBP = false;
-                };
-              };
-            })
+              }
+            )
           ];
         };
 
@@ -200,4 +223,3 @@
       }
     );
 }
-

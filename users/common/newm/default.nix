@@ -4,15 +4,21 @@ let
   isMBP = if builtins.hasAttr "isMBP" input then input.isMBP else true;
   providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
 
-  confFile = builtins.replaceStrings
-    [ "PLACEHOLDER_xkb_model" "PLACEHOLDER_mod" "PLACEHOLDER_c_gestures" "PLACEHOLDER_pyevdev_gestures" ]
-    [
-      (if isMBP then "macintosh" else "de-latin1")
-      (if isVirtual then "A" else "L")
-      (if isMBP then "{'enabled': False}" else "{'enabled': True, 'scale_px': 800.}")
-      (if isMBP then "{'enabled': True}" else "{'enabled': False}")
-    ]
-    (builtins.readFile ./config.py);
+  confFile =
+    builtins.replaceStrings
+      [
+        "PLACEHOLDER_xkb_model"
+        "PLACEHOLDER_mod"
+        "PLACEHOLDER_c_gestures"
+        "PLACEHOLDER_pyevdev_gestures"
+      ]
+      [
+        (if isMBP then "macintosh" else "de-latin1")
+        (if isVirtual then "A" else "L")
+        (if isMBP then "{'enabled': False}" else "{'enabled': True, 'scale_px': 800.}")
+        (if isMBP then "{'enabled': True}" else "{'enabled': False}")
+      ]
+      (builtins.readFile ./config.py);
 in
 {
   xdg.configFile."newm/config.py".text = confFile;
@@ -51,28 +57,35 @@ in
   xdg.configFile."rofi/config.rasi".source = ./rofi.rasi;
 
   home.packages =
-    if providePkgs then with pkgs; [
-      newm
-      waybar
-      wob
-      rofi-wayland
-      mako
-      libnotify
+    if providePkgs then
+      with pkgs;
+      [
+        newm
+        waybar
+        wob
+        rofi-wayland
+        mako
+        libnotify
 
-      pywm-fullscreen
+        pywm-fullscreen
 
-      grim
-      slurp
+        grim
+        slurp
 
-      gnome.nautilus
+        gnome.nautilus
 
-      sway
-    ] else [ ];
+        sway
+      ]
+    else
+      [ ];
 
   home.sessionVariables =
-    if isVirtual then {
-      WLR_NO_HARDWARE_CURSORS = 1; # Hardware cursors don't properly work inside qemu
-    } else { };
+    if isVirtual then
+      {
+        WLR_NO_HARDWARE_CURSORS = 1; # Hardware cursors don't properly work inside qemu
+      }
+    else
+      { };
 
   home.file."wallpaper.jpg".source = ../wallpaper.jpg;
 

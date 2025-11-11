@@ -9,18 +9,24 @@ in
 
   fonts.fontconfig.enable = true;
 
-  home.packages = (if providePkgs then with pkgs; [
-    powerstat
-    btop
+  home.packages = (
+    if providePkgs then
+      with pkgs;
+      [
+        powerstat
+        btop
 
-    imv
-    mpv
+        imv
+        mpv
 
-    adwaita-icon-theme
-    vlc
-    firefox
-    chromium
-    libreoffice
-    spotify
-  ] else [ ]);
+        adwaita-icon-theme
+        vlc
+        firefox
+        chromium
+        libreoffice
+        spotify
+      ]
+    else
+      [ ]
+  );
 }

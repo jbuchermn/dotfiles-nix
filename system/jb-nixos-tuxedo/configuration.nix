@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../common/default.nix
-      ../common/user.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../common/default.nix
+    ../common/user.nix
+  ];
 
   # Hostname
   networking.hostName = "jb-nixos-tuxedo";
@@ -30,4 +29,3 @@
   ];
 
 }
-

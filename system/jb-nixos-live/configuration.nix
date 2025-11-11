@@ -1,22 +1,31 @@
-{ config, pkgs, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Includes from installation-cd-base.nix
-      (modulesPath + "/profiles/all-hardware.nix")
-      (modulesPath + "/profiles/base.nix")
-      (modulesPath + "/installer/scan/detected.nix")
-      (modulesPath + "/installer/scan/not-detected.nix")
+  imports = [
+    # Includes from installation-cd-base.nix
+    (modulesPath + "/profiles/all-hardware.nix")
+    (modulesPath + "/profiles/base.nix")
+    (modulesPath + "/installer/scan/detected.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
 
-      ../common/default.nix
-      # ../common/minimal.nix
-    ];
+    ../common/default.nix
+    # ../common/minimal.nix
+  ];
 
   # Users
   users.users.jonas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "input"
+      "video"
+    ];
     shell = pkgs.zsh;
     initialHashedPassword = "";
   };
@@ -38,4 +47,3 @@
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
 }
-

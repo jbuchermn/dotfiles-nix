@@ -27,4 +27,3 @@
   # Home-Manager issue #3113
   programs.dconf.enable = true;
 }
-
