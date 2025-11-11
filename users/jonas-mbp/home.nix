@@ -3,16 +3,15 @@ let
   isWork = if builtins.hasAttr "isWork" input then input.isWork else false;
 in
 {
-  programs.git =
-    if isWork then {
-      enable = true;
-      userName = "Jonas Bucher";
-      userEmail = "jonas.bucher@mhp.com";
-    } else {
-      enable = true;
-      userName = "Jonas Bucher";
-      userEmail = "j.bucher.mn@gmail.com";
-    };
+  programs.git = if isWork then {
+    enable = true;
+    settings.user.email = "jonas.bucher@mhp.com";
+    settings.user.name = "Jonas Bucher";
+  }else {
+    enable = true;
+    settings.user.email = "j.bucher.mn@gmail.com";
+    settings.user.name = "Jonas Bucher";
+  };
 
   home.sessionVariables = {
     EDITOR = "vim";

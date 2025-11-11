@@ -302,8 +302,6 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 
 -- nvim-lspconfig
-local nvim_lsp = require('lspconfig')
-
 local on_attach_enable_format = function(client, bufnr)
   if client.server_capabilities.documentFormattingProvider then
     vim.cmd [[augroup Format]]
@@ -336,24 +334,15 @@ local flags = {
   debounce_text_changes = 150
 }
 
-nvim_lsp.ccls.setup {
-  on_attach = on_attach,
-  flags = flags
-}
-
-nvim_lsp.ts_ls.setup {
+vim.lsp.enable('ccls')
+vim.lsp.config.ccls = {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.ccls.setup {
-  on_attach = on_attach,
-  flags = flags,
-  capabilities = nvim_cmp_capabilities
-}
-
-nvim_lsp.pylsp.setup {
+vim.lsp.enable('pylsp')
+vim.lsp.config.pylsp = {
   cmd = { "pylsp_wrapped" },
   flags = flags,
   on_attach = on_attach,
@@ -385,6 +374,7 @@ function on_attach_haskell(client, bufnr, ht)
   vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
 end
 
+vim.lsp.enable('hls')
 vim.g.haskell_tools = {
   hls = {
     on_attach = on_attach_haskell
@@ -396,46 +386,47 @@ vim.g.haskell_tools = {
   }
 }
 
-nvim_lsp.dartls.setup {
+vim.lsp.enable('ts_ls')
+vim.lsp.config.ts_ls = {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.purescriptls.setup {
+
+vim.lsp.enable('svelte')
+vim.lsp.config.svelte = {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.svelte.setup {
+vim.lsp.enable('tailwindcss')
+vim.lsp.config.tailwindcss = {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.tailwindcss.setup {
+vim.lsp.enable('lua_ls')
+vim.lsp.config.lua_ls = {
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities
 }
 
-nvim_lsp.lua_ls.setup {
-  on_attach = on_attach,
-  flags = flags,
-  capabilities = nvim_cmp_capabilities
-}
-
-nvim_lsp.nil_ls.setup {
+vim.lsp.enable('nixd')
+vim.lsp.config.nixd = {
+  cmd = { "nixd" },
   on_attach = on_attach,
   flags = flags,
   capabilities = nvim_cmp_capabilities,
   settings = {
-    ['nil'] = {
+    nixd = {
       formatting = {
-        command = { 'nixpkgs-fmt' }
-      }
-    }
+        command = { "nixfmt" },
+      },
+    },
   }
 }
 
@@ -592,34 +583,34 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- avante.nvim
-require("avante_lib").load()
-require('avante').setup({
-  -- Your other config here!
-  provider = "gemini",
-  providers = {
-    claude = {
-      endpoint = "https://api.anthropic.com",
-      model = "claude-sonnet-4-20250514",
-      timeout = 30000, -- Timeout in milliseconds
-      extra_request_body = {
-        temperature = 0.75,
-        max_tokens = 20480,
-      },
-    },
-    gemini = {
-      endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-      model = "gemini-2.0-flash",
-      timeout = 30000, -- Timeout in milliseconds
-      context_window = 1048576,
-      use_ReAct_prompt = true,
-      extra_request_body = {
-        generationConfig = {
-          temperature = 0.75,
-        },
-      },
-    },
-  }
-})
+-- require("avante_lib").load()
+-- require('avante').setup({
+--   -- Your other config here!
+--   provider = "gemini",
+--   providers = {
+--     claude = {
+--       endpoint = "https://api.anthropic.com",
+--       model = "claude-sonnet-4-20250514",
+--       timeout = 30000, -- Timeout in milliseconds
+--       extra_request_body = {
+--         temperature = 0.75,
+--         max_tokens = 20480,
+--       },
+--     },
+--     gemini = {
+--       endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+--       model = "gemini-2.0-flash",
+--       timeout = 30000, -- Timeout in milliseconds
+--       context_window = 1048576,
+--       use_ReAct_prompt = true,
+--       extra_request_body = {
+--         generationConfig = {
+--           temperature = 0.75,
+--         },
+--       },
+--     },
+--   }
+-- })
 
 
 -------------------------------------

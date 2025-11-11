@@ -45,22 +45,18 @@ in
       nodePackages.typescript
       nodePackages.typescript-language-server
 
-      nodePackages.purescript-language-server
-
       # TODO Expect svelte-language-server in dev env
       # nodePackages.svelte-language-server
       # nodePackages."@tailwindcss/language-server"
 
       lua-language-server
 
-      nil
-      nixpkgs-fmt
+      nixd
+      nixfmt
 
     ] ++ (if pkgs.stdenv.isLinux then [
       wl-clipboard
 
-      # Language-servers and utilities
-      dart # Install via brew on macOS
     ] else [ ]);
 
     plugins = (with pkgs.vimPlugins; [
@@ -101,12 +97,10 @@ in
       FTerm-nvim
       toggleterm-nvim
 
-      avante-nvim
+      # avante-nvim
 
       ## Language-specific
       vim-nix
-
-      purescript-vim
 
       haskell-tools-nvim
 
@@ -121,7 +115,6 @@ in
           tree-sitter-bash
           tree-sitter-nix
           tree-sitter-haskell
-          tree-sitter-dart
           tree-sitter-svelte
           tree-sitter-javascript
           tree-sitter-typescript

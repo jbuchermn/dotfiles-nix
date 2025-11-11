@@ -65,4 +65,8 @@ in
     } else { };
 
   xdg.configFile."starship/starship.toml".source = ./starship.toml;
+
+  home.packages = with pkgs; [
+    gemini-cli
+  ];
 }

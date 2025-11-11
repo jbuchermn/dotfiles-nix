@@ -2,15 +2,15 @@ input@{ config, pkgs, ... }:
 {
   programs.git = {
     enable = true;
-    userName = "Jonas Bucher";
-    userEmail = "j.bucher.mn@gmail.com";
+    settings.user.email = "j.bucher.mn@gmail.com";
+    settings.user.name = "Jonas Bucher";
   };
 
   home.sessionVariables = {
     EDITOR = "vim";
   };
 
-  home.sessionPath = [ 
+  home.sessionPath = [
     "$HOME/.local/bin"
     "/opt/homebrew/bin"
   ];

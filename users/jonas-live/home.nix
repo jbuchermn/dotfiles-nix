@@ -2,6 +2,8 @@
 {
   programs.git = {
     enable = true;
+    settings.user.email = "j.bucher.mn@gmail.com";
+    settings.user.name = "Jonas Bucher";
   };
 
   imports = [
