@@ -69,7 +69,9 @@ in
 
   xdg.configFile."starship/starship.toml".source = ./starship.toml;
 
+  # AI helpers
   home.packages = with pkgs; [
     gemini-cli
+    opencode
   ];
 }
