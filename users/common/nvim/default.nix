@@ -53,10 +53,11 @@ in
           # this section is for dependencies that should be available
           # at RUN TIME for plugins. Will be available to PATH within neovim terminal
           # this includes LSPs
-          lspsAndRuntimeDeps = {
-            general = with pkgs; [
-              lazygit
-            ];
+           lspsAndRuntimeDeps = {
+             general = with pkgs; [
+               lazygit
+               ripgrep
+             ];
             lua = with pkgs; [
               lua-language-server
               stylua

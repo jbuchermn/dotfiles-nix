@@ -19,8 +19,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+-- Keep cursor centered vertically
+vim.opt.scrolloff = 999
 
 -- Make line numbers default
 vim.wo.number = true
@@ -82,16 +82,33 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Remember cursor position between sessions
+vim.cmd [[
+    autocmd BufReadPost *
+                \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+                \   exe "normal! g'\"" |
+                \ endif
+]]
+
 vim.g.netrw_liststyle=0
 vim.g.netrw_banner=0
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
+-- Window navigation
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
+-- Terminal window navigation
+vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], { desc = 'Window down' })
+vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], { desc = 'Window up' })
+vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], { desc = 'Window right' })
+vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], { desc = 'Window left' })
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Moves Line Down' })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'Moves Line Up' })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll Down' })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll Up' })
 vim.keymap.set("n", "n", "nzzzv", { desc = 'Next Search Result' })
 vim.keymap.set("n", "N", "Nzzzv", { desc = 'Previous Search Result' })
 
@@ -104,17 +121,28 @@ vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = 'delete bu
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Easier to reach command mode
+vim.keymap.set('n', ',', ':')
+vim.keymap.set('v', ',', ':')
+vim.keymap.set('n', ':', '<nop>')
+vim.keymap.set('v', ':', '<nop>')
+
+-- Arrow key indentation
+vim.keymap.set('n', '<Left>', '<<')
+vim.keymap.set('n', '<Right>', '>>')
+vim.keymap.set('v', '<Left>', '<gv')
+vim.keymap.set('v', '<Right>', '>gv')
+
+-- Prevent accidental command history buffer
+vim.keymap.set('n', 'q:', '<nop>')
+vim.keymap.set('n', 'Q', '<nop>')
+
+-- Fold with Tab
+vim.keymap.set('n', '<Tab>', 'za', { noremap = true })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
--- kickstart.nvim starts you with this. 
--- But it constantly clobbers your system clipboard whenever you delete anything.
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
 
 -- You should instead use these keybindings so that they are still easy to use, but dont conflict
 vim.keymap.set({"v", "x", "n"}, '<leader>y', '"+y', { noremap = true, silent = true, desc = 'Yank to clipboard' })
@@ -138,17 +166,16 @@ require("snacks").setup({
   scope = {},
 })
 vim.keymap.set("n", "-", function() Snacks.explorer.open() end, { desc = 'Snacks Explorer' })
-vim.keymap.set("n", "<c-\\>", function() Snacks.terminal.open() end, { desc = 'Snacks Terminal' })
-vim.keymap.set("n", "<leader>_", function() Snacks.lazygit.open() end, { desc = 'Snacks LazyGit' })
-vim.keymap.set('n', "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
-vim.keymap.set('n', "<leader><leader>s", function() Snacks.picker.buffers() end, { desc = "Search Buffers" })
+vim.keymap.set("n", "<c-space>", function() Snacks.terminal.open() end, { desc = 'Snacks Terminal' })
+vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit.open() end, { desc = 'Snacks LazyGit' })
+vim.keymap.set('n', "<leader>fs", function() Snacks.picker.buffers() end, { desc = "Search Buffers" })
 -- find
-vim.keymap.set('n', "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
-vim.keymap.set('n', "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
+vim.keymap.set('n', "<leader>ff", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
+vim.keymap.set('n', "<leader>fF", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 -- Grep
 vim.keymap.set('n', "<leader>sb", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 vim.keymap.set('n', "<leader>sB", function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
-vim.keymap.set('n', "<leader>sg", function() Snacks.picker.grep() end, { desc = "Grep" })
+vim.keymap.set('n', "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "Visual selection or ord" })
 -- search
 vim.keymap.set('n', "<leader>sb", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
@@ -170,10 +197,15 @@ require('lze').load {
     event = "DeferredUIEnter",
     on_require = "blink",
     after = function (plugin)
-      require("blink.cmp").setup({
-        -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-        -- See :h blink-cmp-config-keymap for configuring keymaps
-        keymap = { preset = 'default' },
+       require("blink.cmp").setup({
+         -- Custom keymap to avoid Tab conflicts with fold toggle
+         keymap = {
+           preset = 'none',
+           ['<C-n>'] = { 'select_next', 'fallback' },
+           ['<C-p>'] = { 'select_prev', 'fallback' },
+           ['<CR>'] = { 'accept', 'fallback' },
+           ['<C-e>'] = { 'hide', 'fallback' },
+         },
         appearance = {
           nerd_font_variant = 'mono'
         },
@@ -202,15 +234,14 @@ require('lze').load {
       require('nvim-treesitter.configs').setup {
         highlight = { enable = true, },
         indent = { enable = false, },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<c-space>',
-            node_incremental = '<c-space>',
-            scope_incremental = '<c-s>',
-            node_decremental = '<M-space>',
-          },
-        },
+         incremental_selection = {
+           enable = true,
+           keymaps = {
+             init_selection = '<c-i>',
+             node_incremental = '<c-i>',
+             node_decremental = '<c-u>',
+           },
+         },
         textobjects = {
           select = {
             enable = true,
@@ -263,9 +294,15 @@ require('lze').load {
     enabled = nixCats('general') or false,
     event = "DeferredUIEnter",
     after = function (plugin)
-      require('mini.pairs').setup()
-      require('mini.icons').setup()
-      require('mini.ai').setup()
+       require('mini.pairs').setup()
+       require('mini.icons').setup()
+       require('mini.ai').setup()
+       require('mini.comment').setup({
+         mappings = {
+           comment_line = '<leader>cc',
+           comment_visual = '<leader>cc',
+         },
+       })
     end,
   },
   {
@@ -459,7 +496,7 @@ require('lze').load {
     "conform.nvim",
     enabled = nixCats('general') or false,
     keys = {
-      { "<leader>FF", desc = "[F]ormat [F]ile" },
+      { "<leader>cf", desc = "[F]ormat [F]ile" },
     },
     -- colorscheme = "",
     after = function (plugin)
@@ -479,7 +516,7 @@ require('lze').load {
         },
       })
 
-      vim.keymap.set({ "n", "v" }, "<leader>FF", function()
+      vim.keymap.set({ "n", "v" }, "<leader>cf", function()
         conform.format({
           lsp_fallback = true,
           async = false,
@@ -625,8 +662,15 @@ local function lsp_on_attach(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+   nmap('<leader>cf', function()
+     require("conform").format({
+       lsp_fallback = true,
+       async = false,
+       timeout_ms = 1000,
+     })
+   end, '[F]ormat')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
@@ -635,13 +679,21 @@ local function lsp_on_attach(_, bufnr)
     nmap('gI', function() Snacks.picker.lsp_implementations() end, '[G]oto [I]mplementation')
     nmap('<leader>ds', function() Snacks.picker.lsp_symbols() end, '[D]ocument [S]ymbols')
     nmap('<leader>ws', function() Snacks.picker.lsp_workspace_symbols() end, '[W]orkspace [S]ymbols')
+    -- Old keybindings
+    nmap('<leader>cr', function() Snacks.picker.lsp_references() end, '[G]oto [R]eferences')
+    nmap('<leader>ci', function() Snacks.picker.lsp_implementations() end, '[G]oto [I]mplementation')
+    nmap('<leader>cs', function() Snacks.picker.lsp_symbols() end, '[D]ocument [S]ymbols')
+    nmap('<leader>cS', function() Snacks.picker.lsp_workspace_symbols() end, '[W]orkspace [S]ymbols')
+    nmap('<leader>cD', function() Snacks.picker.diagnostics() end, 'Diagnostics')
+    nmap('<leader>cd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('<leader>ct', vim.lsp.buf.type_definition, 'Type [D]efinition')
   end
 
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<C-K>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
