@@ -137,9 +137,6 @@ vim.keymap.set('v', '<Right>', '>gv')
 vim.keymap.set('n', 'q:', '<nop>')
 vim.keymap.set('n', 'Q', '<nop>')
 
--- Fold with Tab
-vim.keymap.set('n', '<Tab>', 'za', { noremap = true })
-
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
@@ -237,9 +234,9 @@ require('lze').load {
          incremental_selection = {
            enable = true,
            keymaps = {
-             init_selection = '<c-i>',
-             node_incremental = '<c-i>',
-             node_decremental = '<c-u>',
+             init_selection = '<Tab>',
+             node_incremental = '<Tab>',
+             node_decremental = '<S-Tab>',
            },
          },
         textobjects = {
@@ -664,15 +661,7 @@ local function lsp_on_attach(_, bufnr)
 
    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-   nmap('<leader>cf', function()
-     require("conform").format({
-       lsp_fallback = true,
-       async = false,
-       timeout_ms = 1000,
-     })
-   end, '[F]ormat')
-
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
   if nixCats('general') then
     nmap('gr', function() Snacks.picker.lsp_references() end, '[G]oto [R]eferences')

@@ -48,7 +48,6 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `,`: Enter command mode (easier than `:`)
 - `<Left>`, `<Right>`: Indent left/right (normal mode)
 - `<Left>`, `<Right>` (visual): Indent left/right and reselect
-- `<Tab>`: Toggle fold
 
 #### Buffer Management
 - `<leader><leader>[`, `<leader><leader>]`: Previous/next buffer
@@ -105,8 +104,8 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `ih`: Select hunk (text object)
 
 #### Treesitter
-- `<c-i>`: Init selection
-- `<c-u>`: Node decremental
+- `<Tab>`: Init selection / Node incremental
+- `<S-Tab>`: Node decremental
 - `aa`: Parameter outer
 - `ia`: Parameter inner
 - `af`: Function outer
@@ -289,8 +288,10 @@ The new configuration is more streamlined and modern, focusing on performance an
 
 ## Migration TODO
 
-- [ ] Add Tab for fold toggle: `map('n', '<Tab>', 'za', { noremap = true })`
 - [ ] All the languages
+- [ ] Open to right and below
+- [ ] On *, don't move to the next result
+- [ ] Auto-format on save
 
 - [X] LSP diagnostics: Old `<leader>cD` (Telescope) → New `<leader>cD` (Snacks diagnostics) - remapped
 - [X] LSP references: Old `<leader>cr` (Telescope) → New `<leader>cr` (Snacks references) - remapped
@@ -321,4 +322,5 @@ The new configuration is more streamlined and modern, focusing on performance an
 - [X] Buffer search: Old `<leader><leader>s` (custom?) → New `<leader>fs` (Snacks buffers) - remapped
 - [X] Add filetype-specific indentation autocommands (2 spaces for js, ts, etc.) --> should be handled by vim-sleuth
 - [X] Add sh filetype to disable expandtab --> let's see how vim-sleuth does this
+- [X] Add Tab for fold toggle: `map('n', '<Tab>', 'za', { noremap = true })` -- obsolete
 
