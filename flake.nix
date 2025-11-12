@@ -16,16 +16,17 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+
   };
 
   outputs =
-    {
+    inputs@{
       nixpkgs,
       flake-utils,
       nur,
       home-manager,
       nixos-generators,
-      nixos-hardware,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -77,7 +78,9 @@
             ]
             ++ modules;
 
-            inherit extraSpecialArgs;
+            extraSpecialArgs = extraSpecialArgs // {
+              inherit inputs;
+            };
           };
       in
       {
