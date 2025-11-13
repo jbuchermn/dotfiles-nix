@@ -16,6 +16,14 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Highlight without jumping
+vim.keymap.set('n', '*', '*N')
+
+-- Split to the right and below
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
@@ -163,7 +171,14 @@ require("snacks").setup({
   scope = {},
 })
 vim.keymap.set("n", "-", function() Snacks.explorer.open() end, { desc = 'Snacks Explorer' })
-vim.keymap.set("n", "<c-space>", function() Snacks.terminal.open() end, { desc = 'Snacks Terminal' })
+vim.keymap.set("n", "<leader>tt", function() Snacks.terminal.open() end, { desc = 'Snacks Terminal' })
+vim.keymap.set({ "n", "t" }, "<c-space>", function()
+  Snacks.terminal.toggle(nil, {
+    win = {
+      style = "float",
+    }
+  }) 
+end, { desc = 'Toggle Full-Screen Terminal' })
 vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit.open() end, { desc = 'Snacks LazyGit' })
 vim.keymap.set('n', "<leader>fs", function() Snacks.picker.buffers() end, { desc = "Search Buffers" })
 -- find
@@ -195,12 +210,11 @@ require('lze').load {
     on_require = "blink",
     after = function (plugin)
        require("blink.cmp").setup({
-         -- Custom keymap to avoid Tab conflicts with fold toggle
          keymap = {
            preset = 'none',
-           ['<C-n>'] = { 'select_next', 'fallback' },
-           ['<C-p>'] = { 'select_prev', 'fallback' },
-           ['<CR>'] = { 'accept', 'fallback' },
+           ['<C-j>'] = { 'select_next', 'fallback' },
+           ['<C-k>'] = { 'select_prev', 'fallback' },
+           ['<Tab>'] = { 'accept', 'fallback' },
            ['<C-e>'] = { 'hide', 'fallback' },
          },
         appearance = {
@@ -478,8 +492,8 @@ require('lze').load {
         -- and configure them here
         -- markdown = {'vale',},
         -- javascript = { 'eslint' },
-        -- typescript = { 'eslint' },
-        go = nixCats('go') and { 'golangcilint' } or nil,
+        typescript = nixCats('typescript') and { 'eslint' } or nil,
+        -- go = nixCats('go') and { 'golangcilint' } or nil,
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -504,7 +518,7 @@ require('lze').load {
           -- NOTE: download some formatters in lspsAndRuntimeDeps
           -- and configure them here
           lua = nixCats('lua') and { "stylua" } or nil,
-          go = nixCats('go') and { "gofmt", "golint" } or nil,
+          nix = nixCats('nix') and { "nixfmt" } or nil,
           -- templ = { "templ" },
           -- Conform will run multiple formatters sequentially
           -- python = { "isort", "black" },
@@ -520,6 +534,16 @@ require('lze').load {
           timeout_ms = 1000,
         })
       end, { desc = "[F]ormat [F]ile" })
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function()
+          conform.format({
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 1000,
+          })
+        end,
+      })
     end,
   },
   {
@@ -622,14 +646,6 @@ require('lze').load {
 
       -- NOTE: Install lang specific config
       -- either in here, or in a separate plugin spec as demonstrated for go below.
-    end,
-  },
-  {
-    "nvim-dap-go",
-    enabled = nixCats('go') or false,
-    on_plugin = { "nvim-dap", },
-    after = function(plugin)
-      require("dap-go").setup()
     end,
   },
   {
@@ -756,14 +772,6 @@ require('lze').load {
     -- also these are regular specs and you can use before and after and all the other normal fields
   },
   {
-    "gopls",
-    enabled = nixCats("go") or false,
-    -- if you don't provide the filetypes it asks lspconfig for them using the function we set above
-    lsp = {
-      -- filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    },
-  },
-  {
     "nixd",
     enabled = nixCats('nix') or false,
     lsp = {
@@ -799,6 +807,35 @@ require('lze').load {
             }
           }
         }
+      },
+    },
+  },
+
+  {
+    "ts_ls",
+    enabled = nixCats('typescript') or false,
+    lsp = {
+      filetypes = { 'typescript' },
+      settings = {
+      },
+    },
+  },
+
+  {
+    "svelte",
+    enabled = nixCats('typescript') or false,
+    lsp = {
+      filetypes = { 'svelte' },
+      settings = {
+      },
+    },
+  },
+  {
+    "tailwindcss",
+    enabled = nixCats('typescript') or false,
+    lsp = {
+      filetypes = { 'svelte', 'html', 'css' },
+      settings = {
       },
     },
   },

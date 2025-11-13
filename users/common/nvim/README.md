@@ -126,7 +126,8 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 
 #### Snacks
 - `-`: Open explorer
-- `<c-space>`: Open terminal
+- `<c-space>`: Toggle floating terminal
+- `<leader>tt`: Open terminal
 - `<leader>gg`: Open LazyGit
 - `<leader>fs`: Search buffers
 - `<leader>ff`: Smart find files
@@ -155,6 +156,17 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `<leader>b`: Toggle breakpoint
 - `<leader>B`: Set breakpoint with condition
 - `<F7>`: Toggle DAP UI
+
+#### Which-Key Groups
+- `<leader><leader>`: Buffer commands
+- `<leader>c`: Code
+- `<leader>d`: Document
+- `<leader>g`: Git
+- `<leader>r`: Rename
+- `<leader>f`: Find
+- `<leader>s`: Search
+- `<leader>t`: Toggles
+- `<leader>w`: Workspace
 
 #### Formatting/Linting
 - `<leader>cf`: Format file
@@ -288,20 +300,18 @@ The new configuration is more streamlined and modern, focusing on performance an
 
 ## Migration TODO
 
-- [ ] All the languages
-- [ ] Open to right and below
-- [ ] On *, don't move to the next result
-- [ ] Auto-format on save
+- [ ] Toggling the floating terminal does not work in conjunction with another terminal
+- [ ] LSP keybindings
 
-- [X] LSP diagnostics: Old `<leader>cD` (Telescope) → New `<leader>cD` (Snacks diagnostics) - remapped
-- [X] LSP references: Old `<leader>cr` (Telescope) → New `<leader>cr` (Snacks references) - remapped
-- [X] LSP definitions: Old `<leader>cd` (Telescope) → New `<leader>cd` (Snacks definitions) - remapped
-- [X] LSP implementations: Old `<leader>ci` (Telescope) → New `<leader>ci` (Snacks implementations) - remapped
-- [X] LSP symbols: Old `<leader>cs` (Telescope document) → New `<leader>cs` (Snacks document symbols) - remapped
-- [X] LSP workspace symbols: Old `<leader>cS` (Telescope) → New `<leader>cS` (Snacks workspace symbols) - remapped
-- [X] LSP rename: Old `<leader>cR` (vim.lsp.buf.rename) → New `<leader>rn` (vim.lsp.buf.rename) - same!
-- [X] LSP code action: Old `<leader>cA` (vim.lsp.buf.code_action) → New `<leader>ca` (vim.lsp.buf.code_action) - same!
-- [X] LSP format: Old `<leader>cf` (vim.lsp.buf.format) → New `<leader>cf` (conform.format) - remapped
+- [ ] Clean up categories
+- [ ] All the languages
+    - [X] typescript, tailwind, svelte
+    - [ ] Org mode / md?!
+    - [ ] Python
+    - [ ] C / C++
+    - [ ] Haskell
+    - [ ] Nix
+    - [ ] Lua
 
 
 ## Migration DONE
@@ -313,7 +323,7 @@ The new configuration is more streamlined and modern, focusing on performance an
 - [X] Add cursor position remembering autocommand
 - [X] Consider adding highlight on yank (already present) or other visual feedback
 
-- [X] Terminal: Old `<C-Space>` (FTerm) → New `<C-Space>` (Snacks terminal) - same!
+- [X] Terminal: Old `<C-Space>` (FTerm) → New `<C-Space>` (Snacks floating terminal) - same!
 - [X] Git interface: Old `<leader>gg` (Neogit) → New `<leader>gg` (Snacks LazyGit) - remapped
 - [X] File finder: Old `<leader>pf` (Telescope find_files) → New `<leader>ff` (Snacks files) - remapped
 - [X] File explorer: Old `-` (nvim-tree) → New `-` (Snacks explorer) - same!
@@ -323,4 +333,8 @@ The new configuration is more streamlined and modern, focusing on performance an
 - [X] Add filetype-specific indentation autocommands (2 spaces for js, ts, etc.) --> should be handled by vim-sleuth
 - [X] Add sh filetype to disable expandtab --> let's see how vim-sleuth does this
 - [X] Add Tab for fold toggle: `map('n', '<Tab>', 'za', { noremap = true })` -- obsolete
+
+- [X] Open to right and below
+- [X] On *, don't move to the next result
+- [X] Auto-format on save
 

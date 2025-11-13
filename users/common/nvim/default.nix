@@ -66,14 +66,13 @@ in
               nixd
               alejandra
             ];
-            go = with pkgs; [
-              gopls
-              delve
-              golint
-              golangci-lint
-              gotools
-              go-tools
-              go
+            typescript = with pkgs; [
+
+              # TODO Expect svelte-language-server in dev env
+              # nodePackages.typescript
+              # nodePackages.typescript-language-server
+              # nodePackages.svelte-language-server
+              # nodePackages."@tailwindcss/language-server"
             ];
           };
 
@@ -93,9 +92,6 @@ in
           # not loaded automatically at startup.
           # use with packadd and an autocommand in config to achieve lazy loading
           optionalPlugins = {
-            go = with pkgs.vimPlugins; [
-              nvim-dap-go
-            ];
             lua = with pkgs.vimPlugins; [
               lazydev-nvim
             ];
@@ -166,7 +162,6 @@ in
               # your alias may not conflict with your other packages.
               aliases = [
                 "vim"
-                "homeVim"
               ];
               # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
               hosts.python3.enable = true;
@@ -179,7 +174,7 @@ in
               general = true;
               lua = true;
               nix = true;
-              go = false;
+              typescript = true;
             };
             # anything else to pass and grab in lua with `nixCats.extra`
             extra = {
