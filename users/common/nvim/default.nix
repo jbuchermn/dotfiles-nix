@@ -3,36 +3,25 @@
   lib,
   inputs,
   ...
-}:
-let
+}: let
   utils = inputs.nixCats.utils;
-in
-{
+in {
   imports = [
     inputs.nixCats.homeModule
   ];
   config = {
-    # this value, nixCats is the defaultPackageName you pass to mkNixosModules
-    # it will be the namespace for your options.
     nixCats = {
       enable = true;
-      # nixpkgs_version = inputs.nixpkgs;
-      # this will add the overlays from ./overlays and also,
-      # add any plugins in inputs named "plugins-pluginName" to pkgs.neovimPlugins
-      # It will not apply to overall system, just nixCats.
-      addOverlays = # (import ./overlays inputs) ++
+      addOverlays =
+        # (import ./overlays inputs) ++
         [
           (utils.standardPluginOverlay inputs)
         ];
-      # see the packageDefinitions below.
-      # This says which of those to install.
-      packageNames = [ "myHomeModuleNvim" ];
+
+      packageNames = ["home-neovim"];
 
       luaPath = ./.;
 
-      # the .replace vs .merge options are for modules based on existing configurations,
-      # they refer to how multiple categoryDefinitions get merged together by the module.
-      # for useage of this section, refer to :h nixCats.flake.outputs.categories
       categoryDefinitions.replace = (
         {
           pkgs,
@@ -42,22 +31,16 @@ in
           name,
           mkPlugin,
           ...
-        }@packageDef:
-        {
-          # to define and use a new category, simply add a new list to a set here,
-          # and later, you will include categoryname = true; in the set you
-          # provide when you build the package using this builder function.
-          # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
-
+        } @ packageDef: {
           # lspsAndRuntimeDeps:
           # this section is for dependencies that should be available
           # at RUN TIME for plugins. Will be available to PATH within neovim terminal
           # this includes LSPs
-           lspsAndRuntimeDeps = {
-             general = with pkgs; [
-               lazygit
-               ripgrep
-             ];
+          lspsAndRuntimeDeps = {
+            general = with pkgs; [
+              lazygit
+              ripgrep
+            ];
             lua = with pkgs; [
               lua-language-server
               stylua
@@ -67,12 +50,17 @@ in
               alejandra
             ];
             typescript = with pkgs; [
-
               # TODO Expect svelte-language-server in dev env
-              # nodePackages.typescript
               # nodePackages.typescript-language-server
               # nodePackages.svelte-language-server
               # nodePackages."@tailwindcss/language-server"
+            ];
+            python = with pkgs; [
+              # TODO Expect python-language-server in dev env
+              (python3.withPackages (ps:
+                with ps; [
+                  python-lsp-server
+                ]))
             ];
           };
 
@@ -89,40 +77,37 @@ in
             ];
           };
 
-          # not loaded automatically at startup.
-          # use with packadd and an autocommand in config to achieve lazy loading
-             optionalPlugins = {
-             lua = with pkgs.vimPlugins; [
-               lazydev-nvim
-             ];
-             general = with pkgs.vimPlugins; [
-               mini-nvim
-               nvim-lspconfig
-               vim-startuptime
-               blink-cmp
-               nvim-treesitter.withAllGrammars
-               lualine-nvim
-               lualine-lsp-progress
-               gitsigns-nvim
-               which-key-nvim
-               nvim-lint
-               conform-nvim
-               nvim-dap
-               nvim-dap-ui
-               nvim-dap-virtual-text
-             ];
-             markdown = with pkgs.vimPlugins; [
-               render-markdown-nvim
-             ];
-           };
-
-          # shared libraries to be added to LD_LIBRARY_PATH
-          # variable available to nvim runtime
-          sharedLibraries = {
-            general = with pkgs; [ ];
+          # Not loaded automatically at startup - use lazy loading
+          optionalPlugins = {
+            lua = with pkgs.vimPlugins; [
+              lazydev-nvim
+            ];
+            general = with pkgs.vimPlugins; [
+              mini-nvim
+              nvim-lspconfig
+              vim-startuptime
+              blink-cmp
+              nvim-treesitter.withAllGrammars
+              lualine-nvim
+              lualine-lsp-progress
+              gitsigns-nvim
+              which-key-nvim
+              nvim-lint
+              conform-nvim
+              nvim-dap
+              nvim-dap-ui
+              nvim-dap-virtual-text
+            ];
+            markdown = with pkgs.vimPlugins; [
+              render-markdown-nvim
+            ];
           };
 
-          # environmentVariables:
+          # shared libraries to be added to LD_LIBRARY_PATH
+          sharedLibraries = {
+            general = with pkgs; [];
+          };
+
           # this section is for environmentVariables that should be available
           # at RUN TIME for plugins. Will be available to path within neovim terminal
           environmentVariables = {
@@ -131,13 +116,10 @@ in
             # };
           };
 
-          # categories of the function you would have passed to withPackages
           python3.libraries = {
             # test = [ (_:[]) ];
           };
 
-          # If you know what these are, you can provide custom ones by category here.
-          # If you dont, check this link out:
           # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
           extraWrapperArgs = {
             # test = [
@@ -149,42 +131,42 @@ in
 
       # see :help nixCats.flake.outputs.packageDefinitions
       packageDefinitions.replace = {
-        # These are the names of your packages
-        # you can include as many as you wish.
-        myHomeModuleNvim =
-          { pkgs, name, ... }:
-          {
-            # they contain a settings set defined above
-            # see :help nixCats.flake.outputs.settings
-            settings = {
-              suffix-path = true;
-              suffix-LD = true;
-              wrapRc = true;
-              # unwrappedCfgPath = "/path/to/here";
-              # IMPORTANT:
-              # your alias may not conflict with your other packages.
-              aliases = [
-                "vim"
-              ];
-              # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
-              hosts.python3.enable = true;
-              hosts.node.enable = true;
-            };
-            # and a set of categories that you want
-            # (and other information to pass to lua)
-            # and a set of categories that you want
-            categories = {
-              general = true;
-              lua = true;
-              nix = true;
-              typescript = true;
-              markdown = true;
-            };
-            # anything else to pass and grab in lua with `nixCats.extra`
-            extra = {
-              nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
-            };
+        home-neovim = {
+          pkgs,
+          name,
+          ...
+        }: {
+          settings = {
+            suffix-path = true;
+            suffix-LD = true;
+            wrapRc = true;
+            # unwrappedCfgPath = "/path/to/here";
+
+            # IMPORTANT:
+            # your alias may not conflict with your other packages.
+            aliases = [
+              "vim"
+            ];
+
+            # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+            hosts.python3.enable = true;
+            hosts.node.enable = true;
           };
+
+          categories = {
+            general = true;
+            lua = true;
+            nix = true;
+            typescript = true;
+            markdown = true;
+            python = true;
+          };
+
+          # anything else to pass and grab in lua with `nixCats.extra`
+          extra = {
+            nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
+          };
+        };
       };
     };
   };

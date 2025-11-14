@@ -927,4 +927,12 @@ require("lze").load({
       settings = {},
     },
   },
+  {
+    "pylsp",
+    enabled = nixCats("python") or false,
+    lsp = {
+      filetypes = { "python" },
+      settings = {},
+    },
+  },
 })
