@@ -91,27 +91,30 @@ in
 
           # not loaded automatically at startup.
           # use with packadd and an autocommand in config to achieve lazy loading
-          optionalPlugins = {
-            lua = with pkgs.vimPlugins; [
-              lazydev-nvim
-            ];
-            general = with pkgs.vimPlugins; [
-              mini-nvim
-              nvim-lspconfig
-              vim-startuptime
-              blink-cmp
-              nvim-treesitter.withAllGrammars
-              lualine-nvim
-              lualine-lsp-progress
-              gitsigns-nvim
-              which-key-nvim
-              nvim-lint
-              conform-nvim
-              nvim-dap
-              nvim-dap-ui
-              nvim-dap-virtual-text
-            ];
-          };
+             optionalPlugins = {
+             lua = with pkgs.vimPlugins; [
+               lazydev-nvim
+             ];
+             general = with pkgs.vimPlugins; [
+               mini-nvim
+               nvim-lspconfig
+               vim-startuptime
+               blink-cmp
+               nvim-treesitter.withAllGrammars
+               lualine-nvim
+               lualine-lsp-progress
+               gitsigns-nvim
+               which-key-nvim
+               nvim-lint
+               conform-nvim
+               nvim-dap
+               nvim-dap-ui
+               nvim-dap-virtual-text
+             ];
+             markdown = with pkgs.vimPlugins; [
+               render-markdown-nvim
+             ];
+           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
           # variable available to nvim runtime
@@ -175,6 +178,7 @@ in
               lua = true;
               nix = true;
               typescript = true;
+              markdown = true;
             };
             # anything else to pass and grab in lua with `nixCats.extra`
             extra = {
