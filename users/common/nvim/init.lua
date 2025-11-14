@@ -173,7 +173,7 @@ require("snacks").setup({
 vim.keymap.set("n", "-", function() Snacks.explorer.open() end, { desc = 'Snacks Explorer' })
 vim.keymap.set("n", "<leader>tt", function() Snacks.terminal.open() end, { desc = 'Snacks Terminal' })
 vim.keymap.set({ "n", "t" }, "<c-space>", function()
-  Snacks.terminal.toggle(nil, {
+  Snacks.terminal.toggle("echo 0 > /dev/null; zsh", { -- use command as id
     win = {
       style = "float",
     }

@@ -300,7 +300,6 @@ The new configuration is more streamlined and modern, focusing on performance an
 
 ## Migration TODO
 
-- [ ] Toggling the floating terminal does not work in conjunction with another terminal
 - [ ] LSP keybindings
 
 - [ ] Clean up categories
@@ -337,4 +336,5 @@ The new configuration is more streamlined and modern, focusing on performance an
 - [X] Open to right and below
 - [X] On *, don't move to the next result
 - [X] Auto-format on save
+- [X] Toggling the floating terminal does not work in conjunction with another terminal
 
