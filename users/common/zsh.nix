@@ -1,9 +1,17 @@
-input@{ config, pkgs, ... }:
-let
-  providePkgs = if builtins.hasAttr "providePkgs" input then input.providePkgs else true;
-  extraEnv = if builtins.hasAttr "extraEnv" input then input.extraEnv else "";
-in
-{
+input @ {
+  config,
+  pkgs,
+  ...
+}: let
+  providePkgs =
+    if builtins.hasAttr "providePkgs" input
+    then input.providePkgs
+    else true;
+  extraEnv =
+    if builtins.hasAttr "extraEnv" input
+    then input.extraEnv
+    else "";
+in {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -54,18 +62,22 @@ in
     ];
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
   };
 
   programs.starship =
-    if providePkgs then
-      {
-        enable = true;
-      }
-    else
-      { };
+    if providePkgs
+    then {
+      enable = true;
+    }
+    else {};
 
   xdg.configFile."starship/starship.toml".source = ./starship.toml;
 

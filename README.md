@@ -37,6 +37,7 @@ nix build .#nixosConfigurations.jb-nixos-live.config.formats.[raw|raw-efi|instal
 
 - `nix-flake-lock-nixpkgs`
 - `nix-vim-nixpkgs`
+- `echo "use flake" >> .envrc && direnv allow`
 
 # Troubleshooting
 
