@@ -300,13 +300,17 @@ The new configuration is more streamlined and modern, focusing on performance an
 
 ## Migration TODO
 
+- [ ] Vim sleuth defaults - always force spaces, python, ...
 - [ ] LSP keybindings
+- [ ] LSPs - default to environment ones
+    - [X] Python
+- [ ] Documentation for all keybindings
 
 - [ ] Clean up categories
 - [ ] All the languages
     - [X] typescript, tailwind, svelte
+    - [X] Python
     - [ ] Org mode / md?!
-    - [ ] Python
     - [ ] C / C++
     - [ ] Haskell
     - [ ] Nix

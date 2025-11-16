@@ -789,7 +789,6 @@ local function lsp_on_attach(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-  nmap("<C-K>", vim.lsp.buf.signature_help, "Signature Documentation")
 
   -- Lesser used LSP functionality
   nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -901,7 +900,6 @@ require("lze").load({
       },
     },
   },
-
   {
     "ts_ls",
     enabled = nixCats("typescript") or false,
@@ -910,7 +908,6 @@ require("lze").load({
       settings = {},
     },
   },
-
   {
     "svelte",
     enabled = nixCats("typescript") or false,
@@ -930,6 +927,9 @@ require("lze").load({
   {
     "pylsp",
     enabled = nixCats("python") or false,
+    before = function(plugin)
+      plugin.lsp.cmd = vim.fn.executable("pylsp") == 1 and { "pylsp" } or { nixCats.extra("pylsp.packagedExecutable") }
+    end,
     lsp = {
       filetypes = { "python" },
       settings = {},
