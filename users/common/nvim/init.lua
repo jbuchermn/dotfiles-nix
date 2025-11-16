@@ -903,6 +903,11 @@ require("lze").load({
   {
     "ts_ls",
     enabled = nixCats("typescript") or false,
+    before = function(plugin)
+      plugin.lsp.cmd = vim.fn.executable("typescript-language-server") == 1
+          and { "typescript-language-server", "--stdio" }
+        or { nixCats.extra("typescript.typescript-language-server"), "--stdio" }
+    end,
     lsp = {
       filetypes = { "typescript" },
       settings = {},
@@ -911,6 +916,10 @@ require("lze").load({
   {
     "svelte",
     enabled = nixCats("typescript") or false,
+    before = function(plugin)
+      plugin.lsp.cmd = vim.fn.executable("svelteserver") == 1 and { "svelteserver", "--stdio" }
+        or { nixCats.extra("typescript.svelteserver"), "--stdio" }
+    end,
     lsp = {
       filetypes = { "svelte" },
       settings = {},
@@ -919,6 +928,11 @@ require("lze").load({
   {
     "tailwindcss",
     enabled = nixCats("typescript") or false,
+    before = function(plugin)
+      plugin.lsp.cmd = vim.fn.executable("tailwindcss-language-server") == 1
+          and { "tailwindcss-language-server", "--stdio" }
+        or { nixCats.extra("typescript.tailwindcss-language-server"), "--stdio" }
+    end,
     lsp = {
       filetypes = { "svelte", "html", "css" },
       settings = {},
@@ -928,7 +942,7 @@ require("lze").load({
     "pylsp",
     enabled = nixCats("python") or false,
     before = function(plugin)
-      plugin.lsp.cmd = vim.fn.executable("pylsp") == 1 and { "pylsp" } or { nixCats.extra("pylsp.packagedExecutable") }
+      plugin.lsp.cmd = vim.fn.executable("pylsp") == 1 and { "pylsp" } or { nixCats.extra("python.pylsp") }
     end,
     lsp = {
       filetypes = { "python" },

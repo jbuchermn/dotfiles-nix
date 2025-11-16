@@ -49,14 +49,11 @@ in {
               nixd
               alejandra
             ];
-            typescript = with pkgs; [
-              # TODO Use servers from dev env if provided
-              nodePackages.typescript-language-server
-              nodePackages.svelte-language-server
-              nodePackages."@tailwindcss/language-server"
+            typescript = [
+              # servers provided either in dev env or via nixCats.extras
             ];
-            python = with pkgs; [
-              # TODO Use servers from dev env if provided
+            python = [
+              # server provided either in dev env or via nixCats.extras
             ];
           };
 
@@ -161,7 +158,10 @@ in {
           # anything else to pass and grab in lua with `nixCats.extra`
           extra = {
             nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
-            pylsp.packagedExecutable = "${pkgs.python3.withPackages (ps: with ps; [python-lsp-server])}/bin/pylsp";
+            python.pylsp = "${pkgs.python3.withPackages (ps: with ps; [python-lsp-server])}/bin/pylsp";
+            typescript.typescript-language-server = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+            typescript.svelteserver = "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver";
+            typescript.tailwindcss-language-server = "${pkgs.nodePackages."@tailwindcss/language-server"}/bin/tailwindcss-language-server";
           };
         };
       };
