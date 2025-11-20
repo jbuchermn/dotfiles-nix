@@ -199,42 +199,8 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 #### Formatting/Linting
 - `<leader>cf`: Format file
 
-## Migration TODO
 
-
-#### LSP
-- `K`: Hover
-- `<Up>/<Down>`: Previous/next diagnostic
-- `<leader>cR`: Rename
-- `<leader>cA`: Code action
-- `<leader>cf`: Format
-
-#### Haskell-specific
-- `<leader>ch`: Hoogle signature
-- `<leader>ea`: Eval all
-- `<leader>rr`: Toggle REPL
-- `<leader>rf`: REPL for file
-- `<leader>rq`: Quit REPL
-
-#### Telescope
-- `<leader>cD`: Diagnostics
-- `<leader>cr`: References
-- `<leader>cd`: Definitions
-- `<leader>ct`: Type definitions
-- `<leader>ci`: Implementations
-- `<leader>cs`: Document symbols
-- `<leader>cS`: Workspace symbols
-- `<leader>hh`: Hoogle search
-
-
-- [ ] oil.nvim
-- [ ] fwatch for markdown
 - [ ] LSP keybindings
-- [ ] DAP keybindings
-- [ ] LSPs - default to environment ones
-    - [X] Python
-    - [X] typescript, tailwind, svelte
-    - [ ] Haskell
 - [ ] All the languages
     - [X] typescript, tailwind, svelte
     - [X] Python
@@ -243,6 +209,9 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
     - [X] Lua
     - [ ] C / C++
     - [ ] Haskell
+- [ ] DAP keybindings
+- [ ] oil.nvim
+- [ ] fwatch for markdown
 - [ ] Vim sleuth defaults - always force spaces, python, ...
 - [ ] Documentation for all keybindings
 - [ ] Clean up categories
@@ -273,3 +242,7 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - [X] Auto-format on save
 - [X] Toggling the floating terminal does not work in conjunction with another terminal
 
+- [X] LSPs - default to environment ones
+    - [X] Python
+    - [X] typescript, tailwind, svelte
+    - [-] Haskell

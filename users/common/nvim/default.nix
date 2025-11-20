@@ -60,11 +60,17 @@ in {
               nixd
               alejandra
             ];
+            c = with pkgs; [
+              ccls
+            ];
             typescript = [
               # servers provided either in dev env or via nixCats.extras
             ];
             python = [
               # server provided either in dev env or via nixCats.extras
+            ];
+            haskell = [
+              # ghc and haskell-language-server need to be provided by dev env
             ];
           };
 
@@ -78,6 +84,9 @@ in {
               snacks-nvim
               onedark-nvim
               vim-sleuth
+            ];
+            haskell = with pkgs.vimPlugins; [
+              haskell-tools-nvim
             ];
           };
 
@@ -165,6 +174,8 @@ in {
             typescript = true;
             markdown = true;
             python = true;
+            haskell = true;
+            c = true;
           };
 
           # anything else to pass and grab in lua with `nixCats.extra`

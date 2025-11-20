@@ -121,8 +121,8 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 
 vim.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = "Last buffer" })
-vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = "delete buffer" })
+vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = "[l]ast buffer" })
+vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = "[d]elete buffer" })
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -144,30 +144,31 @@ vim.keymap.set("v", "<Right>", ">gv")
 vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-
 -- You should instead use these keybindings so that they are still easy to use, but dont conflict
-vim.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to clipboard" })
+vim.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "[y]ank to clipboard" })
 vim.keymap.set(
   { "n", "v", "x" },
   "<leader>Y",
   '"+yy',
   { noremap = true, silent = true, desc = "Yank line to clipboard" }
 )
-vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from clipboard" })
+vim.keymap.set(
+  { "n", "v", "x" },
+  "<leader>p",
+  '"+p',
+  { noremap = true, silent = true, desc = "[p]aste from clipboard" }
+)
 vim.keymap.set(
   "i",
   "<C-p>",
   "<C-r><C-p>+",
-  { noremap = true, silent = true, desc = "Paste from clipboard from within insert mode" }
+  { noremap = true, silent = true, desc = "[P]aste from clipboard from within insert mode" }
 )
 vim.keymap.set(
   "x",
   "<leader>P",
   '"_dP',
-  { noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
+  { noremap = true, silent = true, desc = "[P]aste over selection without erasing unnamed register" }
 )
 
 vim.cmd.colorscheme("onedark")
@@ -184,12 +185,15 @@ require("snacks").setup({
   gitbrowse = {},
   scope = {},
 })
+
 vim.keymap.set("n", "-", function()
   Snacks.explorer.open()
 end, { desc = "Snacks Explorer" })
+
 vim.keymap.set("n", "<leader>tt", function()
   Snacks.terminal.open()
 end, { desc = "Snacks Terminal" })
+
 vim.keymap.set({ "n", "t" }, "<c-space>", function()
   Snacks.terminal.toggle("echo 0 > /dev/null; zsh", { -- use command as id
     win = {
@@ -197,69 +201,57 @@ vim.keymap.set({ "n", "t" }, "<c-space>", function()
     },
   })
 end, { desc = "Toggle Full-Screen Terminal" })
+
 vim.keymap.set("n", "<leader>gg", function()
   Snacks.lazygit.open()
 end, { desc = "Snacks LazyGit" })
+
+-- Find
 vim.keymap.set("n", "<leader>fs", function()
   Snacks.picker.buffers()
-end, { desc = "Search Buffers" })
--- find
+end, { desc = "[f]ind buffer[s]" })
+
 vim.keymap.set("n", "<leader>ff", function()
   Snacks.picker.smart()
-end, { desc = "Smart Find Files" })
+end, { desc = "[f]ind [f]iles" })
+
 vim.keymap.set("n", "<leader>fF", function()
   Snacks.picker.git_files()
-end, { desc = "Find Git Files" })
--- Grep
+end, { desc = "[f]ind [F]iles (git)" })
+
+-- Search
 vim.keymap.set("n", "<leader>sb", function()
   Snacks.picker.lines()
-end, { desc = "Buffer Lines" })
+end, { desc = "[s]earch / grep [b]uffer lines" })
+
 vim.keymap.set("n", "<leader>sB", function()
   Snacks.picker.grep_buffers()
-end, { desc = "Grep Open Buffers" })
+end, { desc = "[s]earch / grep open [B]uffers" })
+
 vim.keymap.set("n", "<leader>/", function()
   Snacks.picker.grep()
 end, { desc = "Grep" })
-vim.keymap.set({ "n", "x" }, "<leader>sw", function()
-  Snacks.picker.grep_word()
-end, { desc = "Visual selection or ord" })
--- search
-vim.keymap.set("n", "<leader>sb", function()
-  Snacks.picker.lines()
-end, { desc = "Buffer Lines" })
-vim.keymap.set("n", "<leader>sd", function()
-  Snacks.picker.diagnostics()
-end, { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>sD", function()
-  Snacks.picker.diagnostics_buffer()
-end, { desc = "Buffer Diagnostics" })
+
 vim.keymap.set("n", "<leader>sh", function()
   Snacks.picker.help()
-end, { desc = "Help Pages" })
-vim.keymap.set("n", "<leader>sj", function()
-  Snacks.picker.jumps()
-end, { desc = "Jumps" })
+end, { desc = "[s]earch [h]elp pages" })
+
 vim.keymap.set("n", "<leader>sk", function()
   Snacks.picker.keymaps()
-end, { desc = "Keymaps" })
-vim.keymap.set("n", "<leader>sl", function()
-  Snacks.picker.loclist()
-end, { desc = "Location List" })
-vim.keymap.set("n", "<leader>sm", function()
-  Snacks.picker.marks()
-end, { desc = "Marks" })
+end, { desc = "[s]earch [k]eymaps" })
+
 vim.keymap.set("n", "<leader>sM", function()
   Snacks.picker.man()
-end, { desc = "Man Pages" })
-vim.keymap.set("n", "<leader>sq", function()
-  Snacks.picker.qflist()
-end, { desc = "Quickfix List" })
+end, { desc = "[s]earch [M]an pages" })
+
 vim.keymap.set("n", "<leader>sR", function()
   Snacks.picker.resume()
-end, { desc = "Resume" })
+end, { desc = "[s]earch: [R]esume" })
+
 vim.keymap.set("n", "<leader>su", function()
   Snacks.picker.undo()
-end, { desc = "Undo History" })
+end, { desc = "[s]earch [u]ndo history" })
+
 require("lze").load({
   {
     "blink.cmp",
@@ -488,23 +480,23 @@ require("lze").load({
             gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
           end, { desc = "reset git hunk" })
           -- normal mode
-          map("n", "<leader>gs", gs.stage_hunk, { desc = "git stage hunk" })
-          map("n", "<leader>gr", gs.reset_hunk, { desc = "git reset hunk" })
-          map("n", "<leader>gS", gs.stage_buffer, { desc = "git Stage buffer" })
-          map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
-          map("n", "<leader>gR", gs.reset_buffer, { desc = "git Reset buffer" })
-          map("n", "<leader>gp", gs.preview_hunk, { desc = "preview git hunk" })
+          map("n", "<leader>gs", gs.stage_hunk, { desc = "[g]it [s]tage hunk" })
+          map("n", "<leader>gr", gs.reset_hunk, { desc = "[g]it [r]eset hunk" })
+          map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "[g]it [u]ndo stage hunk" })
+          map("n", "<leader>gS", gs.stage_buffer, { desc = "[g]it [S]tage buffer" })
+          map("n", "<leader>gR", gs.reset_buffer, { desc = "[g]it [R]eset buffer" })
+          map("n", "<leader>gp", gs.preview_hunk, { desc = "[g]it [p]review hunk" })
           map("n", "<leader>gb", function()
             gs.blame_line({ full = false })
-          end, { desc = "git blame line" })
-          map("n", "<leader>gd", gs.diffthis, { desc = "git diff against index" })
+          end, { desc = "[g]it [b]lame line" })
+          map("n", "<leader>gd", gs.diffthis, { desc = "[g]it [d]iff against index" })
           map("n", "<leader>gD", function()
             gs.diffthis("~")
-          end, { desc = "git diff against last commit" })
+          end, { desc = "[g]it [d]iff against last commit" })
 
           -- Toggles
-          map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "toggle git blame line" })
-          map("n", "<leader>gtd", gs.toggle_deleted, { desc = "toggle git show deleted" })
+          map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "[g]it [t]oggle [b]lame line" })
+          map("n", "<leader>gtd", gs.toggle_deleted, { desc = "[g]it [t]oggle show [d]eleted" })
 
           -- Text object
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
@@ -549,12 +541,7 @@ require("lze").load({
     event = "FileType",
     after = function(plugin)
       require("lint").linters_by_ft = {
-        -- NOTE: download some linters in lspsAndRuntimeDeps
-        -- and configure them here
-        -- markdown = {'vale',},
-        -- javascript = { 'eslint' },
         typescript = nixCats("typescript") and { "eslint" } or nil,
-        -- go = nixCats('go') and { 'golangcilint' } or nil,
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -568,23 +555,15 @@ require("lze").load({
     "conform.nvim",
     enabled = nixCats("general") or false,
     keys = {
-      { "<leader>cf", desc = "[F]ormat [F]ile" },
+      { "<leader>cf", desc = "[c]ode [f]ormat file" },
     },
-    -- colorscheme = "",
     after = function(plugin)
       local conform = require("conform")
 
       conform.setup({
         formatters_by_ft = {
-          -- NOTE: download some formatters in lspsAndRuntimeDeps
-          -- and configure them here
           lua = nixCats("lua") and { "stylua" } or nil,
           nix = nixCats("nix") and { "alejandra" } or nil,
-          -- templ = { "templ" },
-          -- Conform will run multiple formatters sequentially
-          -- python = { "isort", "black" },
-          -- Use a sub-list to run only the first available formatter
-          -- javascript = { { "prettierd", "prettier" } },
         },
       })
 
@@ -594,7 +573,7 @@ require("lze").load({
           async = false,
           timeout_ms = 1000,
         })
-      end, { desc = "[F]ormat [F]ile" })
+      end, { desc = "[c]ode [f]ormat file" })
 
       vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
@@ -718,19 +697,15 @@ require("lze").load({
         code = {
           border = "thick",
         },
-        checkbox = { checked = { scope_highlight = '@markup.strikethrough' } },
+        checkbox = { checked = { scope_highlight = "@markup.strikethrough" } },
       })
     end,
   },
   {
     "opdavies-toggle-checkbox.nvim",
     enabled = nixCats("markdown") or false,
-    after = function(_)
-      vim.keymap.set("n", "<CR>", ":lua require('toggle-checkbox').toggle()<CR>", { desc = "Toggle checkbox" })
-    end,
   },
   {
-    -- lazydev makes your lsp way better in your config without needing extra lsp configuration.
     "lazydev.nvim",
     enabled = nixCats("lua") or false,
     cmd = { "LazyDev" },
@@ -756,55 +731,31 @@ local function lsp_on_attach(_, bufnr)
     vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-  nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-  nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+  nmap("<leader>cr", vim.lsp.buf.rename, "[c]ode: [r]ename")
+  nmap("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
 
-  if nixCats("general") then
-    nmap("gr", function()
-      Snacks.picker.lsp_references()
-    end, "[G]oto [R]eferences")
-    nmap("gI", function()
-      Snacks.picker.lsp_implementations()
-    end, "[G]oto [I]mplementation")
-    nmap("<leader>ds", function()
-      Snacks.picker.lsp_symbols()
-    end, "[D]ocument [S]ymbols")
-    nmap("<leader>ws", function()
-      Snacks.picker.lsp_workspace_symbols()
-    end, "[W]orkspace [S]ymbols")
-    -- Old keybindings
-    nmap("<leader>cr", function()
-      Snacks.picker.lsp_references()
-    end, "[G]oto [R]eferences")
-    nmap("<leader>ci", function()
-      Snacks.picker.lsp_implementations()
-    end, "[G]oto [I]mplementation")
-    nmap("<leader>cs", function()
-      Snacks.picker.lsp_symbols()
-    end, "[D]ocument [S]ymbols")
-    nmap("<leader>cS", function()
-      Snacks.picker.lsp_workspace_symbols()
-    end, "[W]orkspace [S]ymbols")
-    nmap("<leader>cD", function()
-      Snacks.picker.diagnostics()
-    end, "Diagnostics")
-    nmap("<leader>cd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-    nmap("<leader>ct", vim.lsp.buf.type_definition, "Type [D]efinition")
-  end
+  nmap("<leader>sr", function()
+    Snacks.picker.lsp_references()
+  end, "[s]earch [r]eferences")
+  nmap("<leader>si", function()
+    Snacks.picker.lsp_implementations()
+  end, "[s]earch [i]mplementation")
+  nmap("<leader>ss", function()
+    Snacks.picker.lsp_symbols()
+  end, "[s]earch [s]ymbols")
+  nmap("<leader>sd", vim.lsp.buf.definition, "[s]earch [d]efinition")
+  nmap("<leader>se", vim.lsp.buf.declaration, "[s]earch d[e]claration")
+  nmap("<leader>st", vim.lsp.buf.type_definition, "[s]earch [t]ype definition")
 
-  nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+  nmap("<leader>sD", function()
+    Snacks.picker.diagnostics()
+  end, "[s]earch [D]iagnostics")
+  nmap("<leader>sB", function()
+    Snacks.picker.diagnostics_buffer()
+  end, "[s]earch diagnostics in [B]uffer")
 
   -- See `:help K` for why this keymap
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-
-  -- Lesser used LSP functionality
-  nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-  nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-  nmap("<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, "[W]orkspace [L]ist Folders")
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -876,23 +827,14 @@ require("lze").load({
       filetypes = { "nix" },
       settings = {
         nixd = {
-          -- nixd requires some configuration.
-          -- luckily, the nixCats plugin is here to pass whatever we need!
-          -- we passed this in via the `extra` table in our packageDefinitions
-          -- for additional configuration options, refer to:
-          -- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
           nixpkgs = {
-            -- in the extras set of your package definition:
-            -- nixdExtras.nixpkgs = ''import ${pkgs.path} {}''
             expr = nixCats.extra("nixdExtras.nixpkgs") or [[import <nixpkgs> {}]],
           },
           options = {
             nixos = {
-              -- nixdExtras.nixos_options = ''(builtins.getFlake "path:${builtins.toString inputs.self.outPath}").nixosConfigurations.configname.options''
               expr = nixCats.extra("nixdExtras.nixos_options"),
             },
             ["home-manager"] = {
-              -- nixdExtras.home_manager_options = ''(builtins.getFlake "path:${builtins.toString inputs.self.outPath}").homeConfigurations.configname.options''
               expr = nixCats.extra("nixdExtras.home_manager_options"),
             },
           },
@@ -918,7 +860,6 @@ require("lze").load({
     end,
     lsp = {
       filetypes = { "typescript" },
-      settings = {},
     },
   },
   {
@@ -930,7 +871,6 @@ require("lze").load({
     end,
     lsp = {
       filetypes = { "svelte" },
-      settings = {},
     },
   },
   {
@@ -943,7 +883,6 @@ require("lze").load({
     end,
     lsp = {
       filetypes = { "svelte", "html", "css" },
-      settings = {},
     },
   },
   {
@@ -954,7 +893,14 @@ require("lze").load({
     end,
     lsp = {
       filetypes = { "python" },
-      settings = {},
+    },
+  },
+  {
+    "ccls",
+    enabled = nixCats("c") or false,
+    lsp = {
+      filetypes = { "c", "cpp", "h", "hpp" },
+      on_attach = lsp_on_attach,
     },
   },
 })
