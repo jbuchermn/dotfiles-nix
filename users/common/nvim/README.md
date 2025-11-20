@@ -1,19 +1,18 @@
-# Neovim Configuration Documentation
+# Neovim Configuration
 
 This document describes the current Neovim configuration in `users/common/nvim/` and compares it to the old configuration in `users/common/nvim-old/`.
 
-## New Configuration Overview
+## Overview
 
-The new configuration uses the `lze` plugin manager for lazy loading and is structured around categories of plugins (general, lua, nix, go). It focuses on modern Neovim features with a clean, minimal setup.
+The new configuration uses the `lze` plugin manager for lazy loading and is structured around categories of plugins (general, lua, nix, ...). It focuses on modern Neovim features with a clean, minimal setup.
 
 ### Categories and Plugins
 
 #### Core Plugins (Startup)
 - **lze**: Plugin manager for lazy loading
 - **lzextras**: Extra utilities for lze
-- **snacks-nvim**: Collection of small utilities (explorer, picker, terminal, etc.)
-- **onedark-nvim**: Color scheme
-- **vim-sleuth**: Automatic indentation detection
+- **snacks.nvim**: Collection of small utilities (explorer, picker, terminal, etc.)
+- **onedark**: Color scheme
 
 #### General Plugins
 - **blink.cmp**: Fast completion engine
@@ -32,9 +31,11 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 
 #### Language-Specific Plugins
 - **lua**: lazydev.nvim (better Lua LSP support)
-- **go**: nvim-dap-go (Go debugging)
 - **nix**: nixd (Nix LSP)
-- **general**: lua_ls, gopls, nixd LSP servers
+- **typescript**: ts_ls, svelte, tailwindcss-language-server
+- **python**: pylsp
+- **c**: ccls
+- **markdown**: render-markdown.nvim, opdavies-toggle-checkbox.nvim
 
 ### LSP Configuration
 
@@ -48,12 +49,19 @@ Supported languages and their LSP servers:
 - **TypeScript**: `ts_ls`
 - **Svelte**: `svelte`
 - **Python**: `pylsp`
-- **Go**: `gopls` (expected from system environment)
+- **C/C++**: `ccls`
 - **Tailwind CSS**: `tailwindcss-language-server` (for HTML, CSS, Svelte)
 
 Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly packaged and configured for supported languages.
 
 ### Keybindings
+
+#### Groups
+- `<leader><leader>`: Buffer commands
+- `<leader>c`: Code
+- `<leader>g`: Git
+- `<leader>f`: Find (Snacks)
+- `<leader>s`: Search (Snacks)
 
 #### Basic Navigation
 - `<Space>`: Leader key
@@ -68,6 +76,13 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - `<Left>`, `<Right>` (visual): Indent left/right and reselect
 - `q:`, `Q`: Prevent accidental command history buffer (disabled)
 
+#### Explorer
+- `-`: Open explorer
+
+#### Terminal
+- `<c-space>`: Toggle floating terminal
+- `<leader>tt`: Open terminal
+
 #### Buffer Management
 - `<leader><leader>[`, `<leader><leader>]`: Previous/next buffer
 - `<leader><leader>l`: Last buffer
@@ -81,27 +96,17 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - `<leader>P` (visual): Paste over selection without erasing unnamed register
 
 #### LSP
-- `gd`: Go to definition
-- `gr`: Go to references (via Snacks picker)
-- `gI`: Go to implementation (via Snacks picker)
-- `<leader>ds`: Document symbols (via Snacks picker)
-- `<leader>ws`: Workspace symbols (via Snacks picker)
-- `<leader>D`: Type definition
 - `K`: Hover documentation
-- `<leader>rn`: Rename
+- `<leader>cr`: Rename
 - `<leader>ca`: Code action
-- `<leader>cf`: Format file
-- `gD`: Declaration
-- `<leader>wa`: Add workspace folder
-- `<leader>wr`: Remove workspace folder
-- `<leader>wl`: List workspace folders
-- `<leader>cr`: Go to references (old key)
-- `<leader>ci`: Go to implementation (old key)
-- `<leader>cs`: Document symbols (old key)
-- `<leader>cS`: Workspace symbols (old key)
-- `<leader>cD`: Diagnostics (old key)
-- `<leader>cd`: Go to definition (old key)
-- `<leader>ct`: Type definition (old key)
+- `<leader>sr`: Search references (via Snacks picker)
+- `<leader>si`: Search implementation (via Snacks picker)
+- `<leader>ss`: Search symbols (via Snacks picker)
+- `<leader>sd`: Search definition
+- `<leader>se`: Search declaration
+- `<leader>st`: Search type definition
+- `<leader>sD`: Search diagnostics
+- `<leader>sB`: Search diagnostics in buffer
 
 #### Completion (blink.cmp)
 - `<C-j>`: Select next
@@ -110,10 +115,11 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - `<C-e>`: Hide
 
 #### Diagnostics
-- `<leader>e`: Open floating diagnostic
-- `<leader>q`: Open diagnostics list
+- `<leader>sD`: Search diagnostics (all)
+- `<leader>sB`: Search diagnostics in buffer
 
-#### Git (gitsigns)
+#### Git
+- `<leader>gg`: Open LazyGit
 - `]c`, `[c`: Next/previous hunk
 - `<leader>gs`: Stage hunk
 - `<leader>gr`: Reset hunk
@@ -153,28 +159,17 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - `<CR>`: Toggle checkbox
 
 #### Snacks
-- `-`: Open explorer
-- `<c-space>`: Toggle floating terminal
-- `<leader>tt`: Open terminal
-- `<leader>gg`: Open LazyGit
-- `<leader>fs`: Search buffers
-- `<leader>ff`: Smart find files
-- `<leader>fF`: Find git files
-- `<leader>sb`: Buffer lines
-- `<leader>sB`: Grep open buffers
+- `<leader>fs`: Find buffers
+- `<leader>ff`: Find files
+- `<leader>fF`: Find files (git)
+- `<leader>sb`: Search / grep buffer lines
+- `<leader>sB`: Search / grep open buffers
 - `<leader>/`: Grep
-- `<leader>sw`: Grep word (visual or under cursor)
-- `<leader>sd`: Diagnostics
-- `<leader>sD`: Buffer diagnostics
-- `<leader>sh`: Help pages
-- `<leader>sj`: Jumps
-- `<leader>sk`: Keymaps
-- `<leader>sl`: Location list
-- `<leader>sm`: Marks
-- `<leader>sM`: Man pages
-- `<leader>sq`: Quickfix list
-- `<leader>sR`: Resume
-- `<leader>su`: Undo history
+- `<leader>sh`: Search help pages
+- `<leader>sk`: Search keymaps
+- `<leader>sM`: Search man pages
+- `<leader>sR`: Search: resume
+- `<leader>su`: Search undo history
 
 #### Debugging (DAP)
 - `<F5>`: Start/Continue
@@ -185,36 +180,15 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - `<leader>B`: Set breakpoint with condition
 - `<F7>`: Toggle DAP UI
 
-#### Which-Key Groups
-- `<leader><leader>`: Buffer commands
-- `<leader>c`: Code
-- `<leader>d`: Document
-- `<leader>g`: Git
-- `<leader>r`: Rename
-- `<leader>f`: Find
-- `<leader>s`: Search
-- `<leader>t`: Toggles
-- `<leader>w`: Workspace
-
 #### Formatting/Linting
-- `<leader>cf`: Format file
+- `<leader>cf`: Format file (conform.nvim)
 
 
-- [ ] LSP keybindings
-- [ ] All the languages
-    - [X] typescript, tailwind, svelte
-    - [X] Python
-    - [X] Org mode / Md
-    - [X] Nix
-    - [X] Lua
-    - [ ] C / C++
-    - [ ] Haskell
-- [ ] DAP keybindings
-- [ ] oil.nvim
+## Migration TODO
+
+- [ ] Test DAP
 - [ ] fwatch for markdown
-- [ ] Vim sleuth defaults - always force spaces, python, ...
-- [ ] Documentation for all keybindings
-- [ ] Clean up categories
+- [ ] Test vim-sleuth vs forced defaults (always spaces for python etc)
 
 
 ## Migration DONE
@@ -245,4 +219,13 @@ Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly pack
 - [X] LSPs - default to environment ones
     - [X] Python
     - [X] typescript, tailwind, svelte
-    - [-] Haskell
+    - [X] C/C++
+
+- [X] LSP keybindings
+- [X] All the languages
+    - [X] typescript, tailwind, svelte
+    - [X] Python
+    - [X] Markdown
+    - [X] Nix
+    - [X] Lua
+    - [X] C / C++

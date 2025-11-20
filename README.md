@@ -77,8 +77,6 @@ Update using brew.
 
 # Open
 
-- [ ] Neovim: Switch from FTerm to toggleterm
-- [ ] Neovim: Switch to nixCats or similar to enable lazy loading + modular config
 - [ ] Manix
 
 - [ ] Get vaapi running on MacBookPro12,1 (chromium takes an incredible amount of cpu)

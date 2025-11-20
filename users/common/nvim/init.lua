@@ -145,30 +145,25 @@ vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- You should instead use these keybindings so that they are still easy to use, but dont conflict
-vim.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "[y]ank to clipboard" })
+vim.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "yank to clipboard" })
 vim.keymap.set(
   { "n", "v", "x" },
   "<leader>Y",
   '"+yy',
   { noremap = true, silent = true, desc = "Yank line to clipboard" }
 )
-vim.keymap.set(
-  { "n", "v", "x" },
-  "<leader>p",
-  '"+p',
-  { noremap = true, silent = true, desc = "[p]aste from clipboard" }
-)
+vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "paste from clipboard" })
 vim.keymap.set(
   "i",
   "<C-p>",
   "<C-r><C-p>+",
-  { noremap = true, silent = true, desc = "[P]aste from clipboard from within insert mode" }
+  { noremap = true, silent = true, desc = "paste from clipboard from within insert mode" }
 )
 vim.keymap.set(
   "x",
   "<leader>P",
   '"_dP',
-  { noremap = true, silent = true, desc = "[P]aste over selection without erasing unnamed register" }
+  { noremap = true, silent = true, desc = "paste over selection without erasing unnamed register" }
 )
 
 vim.cmd.colorscheme("onedark")
@@ -209,48 +204,48 @@ end, { desc = "Snacks LazyGit" })
 -- Find
 vim.keymap.set("n", "<leader>fs", function()
   Snacks.picker.buffers()
-end, { desc = "[f]ind buffer[s]" })
+end, { desc = "find buffers" })
 
 vim.keymap.set("n", "<leader>ff", function()
   Snacks.picker.smart()
-end, { desc = "[f]ind [f]iles" })
+end, { desc = "find files" })
 
 vim.keymap.set("n", "<leader>fF", function()
   Snacks.picker.git_files()
-end, { desc = "[f]ind [F]iles (git)" })
+end, { desc = "find files (git)" })
 
 -- Search
 vim.keymap.set("n", "<leader>sb", function()
   Snacks.picker.lines()
-end, { desc = "[s]earch / grep [b]uffer lines" })
+end, { desc = "grep buffer lines" })
 
 vim.keymap.set("n", "<leader>sB", function()
   Snacks.picker.grep_buffers()
-end, { desc = "[s]earch / grep open [B]uffers" })
+end, { desc = "grep open buffers" })
 
 vim.keymap.set("n", "<leader>/", function()
   Snacks.picker.grep()
-end, { desc = "Grep" })
+end, { desc = "grep" })
 
 vim.keymap.set("n", "<leader>sh", function()
   Snacks.picker.help()
-end, { desc = "[s]earch [h]elp pages" })
+end, { desc = "search help pages" })
 
 vim.keymap.set("n", "<leader>sk", function()
   Snacks.picker.keymaps()
-end, { desc = "[s]earch [k]eymaps" })
+end, { desc = "search keymaps" })
 
 vim.keymap.set("n", "<leader>sM", function()
   Snacks.picker.man()
-end, { desc = "[s]earch [M]an pages" })
+end, { desc = "search man pages" })
 
 vim.keymap.set("n", "<leader>sR", function()
   Snacks.picker.resume()
-end, { desc = "[s]earch: [R]esume" })
+end, { desc = "search: resume" })
 
 vim.keymap.set("n", "<leader>su", function()
   Snacks.picker.undo()
-end, { desc = "[s]earch [u]ndo history" })
+end, { desc = "search undo history" })
 
 require("lze").load({
   {
@@ -480,23 +475,23 @@ require("lze").load({
             gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
           end, { desc = "reset git hunk" })
           -- normal mode
-          map("n", "<leader>gs", gs.stage_hunk, { desc = "[g]it [s]tage hunk" })
-          map("n", "<leader>gr", gs.reset_hunk, { desc = "[g]it [r]eset hunk" })
-          map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "[g]it [u]ndo stage hunk" })
-          map("n", "<leader>gS", gs.stage_buffer, { desc = "[g]it [S]tage buffer" })
-          map("n", "<leader>gR", gs.reset_buffer, { desc = "[g]it [R]eset buffer" })
-          map("n", "<leader>gp", gs.preview_hunk, { desc = "[g]it [p]review hunk" })
+          map("n", "<leader>gs", gs.stage_hunk, { desc = "git stage hunk" })
+          map("n", "<leader>gr", gs.reset_hunk, { desc = "git reset hunk" })
+          map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "git undo stage hunk" })
+          map("n", "<leader>gS", gs.stage_buffer, { desc = "git stage buffer" })
+          map("n", "<leader>gR", gs.reset_buffer, { desc = "git reset buffer" })
+          map("n", "<leader>gp", gs.preview_hunk, { desc = "git preview hunk" })
           map("n", "<leader>gb", function()
             gs.blame_line({ full = false })
-          end, { desc = "[g]it [b]lame line" })
-          map("n", "<leader>gd", gs.diffthis, { desc = "[g]it [d]iff against index" })
+          end, { desc = "git blame line" })
+          map("n", "<leader>gd", gs.diffthis, { desc = "git diff against index" })
           map("n", "<leader>gD", function()
             gs.diffthis("~")
-          end, { desc = "[g]it [d]iff against last commit" })
+          end, { desc = "git diff against last commit" })
 
           -- Toggles
-          map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "[g]it [t]oggle [b]lame line" })
-          map("n", "<leader>gtd", gs.toggle_deleted, { desc = "[g]it [t]oggle show [d]eleted" })
+          map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "git toggle blame line" })
+          map("n", "<leader>gtd", gs.toggle_deleted, { desc = "git toggle show deleted" })
 
           -- Text object
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
@@ -516,22 +511,14 @@ require("lze").load({
       require("which-key").add({
         { "<leader><leader>", group = "buffer commands" },
         { "<leader><leader>_", hidden = true },
-        { "<leader>c", group = "[c]ode" },
+        { "<leader>c", group = "code" },
         { "<leader>c_", hidden = true },
-        { "<leader>d", group = "[d]ocument" },
-        { "<leader>d_", hidden = true },
-        { "<leader>g", group = "[g]it" },
+        { "<leader>g", group = "git" },
         { "<leader>g_", hidden = true },
-        { "<leader>r", group = "[r]ename" },
-        { "<leader>r_", hidden = true },
-        { "<leader>f", group = "[f]ind" },
+        { "<leader>f", group = "find" },
         { "<leader>f_", hidden = true },
-        { "<leader>s", group = "[s]earch" },
+        { "<leader>s", group = "search" },
         { "<leader>s_", hidden = true },
-        { "<leader>t", group = "[t]oggles" },
-        { "<leader>t_", hidden = true },
-        { "<leader>w", group = "[w]orkspace" },
-        { "<leader>w_", hidden = true },
       })
     end,
   },
@@ -555,7 +542,7 @@ require("lze").load({
     "conform.nvim",
     enabled = nixCats("general") or false,
     keys = {
-      { "<leader>cf", desc = "[c]ode [f]ormat file" },
+      { "<leader>cf", desc = "code format file" },
     },
     after = function(plugin)
       local conform = require("conform")
@@ -573,7 +560,7 @@ require("lze").load({
           async = false,
           timeout_ms = 1000,
         })
-      end, { desc = "[c]ode [f]ormat file" })
+      end, { desc = "code format file" })
 
       vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
@@ -731,28 +718,28 @@ local function lsp_on_attach(_, bufnr)
     vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap("<leader>cr", vim.lsp.buf.rename, "[c]ode: [r]ename")
-  nmap("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
+  nmap("<leader>cr", vim.lsp.buf.rename, "code: rename")
+  nmap("<leader>ca", vim.lsp.buf.code_action, "code action")
 
   nmap("<leader>sr", function()
     Snacks.picker.lsp_references()
-  end, "[s]earch [r]eferences")
+  end, "search references")
   nmap("<leader>si", function()
     Snacks.picker.lsp_implementations()
-  end, "[s]earch [i]mplementation")
+  end, "search implementation")
   nmap("<leader>ss", function()
     Snacks.picker.lsp_symbols()
-  end, "[s]earch [s]ymbols")
-  nmap("<leader>sd", vim.lsp.buf.definition, "[s]earch [d]efinition")
-  nmap("<leader>se", vim.lsp.buf.declaration, "[s]earch d[e]claration")
-  nmap("<leader>st", vim.lsp.buf.type_definition, "[s]earch [t]ype definition")
+  end, "search symbols")
+  nmap("<leader>sd", vim.lsp.buf.definition, "search definition")
+  nmap("<leader>se", vim.lsp.buf.declaration, "search declaration")
+  nmap("<leader>st", vim.lsp.buf.type_definition, "search type definition")
 
   nmap("<leader>sD", function()
     Snacks.picker.diagnostics()
-  end, "[s]earch [D]iagnostics")
+  end, "search diagnostics")
   nmap("<leader>sB", function()
     Snacks.picker.diagnostics_buffer()
-  end, "[s]earch diagnostics in [B]uffer")
+  end, "search diagnostics in buffer")
 
   -- See `:help K` for why this keymap
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
