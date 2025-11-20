@@ -1,10 +1,21 @@
 {
   config,
+  pkgs,
   lib,
   inputs,
   ...
 }: let
   utils = inputs.nixCats.utils;
+  pluginGit = ref: rev: repo:
+    pkgs.vimUtils.buildVimPlugin {
+      pname = "${lib.strings.sanitizeDerivationName repo}";
+      version = ref;
+      src = builtins.fetchGit {
+        url = "https://github.com/${repo}.git";
+        ref = ref;
+        rev = rev;
+      };
+    };
 in {
   imports = [
     inputs.nixCats.homeModule
@@ -93,12 +104,13 @@ in {
             ];
             markdown = with pkgs.vimPlugins; [
               render-markdown-nvim
+              (pluginGit "58f958a2dcfb974963d4bb772ad8c3d8a1c62774" "58f958a2dcfb974963d4bb772ad8c3d8a1c62774" "opdavies/toggle-checkbox.nvim")
             ];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
           sharedLibraries = {
-            general = with pkgs; [];
+            general = [];
           };
 
           # this section is for environmentVariables that should be available

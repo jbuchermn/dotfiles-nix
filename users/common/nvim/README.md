@@ -36,11 +36,29 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - **nix**: nixd (Nix LSP)
 - **general**: lua_ls, gopls, nixd LSP servers
 
+### LSP Configuration
+
+LSPs are configured using `nvim-lspconfig` and packaged via Nix. Servers are installed as Nix packages and made available at runtime through `lspsAndRuntimeDeps` and `extra` configurations in `default.nix`. They are enabled based on categories (e.g., `lua`, `nix`, `typescript`, `python`).
+
+For Python (`pylsp`) and TypeScript/CSS/Svelte (`ts_ls`, `svelte`, `tailwindcss-language-server`) LSPs, the configuration first checks for executables in the development environment (e.g., via `vim.fn.executable`). If found, it uses the environment-provided versions; otherwise, it falls back to the standard Nix-packaged versions.
+
+Supported languages and their LSP servers:
+- **Lua**: `lua_ls` (with `lazydev.nvim` for enhanced support)
+- **Nix**: `nixd`
+- **TypeScript**: `ts_ls`
+- **Svelte**: `svelte`
+- **Python**: `pylsp`
+- **Go**: `gopls` (expected from system environment)
+- **Tailwind CSS**: `tailwindcss-language-server` (for HTML, CSS, Svelte)
+
+Formatters (via `conform.nvim`) and linters (via `nvim-lint`) are similarly packaged and configured for supported languages.
+
 ### Keybindings
 
 #### Basic Navigation
 - `<Space>`: Leader key
 - `<Esc>`: Clear search highlights
+- `*`: Highlight without jumping
 - `<C-j/k/l/h>`: Window navigation (normal and terminal mode)
 - `n`, `N`: Next/previous search result with centering
 - `J`, `K` (visual): Move lines down/up
@@ -48,6 +66,7 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `,`: Enter command mode (easier than `:`)
 - `<Left>`, `<Right>`: Indent left/right (normal mode)
 - `<Left>`, `<Right>` (visual): Indent left/right and reselect
+- `q:`, `Q`: Prevent accidental command history buffer (disabled)
 
 #### Buffer Management
 - `<leader><leader>[`, `<leader><leader>]`: Previous/next buffer
@@ -59,6 +78,7 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `<leader>Y`: Yank line to system clipboard
 - `<leader>p`: Paste from system clipboard
 - `<C-p>` (insert): Paste from system clipboard
+- `<leader>P` (visual): Paste over selection without erasing unnamed register
 
 #### LSP
 - `gd`: Go to definition
@@ -68,7 +88,6 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `<leader>ws`: Workspace symbols (via Snacks picker)
 - `<leader>D`: Type definition
 - `K`: Hover documentation
-- `<C-K>`: Signature help
 - `<leader>rn`: Rename
 - `<leader>ca`: Code action
 - `<leader>cf`: Format file
@@ -83,6 +102,12 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `<leader>cD`: Diagnostics (old key)
 - `<leader>cd`: Go to definition (old key)
 - `<leader>ct`: Type definition (old key)
+
+#### Completion (blink.cmp)
+- `<C-j>`: Select next
+- `<C-k>`: Select previous
+- `<Tab>`: Accept
+- `<C-e>`: Hide
 
 #### Diagnostics
 - `<leader>e`: Open floating diagnostic
@@ -123,6 +148,9 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 - `<leader>cc`: Comment/uncomment current line
 - `<leader>cc` (visual): Comment/uncomment selection
 - `gc{motion}`: Comment motion (e.g., `gcip` for paragraph)
+
+#### Markdown
+- `<CR>`: Toggle checkbox
 
 #### Snacks
 - `-`: Open explorer
@@ -171,41 +199,8 @@ The new configuration uses the `lze` plugin manager for lazy loading and is stru
 #### Formatting/Linting
 - `<leader>cf`: Format file
 
-## Old Configuration Overview
+## Migration TODO
 
-The old configuration used a more traditional setup with plugins loaded directly in `init.lua`, including org-mode support and telescope for fuzzy finding.
-
-### Plugins
-- **Comment**: Commenting plugin
-- **nvim-tree**: File explorer
-- **FTerm**: Floating terminal
-- **toggleterm**: Terminal management
-- **neogit**: Git interface
-- **gitsigns**: Git signs
-- **oil.nvim**: File editing
-- **lualine**: Status line
-- **nvim-cmp**: Completion
-- **luasnip**: Snippets
-- **nvim-lspconfig**: LSP configuration
-- **telescope**: Fuzzy finder
-- **tree-sitter**: Syntax highlighting
-- **orgmode**: Org-mode support
-- **headlines**: Headline highlighting
-- **fwatch**: File watching
-
-### Keybindings
-
-#### Basic
-- `<Space>`: Leader
-- `<C-j/k/l/h>`: Window navigation
-- `,`: Command mode
-- `<Esc>`: Clear highlights
-- `*`: Highlight without jump
-- `c*`: Change word and repeat
-- `<Left>/<Right>`: Indent (normal/visual)
-- `q:`: Disabled
-- `Q`: Disabled
-- `<Tab>`: Toggle fold
 
 #### LSP
 - `K`: Hover
@@ -222,10 +217,6 @@ The old configuration used a more traditional setup with plugins loaded directly
 - `<leader>rq`: Quit REPL
 
 #### Telescope
-- `<leader>pp`: Projects
-- `<leader>pf`: Find files
-- `<leader>pF`: Find files (hidden)
-- `<leader>/`: Live grep
 - `<leader>cD`: Diagnostics
 - `<leader>cr`: References
 - `<leader>cd`: Definitions
@@ -235,86 +226,26 @@ The old configuration used a more traditional setup with plugins loaded directly
 - `<leader>cS`: Workspace symbols
 - `<leader>hh`: Hoogle search
 
-#### File Management
-- `-`: NvimTree toggle
-- `_`: Oil open
 
-#### Terminal
-- `<C-Space>`: FTerm toggle
-- `<esc>`, `jk`: Terminal normal mode
-- `<C-h/j/k/l>`: Terminal window navigation
-
-#### Git
-- `<leader>gg`: Neogit
-
-#### Comments
-- `<leader>cc`: Comment line
-- `<leader>cb`: Comment block
-
-#### Org-mode
-- `<leader>t`: Todo cycle
-
-## Key Differences and Missing Features
-
-### Features Missing in New Config
-From the perspective of a user coming from the old config, the new configuration lacks several features:
-
-1. **Org-mode support**: The old config had extensive orgmode setup with custom todo keywords, highlighting, and integration. The new config has no org-mode support.
-
-2. **Telescope fuzzy finder**: Replaced by Snacks picker, which may have different UX and fewer extensions (no project or hoogle extensions).
-
-3. **Terminal management**: FTerm and toggleterm provided floating and persistent terminals. New config only has Snacks terminal.
-
-4. **File explorer**: nvim-tree with extensive keybindings replaced by simpler Snacks explorer.
-
-5. **Git interface**: Neogit provided a full git interface; new config only has gitsigns and lazygit integration.
-
-6. **Snippets**: Luasnip for snippets not present in new config.
-
-7. **Comment plugin**: Dedicated comment plugin not present (though treesitter may handle some).
-
-8. **Oil file editing**: Direct file editing capabilities not present.
-
-9. **File watching**: fwatch for auto-reloading files not present.
-
-10. **Avante AI integration**: Commented out in old config but available.
-
-### Plugins Replaced by Newer Equivalents
-
-1. **nvim-cmp → blink.cmp**: Faster, more modern completion engine.
-
-2. **telescope → snacks.picker**: Integrated picker with similar functionality but different API.
-
-3. **nvim-tree → snacks.explorer**: Simpler, integrated explorer.
-
-4. **neogit → snacks.lazygit**: Terminal-based git interface instead of Neovim buffer.
-
-5. **FTerm/toggleterm → snacks.terminal**: Integrated terminal solution.
-
-6. **Comment → mini.comment**: Treesitter-aware commenting.
-
-7. **Traditional LSP setup → lze-managed LSP**: More declarative plugin loading.
-
-The new configuration is more streamlined and modern, focusing on performance and integration, but may require users to adapt to new workflows for org-mode, advanced git operations, and fuzzy finding.
-
-
-## Migration TODO
-
-- [ ] Vim sleuth defaults - always force spaces, python, ...
+- [ ] oil.nvim
+- [ ] fwatch for markdown
 - [ ] LSP keybindings
+- [ ] DAP keybindings
 - [ ] LSPs - default to environment ones
     - [X] Python
-- [ ] Documentation for all keybindings
-
-- [ ] Clean up categories
+    - [X] typescript, tailwind, svelte
+    - [ ] Haskell
 - [ ] All the languages
     - [X] typescript, tailwind, svelte
     - [X] Python
-    - [ ] Org mode / md?!
+    - [X] Org mode / Md
+    - [X] Nix
+    - [X] Lua
     - [ ] C / C++
     - [ ] Haskell
-    - [ ] Nix
-    - [ ] Lua
+- [ ] Vim sleuth defaults - always force spaces, python, ...
+- [ ] Documentation for all keybindings
+- [ ] Clean up categories
 
 
 ## Migration DONE

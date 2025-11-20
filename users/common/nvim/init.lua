@@ -718,7 +718,15 @@ require("lze").load({
         code = {
           border = "thick",
         },
+        checkbox = { checked = { scope_highlight = '@markup.strikethrough' } },
       })
+    end,
+  },
+  {
+    "opdavies-toggle-checkbox.nvim",
+    enabled = nixCats("markdown") or false,
+    after = function(_)
+      vim.keymap.set("n", "<CR>", ":lua require('toggle-checkbox').toggle()<CR>", { desc = "Toggle checkbox" })
     end,
   },
   {
