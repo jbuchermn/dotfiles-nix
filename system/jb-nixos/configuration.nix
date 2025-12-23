@@ -29,8 +29,19 @@
     # MBP Card Reader
     udisks2
 
-    # libva debug
-    libva-utils
+    # GPU
+    libva-utils # vainfo
+    intel-gpu-tools # intel_gpu_top
+    vdpauinfo
+
+    # https://wiki.nixos.org/wiki/Chromium#Accelerated_video_playback
+    (chromium.override {
+      commandLineArgs = [
+        "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL"
+        "--ignore-gpu-blocklist"
+        "--enable-zero-copy"
+      ];
+    })
 
     # audio debug
     pavucontrol
@@ -41,7 +52,7 @@
     spice
     spice-gtk
     spice-protocol
-    win-virtio
+    virtio-win
     win-spice
   ];
 
@@ -52,8 +63,6 @@
       enable = true;
       qemu = {
         swtpm.enable = true;
-        ovmf.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
     spiceUSBRedirection.enable = true;
@@ -85,13 +94,19 @@
   hardware.graphics = {
     enable = true;
 
-    # Does not seem to be working properly, e.g. in Chrome
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      # vaapiIntel # LIBVA_DRIVER_NAME=i965
-      vaapiVdpau
-      libvdpau-va-gl
+      # intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      libva-vdpau-driver
+      libvdpau-va-gl # VDPAU_DRIVER=va_gl
     ];
   };
+
+  environment.sessionVariables = { 
+    LIBVA_DRIVER_NAME = "iHD";
+    VDPAU_DRIVER = "va_gl";
+    NIXOS_OZONE_WL = "1";
+  }; 
+
 
 }

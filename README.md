@@ -79,7 +79,7 @@ Update using brew.
 
 - [ ] Manix
 
-- [ ] Get vaapi running on MacBookPro12,1 (chromium takes an incredible amount of cpu)
+- [X] Get vaapi running on MacBookPro12,1 (chromium takes an incredible amount of cpu) --> works at least for h.264 videos
 - [ ] Get Cirrus CS4208 running on MacBookPro12,1 (no bass)
 
 - [ ] Clean up minimal / default includes

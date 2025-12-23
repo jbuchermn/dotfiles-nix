@@ -45,7 +45,7 @@ in
       "$mod" = "SUPER";
       bind = [
         "$mod, RETURN, exec, alacritty"
-        "$mod, C, exec, chromium --enable-features=UseOzonePlatform --ozone-platform=wayland"
+        "$mod, C, exec, chromium"
         "$mod, Q, killactive"
         "$mod SHIFT, Q, exit"
 
