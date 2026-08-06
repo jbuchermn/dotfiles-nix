@@ -41,6 +41,7 @@ in {
       gcgh(){ git clone https://github.com/"$@" };
 
       eval "$(starship init zsh)"
+      [[ -f "$HOME/nix_env.sh" ]] && source "$HOME/nix_env.sh"
       ${extraEnv}
     '';
 

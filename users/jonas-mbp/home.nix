@@ -1,20 +1,11 @@
-input@{ config, pkgs, ... }:
+input@{ config, pkgs, name, email, ... }:
 let
-  isWork = if builtins.hasAttr "isWork" input then input.isWork else false;
 in
 {
   programs.git =
-    if isWork then
       {
         enable = true;
-        settings.user.email = "jonas.bucher@mhp.com";
-        settings.user.name = "Jonas Bucher";
-      }
-    else
-      {
-        enable = true;
-        settings.user.email = "j.bucher.mn@gmail.com";
-        settings.user.name = "Jonas Bucher";
+        settings.user = { inherit email name; };
       };
 
   home.sessionVariables = {
@@ -27,7 +18,7 @@ in
     ../common/home.nix
     ../common/zsh.nix
     ../common/alacritty.nix
-    ../common/nvim
+    ../common/nvim/basic.nix
     ../common/nix.nix
   ];
 

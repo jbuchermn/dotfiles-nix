@@ -1,9 +1,8 @@
-input@{ config, pkgs, ... }:
+input@{ config, pkgs, name, email, ... }:
 {
   programs.git = {
     enable = true;
-    settings.user.email = "j.bucher.mn@gmail.com";
-    settings.user.name = "Jonas Bucher";
+    settings.user = { inherit email name; };
   };
 
   home.sessionVariables = {

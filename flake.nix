@@ -151,6 +151,8 @@
 
             extraSpecialArgs = {
               isMBP = false;
+              name = builtins.getEnv "DOTFILES_NAME";
+              email = builtins.getEnv "DOTFILES_EMAIL";
             };
           };
 
@@ -164,12 +166,14 @@
 
             extraSpecialArgs = {
               isVirtual = true;
+              name = builtins.getEnv "DOTFILES_NAME";
+              email = builtins.getEnv "DOTFILES_EMAIL";
             };
           };
 
-          jonas-mbp = homeManagerConfiguration {
-            username = "jonas";
-            homeDirectory = "/Users/jonas";
+          jonas-workmbp = homeManagerConfiguration rec {
+            username = builtins.getEnv "DOTFILES_WORK_USERNAME";
+            homeDirectory = "/Users/${username}";
 
             modules = [
               ./users/jonas-mbp/home.nix
@@ -177,23 +181,9 @@
 
             extraSpecialArgs = {
               providePkgs = false;
-            };
-          };
-
-          jonasmhp-mbp = homeManagerConfiguration {
-            username = "jbucher2";
-            homeDirectory = "/Users/jbucher2";
-
-            modules = [
-              ./users/jonas-mbp/home.nix
-            ];
-
-            extraSpecialArgs = {
-              isWork = true;
-              providePkgs = false;
-              extraEnv = ''
-                export MHP="/Users/jbucher2/Library/CloudStorage/OneDrive-mhp-group.com/Documents/MHP"
-              '';
+              extraEnv = builtins.getEnv "DOTFILES_WORK_ENV";
+              name = builtins.getEnv "DOTFILES_NAME";
+              email = builtins.getEnv "DOTFILES_WORK_EMAIL";
             };
           };
 
@@ -207,6 +197,8 @@
 
             extraSpecialArgs = {
               providePkgs = false;
+              name = builtins.getEnv "DOTFILES_NAME";
+              email = builtins.getEnv "DOTFILES_EMAIL";
             };
           };
 
@@ -220,6 +212,8 @@
 
             extraSpecialArgs = {
               providePkgs = false;
+              name = builtins.getEnv "DOTFILES_NAME";
+              email = builtins.getEnv "DOTFILES_EMAIL";
             };
           };
         };
